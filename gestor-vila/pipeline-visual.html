@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Gestor Vila — Pipeline</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="./vendor/react.development.js"></script>
+  <script src="./vendor/react-dom.development.js"></script>
+  <script src="./vendor/babel.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #0d0d0d;
+      color: #f2e9dc;
+      font-family: system-ui, sans-serif;
+    }
+    #root { max-width: 960px; margin: 0 auto; padding: 32px 20px; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="./pipelineStateMachine.js"></script>
+  <script src="./qaLint.js"></script>
+  <script src="./mockData.js"></script>
+  <script type="text/babel" src="./GestorVilaApproval.jsx"></script>
+
+  <script type="text/babel">
+    const { STEPS } = window.pipelineStateMachine;
+    const { approveCheckpoint, rejectCheckpoint } = window.pipelineStateMachine;
+
+    const STATUS_COLOR = {
+      done: '#2a9d8f',
+      in_progress: '#e0b23c',
+      pending: '#4a4a4a',
+      rejected: '#c0392b',
+      skipped: '#2a2a2a',
+    };
+
+    function Tabs({ active, onChange }) {
+      const tabs = [
+        { id: 'pipeline', label: 'Pipeline' },
+        { id: 'aprovacao', label: 'Aprovação' },
+        { id: 'historico', label: 'Histórico' },
+      ];
+      return (
+        <div style={{ display: 'flex', gap: 8, marginBottom: 24, borderBottom: '1px solid #3a2f26' }}>
+          {tabs.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => onChange(t.id)}
+              style={{
+                background: 'none',
+                border: 'none',
+                borderBottom: active === t.id ? '2px solid #e0b23c' : '2px solid transparent',
+                color: active === t.id ? '#e0b23c' : '#f2e9dc',
+                padding: '10px 16px',
+                fontSize: 14,
+                fontWeight: 700,
+                cursor: 'pointer',
+              }}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+      );
+    }
+
+    function PipelineTimeline({ run }) {
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {STEPS.map((step) => (
+            <div
+              key={step.id}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                padding: '10px 14px',
+                borderRadius: 8,
+                background: step.id === run.currentStep ? '#1a1512' : 'transparent',
+                border: step.id === run.currentStep ? '1px solid #e0b23c' : '1px solid transparent',
+              }}
+            >
+              <span
+                style={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: '50%',
+                  background: STATUS_COLOR[run.stepStatus[step.id]] || '#4a4a4a',
+                  flexShrink: 0,
+                }}
+              />
+              <span style={{ fontSize: 12, opacity: 0.6, width: 24 }}>{step.id}</span>
+              <span style={{ flex: 1, fontSize: 14 }}>{step.name}</span>
+              <span style={{ fontSize: 12, opacity: 0.6 }}>{step.owner}</span>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    function HistoryLog({ run }) {
+      if (!run.history.length) {
+        return <p style={{ opacity: 0.6, fontSize: 13 }}>Sem eventos registrados ainda.</p>;
+      }
+      return (
+        <ul style={{ listStyle: 'none', padding: 0 }}>
+          {[...run.history].reverse().map((h, i) => (
+            <li
+              key={i}
+              style={{
+                fontSize: 13,
+                padding: '8px 0',
+                borderBottom: '1px solid #2a2118',
+              }}
+            >
+              <strong>{h.step}</strong> — {h.action}
+              {h.approver ? ` por ${h.approver}` : ''}
+              {h.justification ? `: "${h.justification}"` : ''}
+              <span style={{ opacity: 0.5, marginLeft: 8 }}>
+                {new Date(h.at).toLocaleString('pt-BR')}
+              </span>
+            </li>
+          ))}
+        </ul>
+      );
+    }
+
+    function App() {
+      const [tab, setTab] = React.useState('aprovacao');
+      const [run, setRun] = React.useState(() =>
+        JSON.parse(JSON.stringify(window.mockData.mockRunCheckpoint04))
+      );
+
+      const handleApprove = (payload) => {
+        setRun((prev) => {
+          const next = JSON.parse(JSON.stringify(prev));
+          approveCheckpoint(next, next.currentStep, payload);
+          return next;
+        });
+      };
+
+      const handleReject = (payload) => {
+        setRun((prev) => {
+          const next = JSON.parse(JSON.stringify(prev));
+          rejectCheckpoint(next, prev.currentStep, payload);
+          return next;
+        });
+      };
+
+      const atCheckpoint = run.currentStep === '04' || run.currentStep === '09';
+
+      return (
+        <div>
+          <h1 style={{ fontSize: 22, color: '#e0b23c', marginBottom: 4 }}>Gestor Vila</h1>
+          <p style={{ opacity: 0.6, fontSize: 13, marginTop: 0, marginBottom: 24 }}>
+            Vila Los Muertos 💀🇧🇷 — pipeline de conteúdo, 9 etapas
+          </p>
+          <Tabs active={tab} onChange={setTab} />
+          {tab === 'pipeline' && <PipelineTimeline run={run} />}
+          {tab === 'aprovacao' &&
+            (atCheckpoint ? (
+              <window.GestorVilaApproval
+                run={run}
+                checkpointId={run.currentStep}
+                onApprove={handleApprove}
+                onReject={handleReject}
+              />
+            ) : (
+              <p style={{ opacity: 0.6, fontSize: 14 }}>
+                Nenhum checkpoint pendente no momento. Etapa atual: {run.currentStep}.
+              </p>
+            ))}
+          {tab === 'historico' && <HistoryLog run={run} />}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
