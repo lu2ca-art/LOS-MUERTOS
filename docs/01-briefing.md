@@ -23,28 +23,19 @@ Fios condutores que aparecem na história e que **definem o tom de voz da marca*
 
 Logo: "**LOS MUERTOS DE FOME** — Bar e Restaurante — Tex·Mex", fundo escuro, dourado/vermelho, mascotes cachorro e gato estilo caveira (Día de los Muertos), sombrero. Consistente com a linguagem visual já em uso (paleta ouro/vermelho/teal/osso, fonte "Las Locuras del Emperador").
 
-## 2. Quem é quem (relevante ao projeto)
+## 2. Quem é quem (estado atual)
 
-```
-Cinthia (Sócia) + Alex Coelho (Sócio e Chef)
-        └── Lucas Coelho (Diretor)
-                ├── Marketing
-                │     ├── Lucca — Criativo
-                │     └── Lohany — Produção de Conteúdo
-                ├── Adm. Geral, Compras/Estoque, Operação (bar/salão/cozinha)
-```
+O organograma da reunião de 2026 listava Lohany (Produção de Conteúdo) e, em versões anteriores deste projeto, Giovana e Bela também apareciam apoiando produção de conteúdo. **Nenhuma delas segue na equipe.** Hoje o marketing/criativo da Vila é comandado **integralmente pelo Lucca** — não há uma equipe humana de produção de conteúdo por trás dele.
 
-Para o sistema de marketing, os papéis diretamente envolvidos são:
-- **Lucca** — direção criativa e de marketing; ponto de aprovação humana do pipeline.
-- **Lohany** — produção de conteúdo (fotos/vídeos do dia a dia, captação em lote).
-- **Alex Coelho** — chef, rosto recorrente do conteúdo de cozinha.
-- **Lucas Coelho** — diretor geral; possível segundo nível de aprovação para decisões maiores (ex.: campanhas pagas).
+É exatamente por isso que o Gestor Vila existe: o pipeline de 9 etapas, com seus agentes nomeados (Cris Criativa, Vito Visual, Paulo Postador, Ana Anúncio, Renata Revisão, Rodrigo Resultados), **é a equipe do Lucca**. Não são um apelido informal para pessoas reais — são os papéis funcionais que substituem o time que ele não tem mais. Lucca comanda o sistema; o sistema é a equipe.
 
-> Nota: versões anteriores deste projeto mencionavam também Giovana e Bela na produção de conteúdo (TikTok). Mantido como contribuição adicional à equipe de Lohany até confirmação — não consta no organograma oficial da reunião de 2026.
+- **Lucca** — comanda o Gestor Vila; único aprovador humano (checkpoints 04 e 09); pode editar conteúdo inline antes de aprovar.
+- **Alex Coelho** (Chef) — rosto recorrente do conteúdo de cozinha; não interage com o sistema, mas é referenciado no conteúdo gerado.
+- **Cris Criativa, Vito Visual, Paulo Postador, Ana Anúncio, Renata Revisão, Rodrigo Resultados** — papéis do pipeline (etapas 02, 03, 05, 06, 07, 08 respectivamente). Ver `02-prd.md` para o mapeamento completo etapa → papel.
 
 ## 3. Contexto: por que este projeto existe
 
-A operação cresceu de barraca de evento para casa física com dois turnos (almoço executivo + Tex-Mex à noite), shows ao vivo, jogos, stand-up e promoções recorrentes. A produção de conteúdo e a comunicação de marca não escalaram na mesma proporção — hoje dependem de esforço manual e recorrente do Lucca e da Lohany para cada post, story e campanha, sem um sistema que:
+A operação cresceu de barraca de evento para casa física com dois turnos (almoço executivo + Tex-Mex à noite), shows ao vivo, jogos, stand-up e promoções recorrentes. A produção de conteúdo e a comunicação de marca não escalaram na mesma proporção — e hoje dependem inteiramente do esforço manual e recorrente do próprio Lucca, sozinho, para cada post, story e campanha, sem um sistema que:
 
 1. Centralize a leitura da agenda (Google Calendar) como fonte de verdade do que precisa virar conteúdo.
 2. Garanta que toda peça publicada respeite as regras de qualidade e tom de voz da marca antes de ir ao ar.

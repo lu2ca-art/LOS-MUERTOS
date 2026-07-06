@@ -4,11 +4,11 @@
 
 ## 1. Problema
 
-Lucca e Lohany produzem conteúdo diário (posts, stories, campanhas) manualmente, sem um processo que garanta consistência de marca, revisão de qualidade e visibilidade de status — em uma operação que já rodou com um único post principal e story diário, mas que agora precisa escalar (Copa do Mundo 2026, mais eventos, delivery, novos uniformes/decorações).
+Lucca produz e comanda o conteúdo diário (posts, stories, campanhas) sozinho, sem equipe humana de apoio, sem um processo que garanta consistência de marca, revisão de qualidade e visibilidade de status — em uma operação que já rodou com um único post principal e story diário, mas que agora precisa escalar (Copa do Mundo 2026, mais eventos, delivery, novos uniformes/decorações).
 
 ## 2. Objetivo do produto
 
-Dar ao time de marketing um pipeline com **checkpoints de aprovação humana obrigatórios**, que:
+Dar ao Lucca uma equipe de pipeline (agentes) com **checkpoints de aprovação humana obrigatórios**, que:
 - Lê o calendário editorial (Google Calendar) como fonte de verdade diária.
 - Gera conteúdo e visual de forma assistida (não sem revisão).
 - Bloqueia publicação de qualquer peça que viole as regras de qualidade da marca.
@@ -19,10 +19,9 @@ Dar ao time de marketing um pipeline com **checkpoints de aprovação humana obr
 
 | Persona | Papel no sistema |
 |---|---|
-| **Lucca** (Criativo/Marketing) | Aprovador principal — checkpoints 04 e 09. Pode editar conteúdo inline antes de aprovar. Pode reprovar com justificativa. |
-| **Lohany** (Produção de Conteúdo) | Fornece matéria-prima (fotos/vídeos) que alimenta a geração de conteúdo e visual. |
+| **Lucca** (Criativo/Marketing) | Comanda o Gestor Vila sozinho. Aprovador único — checkpoints 04 e 09. Pode editar conteúdo inline antes de aprovar. Pode reprovar com justificativa. |
 | **Alex Coelho** (Chef) | Rosto recorrente do conteúdo de cozinha; não interage diretamente com o sistema, mas é referenciado no conteúdo gerado. |
-| **Lucas Coelho** (Diretor) | Possível segundo aprovador para decisões de maior impacto (ex.: valor de campanha paga) — não confirmado, ver seção "Em aberto". |
+| **Cris Criativa, Vito Visual, Paulo Postador, Ana Anúncio, Renata Revisão, Rodrigo Resultados** | Papéis do pipeline — a "equipe" funcional do Lucca (ver seção 4). Não correspondem a pessoas reais da operação. |
 
 ## 4. Escopo funcional — pipeline de 9 etapas
 
@@ -40,7 +39,7 @@ Dar ao time de marketing um pipeline com **checkpoints de aprovação humana obr
 
 Reprovação no checkpoint 04 volta a etapa para 02 (novo conteúdo). Reprovação no checkpoint 09 volta a etapa para 07 (nova revisão de qualidade). Toda reprovação exige justificativa registrada no histórico.
 
-> Nota: "Cris Criativa", "Vito Visual", "Paulo Postador", "Ana Anúncio", "Renata Revisão", "Rodrigo Resultados" são nomes de agentes definidos em versão anterior deste projeto (não vieram da reunião de equipe). Mantidos aqui como nomenclatura interna do pipeline — **a confirmar com Lucca se é isso que ele quer**, já que não têm correspondência com pessoas reais da operação.
+> Confirmado com Lucca: os nomes dos agentes (Cris Criativa, Vito Visual, Paulo Postador, Ana Anúncio, Renata Revisão, Rodrigo Resultados) ficam como estão. Eles não representam pessoas reais da operação — são a equipe funcional que o Lucca comanda sozinho, já que a operação hoje não tem mais Lohany/Giovana/Bela dando suporte de produção de conteúdo.
 
 ## 5. Regras de qualidade — invioláveis (hard caps)
 
@@ -72,9 +71,9 @@ Aplicadas automaticamente antes do checkpoint 04, bloqueando aprovação até co
 
 ## 9. Em aberto (perguntas pro Lucca antes de avançar)
 
-1. Os nomes dos agentes (Cris Criativa, Vito Visual etc.) devem continuar, ou ele prefere associar cada etapa a uma ferramenta/pessoa real (ex.: "Geração de Conteúdo" em vez de "Cris Criativa")?
+1. ~~Os nomes dos agentes devem continuar?~~ Resolvido — sim, mantidos.
 2. Lucas Coelho participa de alguma aprovação, ou o checkpoint humano é só o Lucca?
-3. Missão/visão/valores formais (ver `01-briefing.md`, seção 5) — ainda pendente de resposta.
+3. Missão/visão/valores formais (ver `01-briefing.md`, seção 5) — ainda pendente de resposta. Este é o próximo passo declarado pelo Lucca: montar o **brand system** que ele mesmo vai comandar, usando esses papéis de pipeline como sua equipe.
 
 ## 10. Critérios de sucesso do MVP
 
