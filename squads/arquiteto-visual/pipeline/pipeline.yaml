@@ -1,0 +1,60 @@
+name: "Arquiteto Visual — Pipeline"
+version: "1.0"
+description: "Produção de conteúdo Instagram para LU2CA: do briefing ao veredito final"
+
+steps:
+  - id: step-01
+    name: "Contexto da Sessão"
+    type: checkpoint
+    file: steps/step-01-contexto-da-sessao.md
+
+  - id: step-02
+    name: "Pensar e Conceituar"
+    type: agent
+    agent: bruno-brainstorm
+    execution: inline
+    file: steps/step-02-pensar-e-conceituar.md
+
+  - id: step-03
+    name: "Selecionar Ângulo"
+    type: checkpoint
+    file: steps/step-03-selecionar-angulo.md
+
+  - id: step-04
+    name: "Criar Conteúdo Instagram"
+    type: agent
+    agent: carlos-caption
+    execution: inline
+    file: steps/step-04-criar-conteudo-instagram.md
+
+  - id: step-05
+    name: "Criar Visual"
+    type: agent
+    agent: diana-design
+    execution: subagent
+    file: steps/step-05-criar-visual.md
+
+  - id: step-06
+    name: "Aprovar Conteúdo"
+    type: checkpoint
+    file: steps/step-06-aprovar-conteudo.md
+
+  - id: step-07
+    name: "Adaptar Plataformas"
+    type: agent
+    agent: rafael-repercussao
+    execution: subagent
+    file: steps/step-07-adaptar-plataformas.md
+
+  - id: step-08
+    name: "Revisão de Qualidade"
+    type: agent
+    agent: vera-veredito
+    execution: inline
+    on_reject: step-04
+    file: steps/step-08-revisao-qualidade.md
+
+  - id: step-09
+    name: "Aprovação Final"
+    type: checkpoint
+    file: steps/step-09-aprovacao-final.md

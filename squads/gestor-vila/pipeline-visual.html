@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestor Vila — Dashboard</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --terra: #C4502A; --terra-d: #8B3620; --terra-glow: rgba(196,80,42,.18);
+  --gold: #F5A623; --gold-d: #B87A10; --gold-glow: rgba(245,166,35,.15);
+  --black: #111; --card: #1E1E1E; --card2: #252525; --border: #333;
+  --white: #F5F0E8; --grey: #888; --grey2: #555;
+  --topo: #3B82F6; --meio: #F5A623; --fundo: #C4502A;
+  --green: #4ADE80; --green-d: #166534;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
+
+/* ─── HEADER ─── */
+.hdr{background:#161616;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;padding:0 28px;}
+.hdr-top{display:flex;align-items:center;gap:16px;padding:12px 0 10px;flex-wrap:wrap;}
+.hdr-brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:20px;color:var(--white);display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.hdr-brand span{color:var(--terra);}
+.hdr-week{font-size:12px;color:var(--grey);flex-shrink:0;}
+.global-bar-wrap{flex:1;min-width:180px;}
+.global-bar-label{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;color:var(--grey);margin-bottom:5px;}
+.global-bar-label strong{color:var(--gold);font-size:14px;font-family:'Oswald',sans-serif;}
+.bar{background:#2a2a2a;border-radius:100px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--terra),var(--gold));transition:width .6s cubic-bezier(.4,0,.2,1);}
+.global-bar-wrap .bar{height:8px;}
+.btn-refresh-hdr{font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:#141420;color:#7C9EFF;border:1px solid #252545;padding:7px 14px;border-radius:7px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;}
+.btn-refresh-hdr:hover{background:#1a1a32;color:var(--white);}
+.btn-refresh-hdr .ricon{display:inline-block;transition:transform .15s;}
+.btn-refresh-hdr.spinning .ricon{animation:spin .7s linear;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.hdr-tabs{display:flex;gap:0;border-top:1px solid var(--border);}
+.tab{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--grey);padding:10px 18px;cursor:pointer;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap;}
+.tab:hover{color:var(--white);}
+.tab.on{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* ─── VIEWS ─── */
+.view{display:none;padding:28px;}
+.view.on{display:block;}
+.stitle{font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;color:var(--white);margin-bottom:4px;}
+.ssub{font-size:13px;color:var(--grey);margin-bottom:24px;}
+
+/* ─── VIEW HEADER ROW ─── */
+.view-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.view-hdr-btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.btn-new{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:var(--terra);color:var(--white);border:none;padding:8px 16px;border-radius:7px;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:5px;}
+.btn-new:hover{background:var(--terra-d);}
+.btn-export{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:#1a1a1a;color:var(--grey);border:1px solid #2a2a2a;padding:7px 14px;border-radius:7px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px;}
+.btn-export:hover{color:var(--white);background:#222;}
+
+/* ─── WEEK GRID ─── */
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;min-width:0;}
+@media(max-width:1100px){.week-grid{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:700px){.week-grid{grid-template-columns:repeat(2,1fr);}}
+.day-col{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-height:420px;transition:border-color .2s;}
+.day-col.has-show{border-color:var(--terra);}
+.day-col.has-lu2ca{border-color:var(--gold);background:#1C1800;}
+.day-col.day-done{border-color:var(--green-d);}
+.day-head{padding:12px 12px 10px;border-bottom:1px solid var(--border);}
+.day-name-row{display:flex;align-items:baseline;gap:8px;margin-bottom:6px;}
+.day-name{font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;color:var(--grey);letter-spacing:.06em;}
+.day-date{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--white);}
+.day-col.has-lu2ca .day-date{color:var(--gold);}
+.day-bar-wrap{margin-top:6px;}
+.day-bar-label{display:flex;justify-content:space-between;font-size:10px;color:var(--grey);margin-bottom:3px;}
+.day-bar-label .pct{color:var(--gold);font-weight:700;}
+.day-bar{height:5px;}
+.day-bar .bar-fill{height:5px;}
+.day-event{padding:8px 12px;border-bottom:1px solid var(--border);}
+.event-badge{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:4px 8px;border-radius:5px;width:fit-content;}
+.event-badge.show{background:var(--terra-d);color:var(--white);}
+.event-badge.show-a{background:#2A1E00;border:1px solid var(--gold);color:var(--gold);}
+.event-badge.comem{background:#162A16;color:var(--green);font-size:10px;margin-top:4px;}
+.task-list{flex:1;padding:8px 0;}
+.task-item{display:flex;align-items:flex-start;gap:8px;padding:6px 12px;cursor:pointer;border-bottom:1px solid #1e1e1e;transition:background .15s;}
+.task-item:hover{background:#232323;}
+.task-item:last-child{border-bottom:none;}
+.task-cb{width:15px;height:15px;border-radius:4px;border:1.5px solid var(--grey2);flex-shrink:0;margin-top:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.task-item.done .task-cb{background:var(--green-d);border-color:var(--green);}
+.task-item.done .task-cb::after{content:'✓';font-size:9px;color:var(--green);}
+.task-item.done .task-label{text-decoration:line-through;color:var(--grey2);}
+.task-body{flex:1;min-width:0;}
+.task-label{font-size:12px;color:var(--white);line-height:1.3;margin-bottom:3px;}
+.task-meta{display:flex;gap:4px;flex-wrap:wrap;align-items:center;}
+.tag{font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:1px 5px;border-radius:3px;}
+.tag-agent{background:#2a2a2a;color:var(--grey);}
+.tag-step{background:#1a1a2e;color:#7C9EFF;}
+.tag-topo{background:#1E2A3A;color:var(--topo);}
+.tag-meio{background:#2A1E00;color:var(--gold);}
+.tag-fundo{background:#2A1010;color:var(--terra);}
+.tag-pub{background:#1A2A1A;color:var(--green);}
+.day-foot{padding:8px 12px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.day-count{font-size:11px;color:var(--grey);}
+.day-act-btn{font-family:'Oswald',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--terra);color:var(--white);border:none;padding:4px 10px;border-radius:5px;cursor:pointer;transition:background .15s;}
+.day-act-btn:hover{background:var(--terra-d);}
+.day-act-btn.done-btn{background:var(--green-d);color:var(--green);}
+
+/* ─── PIPELINE STRIP ─── */
+.pipe-strip{display:flex;align-items:center;gap:0;overflow-x:auto;margin-bottom:24px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;}
+.pipe-step{display:flex;align-items:center;gap:6px;flex-shrink:0;padding:6px 12px;border-radius:7px;cursor:default;transition:background .15s;}
+.pipe-step.done{background:#162A16;}
+.pipe-step.active{background:var(--terra-glow);border:1px solid var(--terra);}
+.pipe-step.pending{opacity:.4;}
+.pipe-num{font-size:9px;color:var(--grey);font-weight:700;}
+.pipe-icon{font-size:16px;}
+.pipe-name{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;color:var(--white);white-space:nowrap;}
+.pipe-step.done .pipe-name{color:var(--green);}
+.pipe-step.active .pipe-name{color:var(--terra);}
+.pipe-arrow{color:var(--grey2);font-size:14px;padding:0 4px;flex-shrink:0;}
+.pipe-step.checkpoint{border:1px solid var(--gold);}
+.pipe-step.checkpoint .pipe-name{color:var(--gold);}
+
+/* ─── AGENTS VIEW ─── */
+.agents-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:900px){.agents-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.agents-grid{grid-template-columns:1fr;}}
+.agent-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s,transform .15s;}
+.agent-card:hover{transform:translateY(-2px);}
+.agent-banner{height:6px;width:100%;}
+.ac-head{padding:18px 18px 12px;border-bottom:1px solid var(--border);}
+.ac-icon-row{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.ac-icon{font-size:32px;}
+.ac-name{font-family:'Oswald',sans-serif;font-weight:700;font-size:20px;color:var(--white);}
+.ac-role{font-size:12px;color:var(--grey);margin-top:2px;}
+.ac-mode{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:3px;background:#2a2a2a;color:var(--grey);margin-top:4px;}
+.ac-steps{padding:12px 18px;border-bottom:1px solid var(--border);}
+.ac-step{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:12px;color:var(--grey);border-bottom:1px solid #1e1e1e;}
+.ac-step:last-child{border-bottom:none;}
+.ac-step .snum{font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;color:var(--topo);background:#1a1a2e;padding:1px 5px;border-radius:3px;}
+.ac-step .sname{color:var(--white);}
+.ac-progress{padding:12px 18px;border-bottom:1px solid var(--border);}
+.ac-prog-label{display:flex;justify-content:space-between;font-size:11px;color:var(--grey);margin-bottom:5px;}
+.ac-prog-label .ac-pct{font-family:'Oswald',sans-serif;font-size:14px;font-weight:700;color:var(--gold);}
+.ac-bar{height:6px;}
+.ac-foot{padding:14px 18px;}
+.btn-ativar{width:100%;font-family:'Oswald',sans-serif;font-weight:700;font-size:13px;letter-spacing:.07em;text-transform:uppercase;border:none;border-radius:8px;padding:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;}
+.btn-ativar:hover{filter:brightness(1.15);transform:translateY(-1px);}
+.btn-ativar .bicon{font-size:16px;}
+
+/* ─── MODAL (agent) ─── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;}
+.overlay.open{opacity:1;pointer-events:all;}
+.modal{background:#1E1E1E;border:1px solid var(--border);border-radius:16px;width:min(580px,94vw);max-height:88vh;overflow-y:auto;transform:translateY(20px) scale(.97);transition:all .25s;}
+.overlay.open .modal{transform:none;}
+.modal-head{padding:22px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;}
+.modal-agent-icon{font-size:36px;}
+.modal-agent-name{font-family:'Oswald',sans-serif;font-weight:700;font-size:24px;color:var(--white);}
+.modal-agent-role{font-size:13px;color:var(--grey);margin-top:2px;}
+.modal-close{margin-left:auto;background:none;border:none;color:var(--grey);font-size:24px;cursor:pointer;padding:4px 8px;border-radius:6px;transition:color .15s;}
+.modal-close:hover{color:var(--white);}
+.modal-body{padding:20px 24px;}
+.modal-section{margin-bottom:20px;}
+.modal-section-title{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);margin-bottom:8px;}
+.prompt-box{background:#141414;border:1px solid #333;border-radius:8px;padding:14px 16px;font-family:'Inter',monospace;font-size:13px;color:var(--gold);line-height:1.6;position:relative;}
+.btn-copy{position:absolute;top:8px;right:8px;background:#2a2a2a;border:1px solid #444;border-radius:5px;color:var(--grey);font-size:10px;font-weight:700;letter-spacing:.05em;padding:3px 8px;cursor:pointer;text-transform:uppercase;transition:all .15s;}
+.btn-copy:hover{background:#333;color:var(--white);}
+.btn-copy.copied{background:var(--green-d);color:var(--green);border-color:var(--green);}
+.modal-tasks{display:flex;flex-direction:column;gap:6px;}
+.modal-task{display:flex;align-items:center;gap:8px;background:#141414;border:1px solid #2a2a2a;border-radius:7px;padding:8px 12px;font-size:12px;color:var(--white);}
+.modal-task .mt-day{font-size:10px;color:var(--grey);min-width:50px;}
+.modal-task .mt-label{flex:1;}
+.modal-task .mt-status{font-size:10px;padding:2px 6px;border-radius:3px;}
+.mt-done{background:var(--green-d);color:var(--green);}
+.mt-todo{background:#2a2a2a;color:var(--grey);}
+.modal-btns{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.modal-btn{flex:1;min-width:120px;font-family:'Oswald',sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:10px 16px;border-radius:8px;border:none;cursor:pointer;transition:all .15s;}
+.modal-btn.primary{background:var(--terra);color:var(--white);}
+.modal-btn.primary:hover{background:var(--terra-d);}
+.modal-btn.secondary{background:#2a2a2a;color:var(--grey);border:1px solid #444;}
+.modal-btn.secondary:hover{color:var(--white);}
+
+/* ─── CAMPAIGN FORM MODAL ─── */
+.form-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(5px);z-index:600;display:flex;align-items:flex-start;justify-content:center;padding:24px 16px;opacity:0;pointer-events:none;transition:opacity .2s;overflow-y:auto;}
+.form-overlay.open{opacity:1;pointer-events:all;}
+.form-modal{background:#1A1A1A;border:1px solid var(--border);border-radius:16px;width:min(720px,100%);transform:translateY(16px);transition:all .25s;margin:auto;}
+.form-overlay.open .form-modal{transform:none;}
+.form-head{padding:22px 26px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+.form-title{font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;color:var(--white);}
+.form-subtitle{font-size:12px;color:var(--grey);margin-top:2px;}
+.form-body{padding:22px 26px;}
+.form-section{margin-bottom:22px;}
+.form-section-title{font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--terra);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.form-section-title::after{content:'';flex:1;height:1px;background:#252525;}
+.form-row{margin-bottom:12px;}
+.form-row.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.form-row.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.form-row.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.form-group{display:flex;flex-direction:column;gap:5px;}
+.form-label{font-size:10px;color:var(--grey);text-transform:uppercase;letter-spacing:.06em;font-weight:700;}
+.form-label small{color:var(--grey2);font-weight:400;letter-spacing:0;text-transform:none;font-size:9px;}
+.form-input,.form-select,.form-textarea{background:#0f0f0f;border:1px solid #2a2a2a;border-radius:7px;padding:9px 12px;color:var(--white);font-size:13px;font-family:'Inter',sans-serif;outline:none;width:100%;transition:border-color .15s;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--terra);}
+.form-select{cursor:pointer;}
+.form-textarea{resize:vertical;min-height:62px;line-height:1.5;}
+.funnel-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.funnel-card{border:1.5px solid #2a2a2a;border-radius:8px;padding:10px 8px;text-align:center;cursor:pointer;transition:all .15s;user-select:none;}
+.funnel-card .fc-lbl{font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;margin-bottom:3px;}
+.funnel-card .fc-sub{font-size:10px;color:var(--grey);line-height:1.3;}
+.funnel-card.f-topo{color:var(--topo);}
+.funnel-card.f-topo.sel{border-color:var(--topo);background:#0e1828;}
+.funnel-card.f-meio{color:var(--gold);}
+.funnel-card.f-meio.sel{border-color:var(--gold);background:#1a1200;}
+.funnel-card.f-fundo{color:var(--terra);}
+.funnel-card.f-fundo.sel{border-color:var(--terra);background:#1a0e0e;}
+.plat-cards{display:flex;gap:8px;}
+.plat-card{flex:1;border:1.5px solid #2a2a2a;border-radius:8px;padding:9px 6px;text-align:center;cursor:pointer;transition:all .15s;user-select:none;}
+.plat-card.sel{border-color:var(--terra);background:rgba(196,80,42,.12);}
+.plat-card .pc-name{font-size:12px;font-weight:600;color:var(--white);margin-bottom:2px;}
+.plat-card .pc-sub{font-size:9px;color:var(--grey);}
+.budget-total{background:#0f0f0f;border:1px solid #222;border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:8px;}
+.bt-label{font-size:12px;color:var(--grey);}
+.bt-value{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--gold);}
+.form-footer{display:flex;justify-content:flex-end;gap:10px;padding-top:16px;border-top:1px solid var(--border);}
+.btn-save{font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:var(--terra);color:var(--white);border:none;padding:11px 24px;border-radius:8px;cursor:pointer;transition:background .15s;}
+.btn-save:hover{background:var(--terra-d);}
+.btn-cancel{font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:#242424;color:var(--grey);border:1px solid #3a3a3a;padding:11px 20px;border-radius:8px;cursor:pointer;transition:all .15s;}
+.btn-cancel:hover{color:var(--white);background:#2e2e2e;}
+
+/* ─── REFRESH MODAL ─── */
+.refresh-cmd-box{background:#0a0a12;border:1px solid #252545;border-radius:8px;padding:14px 16px;font-family:'Inter',monospace;font-size:12px;color:var(--gold);line-height:1.8;white-space:pre-wrap;margin:10px 0;position:relative;}
+
+/* ─── TOAST ─── */
+.toast{position:fixed;bottom:24px;right:24px;z-index:700;background:#1E1E1E;border:1px solid var(--green);border-radius:10px;padding:12px 18px;font-size:13px;color:var(--green);display:flex;align-items:center;gap:10px;transform:translateY(80px);opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);pointer-events:none;}
+.toast.show{transform:none;opacity:1;}
+.toast.err{border-color:var(--terra);color:var(--terra);}
+
+/* ─── PIPELINE FLOW VIEW ─── */
+.flow-full{overflow-x:auto;padding-bottom:12px;}
+.flow-row{display:flex;align-items:stretch;gap:0;width:max-content;}
+.flow-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 14px;width:140px;min-height:130px;display:flex;flex-direction:column;gap:6px;position:relative;transition:border-color .2s;}
+.flow-card.done-step{border-color:var(--green-d);background:#141E14;}
+.flow-card.active-step{border-color:var(--terra);box-shadow:0 0 20px var(--terra-glow);}
+.flow-card.ckpt{border-color:var(--gold);background:#1C1800;}
+.flow-card.cond{border-color:var(--topo);background:#141A2A;}
+.fc-num{font-size:10px;color:var(--grey);font-weight:700;letter-spacing:.04em;}
+.fc-icon{font-size:22px;}
+.fc-name{font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;color:var(--white);line-height:1.2;}
+.fc-agent{font-size:11px;color:var(--grey);margin-top:auto;}
+.fc-badge{position:absolute;top:-8px;right:8px;font-size:8px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:2px 6px;border-radius:4px;}
+.badge-ck{background:var(--gold);color:#000;}
+.badge-cd{background:var(--topo);color:#fff;}
+.flow-arr{width:26px;display:flex;align-items:center;justify-content:center;color:var(--grey2);font-size:18px;flex-shrink:0;}
+
+/* ─── CAMPAIGNS VIEW ─── */
+.camp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:32px;}
+.camp-wrap{position:relative;}
+.camp-del-btn{position:absolute;top:12px;right:12px;z-index:5;background:#1a0808;border:1px solid #4a1a1a;border-radius:5px;color:#a04040;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;cursor:pointer;transition:all .15s;}
+.camp-del-btn:hover{background:#300;color:#ff6060;border-color:#803030;}
+.camp-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.camp-card-top{height:4px;}
+.camp-header{padding:18px 18px 12px;border-bottom:1px solid var(--border);}
+.camp-title-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.camp-title{font-family:'Oswald',sans-serif;font-size:20px;font-weight:700;color:var(--white);}
+.camp-funnel-tag{font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px;}
+.camp-date{font-size:12px;color:var(--grey);margin-bottom:6px;}
+.camp-budget{font-family:'Oswald',sans-serif;font-size:26px;font-weight:700;color:var(--gold);}
+.camp-budget span{font-size:13px;color:var(--grey);}
+.camp-body{padding:14px 18px;}
+.camp-row{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid #1e1e1e;}
+.camp-row:last-child{border-bottom:none;}
+.camp-row .label{color:var(--grey);}
+.camp-row .value{color:var(--white);font-weight:600;text-align:right;max-width:60%;}
+.camp-actions{padding:14px 18px;border-top:1px solid var(--border);}
+.camp-timer{background:#141414;border:1px solid #2a2a2a;border-radius:8px;padding:9px 14px;margin-bottom:10px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--grey);}
+.ct-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.camp-timer .ct-label{color:var(--white);font-weight:600;}
+.camp-btn-row{display:flex;gap:8px;}
+.camp-cycle-btn{flex:1;font-family:'Oswald',sans-serif;font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:9px 12px;border-radius:7px;border:none;cursor:pointer;transition:all .2s;}
+.camp-cycle-btn.ready{background:var(--terra);color:var(--white);}
+.camp-cycle-btn.ready:hover{background:var(--terra-d);}
+.camp-cycle-btn.activated{background:var(--green-d);color:var(--green);}
+.camp-cycle-btn.activated:hover{background:#0f4020;}
+.camp-cycle-btn.done-c{background:#2a2a2a;color:var(--grey);}
+.camp-cycle-btn.done-c:hover{background:#333;color:var(--white);}
+.camp-edit-btn{background:#2a2a2a;border:1px solid #3a3a3a;color:var(--grey);font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:9px 14px;border-radius:7px;cursor:pointer;transition:all .15s;}
+.camp-edit-btn:hover{color:var(--white);background:#333;}
+.camp-empty{grid-column:1/-1;text-align:center;padding:64px 20px;color:var(--grey);}
+.camp-empty .ce-icon{font-size:44px;margin-bottom:12px;opacity:.4;}
+.camp-empty .ce-text{font-size:14px;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+/* ─── FUNNEL LEGEND ─── */
+.funnel-legend{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+.fl-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--grey);}
+.fl-dot{width:8px;height:8px;border-radius:2px;}
+
+/* ─── STRATEGY VIEW ─── */
+.strat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:28px;}
+.strat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.strat-card-accent{height:3px;width:100%;}
+.strat-card-body{padding:16px 18px;}
+.strat-card-title{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);margin-bottom:10px;}
+.strat-card-main{font-family:'Oswald',sans-serif;font-size:26px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.strat-card-sub{font-size:12px;color:var(--grey);line-height:1.5;}
+.insight-box{background:#0e1e0e;border:1px solid #1a4a1a;border-radius:10px;padding:16px 18px;margin-bottom:28px;display:flex;gap:14px;align-items:flex-start;}
+.insight-icon{font-size:26px;flex-shrink:0;margin-top:2px;}
+.insight-text{font-size:13px;color:var(--white);line-height:1.6;}
+.insight-text strong{color:var(--green);}
+.alert-box{background:#1a0e00;border:1px solid #4a2a00;border-radius:10px;padding:16px 18px;margin-bottom:28px;display:flex;gap:14px;align-items:flex-start;}
+.alert-box .insight-text strong{color:var(--gold);}
+.strat-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:28px;}
+.strat-table th{font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;}
+.strat-table td{padding:9px 12px;border-bottom:1px solid #1e1e1e;color:var(--white);vertical-align:middle;}
+.strat-table tr:last-child td{border-bottom:none;}
+.strat-table tr:hover td{background:#1e1e1e;}
+.strat-table .td-num{font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;color:var(--gold);}
+.strat-table .td-grey{color:var(--grey);}
+.strat-table .td-green{color:var(--green);font-weight:600;}
+.strat-table .td-red{color:var(--terra);font-weight:600;}
+.competitor-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:4px;}
+.cb-gap{background:#0e280e;color:var(--green);} /* no ads = green opportunity */
+.cb-low{background:#281800;color:var(--gold);}
+.cb-chain{background:#1e1e2e;color:#7C9EFF;}
+.funnel-arch{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:28px;}
+.farch-card{border-radius:10px;padding:18px 16px;text-align:center;position:relative;}
+.farch-card.ft{background:#0e1828;border:1px solid var(--topo);}
+.farch-card.fm{background:#1a1200;border:1px solid var(--gold);}
+.farch-card.ff{background:#1a0e0e;border:1px solid var(--terra);}
+.farch-label{font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;margin-bottom:4px;}
+.farch-card.ft .farch-label{color:var(--topo);}
+.farch-card.fm .farch-label{color:var(--gold);}
+.farch-card.ff .farch-label{color:var(--terra);}
+.farch-budget{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--white);margin:8px 0 4px;}
+.farch-desc{font-size:11px;color:var(--grey);line-height:1.4;}
+.farch-arrow{display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--grey2);align-self:center;}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:28px;}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.kpi-label{font-size:10px;color:var(--grey);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+.kpi-val{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--gold);}
+.kpi-sub{font-size:11px;color:var(--grey);margin-top:3px;}
+.timeline-row{display:flex;flex-direction:column;gap:8px;max-width:800px;margin-bottom:28px;}
+.tl-item{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:center;}
+.tl-date{font-size:11px;color:var(--grey);text-align:right;}
+.tl-box{border-radius:8px;padding:11px 15px;}
+.tl-box.normal{background:var(--card);border:1px solid var(--border);}
+.tl-box.copa{background:#1a1000;border:1px solid #5a3a00;}
+.tl-box.standup{background:#0e1428;border:1px solid #2a3a6a;}
+.tl-box.highlight{background:#1a0a00;border:1px solid var(--terra);}
+.tl-label{font-family:'Oswald',sans-serif;font-size:13px;color:var(--white);}
+.tl-box.copa .tl-label{color:var(--gold);}
+.tl-box.standup .tl-label{color:#7C9EFF;}
+.tl-box.highlight .tl-label{color:var(--terra);}
+.tl-sub{font-size:11px;color:var(--grey);margin-top:3px;}
+.checklist{display:flex;flex-direction:column;gap:8px;max-width:700px;}
+.check-item{display:flex;align-items:flex-start;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:11px 14px;cursor:pointer;transition:border-color .15s;}
+.check-item:hover{border-color:var(--terra);}
+.check-item.checked{border-color:var(--green-d);background:#111e11;}
+.check-box{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--grey2);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.check-item.checked .check-box{background:var(--green-d);border-color:var(--green);}
+.check-item.checked .check-box::after{content:'✓';font-size:10px;color:var(--green);}
+.check-text{font-size:13px;color:var(--white);line-height:1.4;}
+.check-item.checked .check-text{text-decoration:line-through;color:var(--grey2);}
+.section-divider{font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--terra);margin:28px 0 14px;display:flex;align-items:center;gap:10px;}
+.section-divider::after{content:'';flex:1;height:1px;background:#252525;}
+@media(max-width:700px){.funnel-arch{grid-template-columns:1fr;}.tl-item{grid-template-columns:90px 1fr;}}
+</style>
+</head>
+<body>
+
+<!-- ═══════ HEADER ═══════ -->
+<header class="hdr">
+  <div class="hdr-top">
+    <div class="hdr-brand">🌮 <span>Vila</span> Gestor</div>
+    <div class="hdr-week">Semana 25–31 de Maio 2026</div>
+    <div class="global-bar-wrap">
+      <div class="global-bar-label">
+        <span id="global-label">0 de 0 tarefas concluídas</span>
+        <strong id="global-pct">0%</strong>
+      </div>
+      <div class="bar"><div class="bar-fill" id="global-fill" style="width:0%"></div></div>
+    </div>
+    <button class="btn-refresh-hdr" id="refresh-hdr-btn" onclick="openRefreshModal()">
+      <span class="ricon" id="ricon">↻</span> Atualizar Dados
+    </button>
+  </div>
+  <div class="hdr-tabs">
+    <div class="tab on" onclick="show('semana',this)">Semana</div>
+    <div class="tab" onclick="show('agentes',this)">Agentes</div>
+    <div class="tab" onclick="show('pipeline',this)">Pipeline</div>
+    <div class="tab" onclick="show('campanhas',this)">Campanhas</div>
+    <div class="tab" onclick="show('estrategia',this)">Estratégia</div>
+  </div>
+</header>
+
+<!-- ═══════ VIEW: SEMANA ═══════ -->
+<div id="view-semana" class="view on">
+  <div class="pipe-strip">
+    <div class="pipe-step done"><span class="pipe-num">01</span><span class="pipe-icon">📅</span><span class="pipe-name">Briefing</span></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step active"><span class="pipe-num">02</span><span class="pipe-icon">✍️</span><span class="pipe-name">Conteúdo</span></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step pending"><span class="pipe-num">03</span><span class="pipe-icon">🎨</span><span class="pipe-name">Visual</span></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step checkpoint pending"><span class="pipe-num">04</span><span class="pipe-icon">✋</span><span class="pipe-name">Aprovação</span></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step pending"><span class="pipe-num">05</span><span class="pipe-icon">📲</span><span class="pipe-name">Publicar</span></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step pending"><span class="pipe-num">06</span><span class="pipe-icon">📣</span><span class="pipe-name">Ads</span></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step pending"><span class="pipe-num">07</span><span class="pipe-icon">⚖️</span><span class="pipe-name">Revisão</span></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step pending"><span class="pipe-num">08</span><span class="pipe-icon">📊</span><span class="pipe-name">Relatório</span></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step checkpoint pending"><span class="pipe-num">09</span><span class="pipe-icon">✅</span><span class="pipe-name">Final</span></div>
+  </div>
+  <div class="funnel-legend">
+    <div class="fl-item"><div class="fl-dot" style="background:var(--topo)"></div> Topo de funil</div>
+    <div class="fl-item"><div class="fl-dot" style="background:var(--gold)"></div> Meio de funil</div>
+    <div class="fl-item"><div class="fl-dot" style="background:var(--terra)"></div> Fundo de funil</div>
+    <div class="fl-item"><div class="fl-dot" style="background:var(--green)"></div> Publicação</div>
+    <div class="fl-item" style="margin-left:auto;font-size:11px;color:var(--grey)">Clique nas tarefas para marcar como feito</div>
+  </div>
+  <div class="week-grid" id="week-grid"></div>
+</div>
+
+<!-- ═══════ VIEW: AGENTES ═══════ -->
+<div id="view-agentes" class="view">
+  <div class="stitle">Agentes do Squad</div>
+  <div class="ssub">Clique em "Acionar" para ver o comando exato a rodar no Claude</div>
+  <div class="agents-grid" id="agents-grid"></div>
+</div>
+
+<!-- ═══════ VIEW: PIPELINE ═══════ -->
+<div id="view-pipeline" class="view">
+  <div class="stitle">Fluxo do Pipeline</div>
+  <div class="ssub">9 steps · da coleta do calendário à aprovação final</div>
+  <div class="flow-full"><div class="flow-row" id="flow-row"></div></div>
+  <div style="margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;" id="data-cards"></div>
+</div>
+
+<!-- ═══════ VIEW: CAMPANHAS ═══════ -->
+<div id="view-campanhas" class="view">
+  <div class="view-hdr">
+    <div>
+      <div class="stitle">Campanhas</div>
+      <div class="ssub" style="margin-bottom:0">Topo · Meio · Fundo de funil — Meta Ads · TikTok · Google</div>
+    </div>
+    <div class="view-hdr-btns" style="margin-top:4px">
+      <button class="btn-export" onclick="exportCampaigns()">↓ Exportar JSON</button>
+      <button class="btn-new" onclick="openCampForm()">+ Nova Campanha</button>
+    </div>
+  </div>
+  <div style="height:24px"></div>
+  <div class="camp-grid" id="camp-grid"></div>
+  <div class="stitle" style="font-size:18px;margin-bottom:8px">Calendário de Ativação</div>
+  <div style="display:flex;flex-direction:column;gap:10px;max-width:700px;" id="act-timeline"></div>
+</div>
+
+<!-- ═══════ VIEW: ESTRATÉGIA ═══════ -->
+<div id="view-estrategia" class="view">
+  <div class="stitle">Estratégia de Campanha</div>
+  <div class="ssub">Análise competitiva + plano de anúncios — Barueri · Bethaville · Alphaville · mai–jun 2026</div>
+
+  <!-- PIXEL CONFIGURADO -->
+  <div style="background:#0a1a0a;border:1px solid #1a4a1a;border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:14px;">
+    <div style="font-size:22px">✅</div>
+    <div style="flex:1">
+      <div style="font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;color:var(--green);margin-bottom:2px">Meta Pixel configurado</div>
+      <div style="font-size:12px;color:var(--grey)">Pixel ID: <code style="background:#111;border:1px solid #222;border-radius:4px;padding:2px 8px;color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.04em">1137636435245896</code></div>
+    </div>
+    <div style="font-size:11px;color:var(--grey2);text-align:right">Vila Los Muertos<br>de Fome</div>
+  </div>
+
+  <!-- INSIGHT PRINCIPAL -->
+  <div class="insight-box">
+    <div class="insight-icon">🎯</div>
+    <div class="insight-text">
+      <strong>Gap de mercado confirmado:</strong> Nenhum concorrente direto de Bethaville/Barueri investe em tráfego pago de forma consistente. O Quintal BethaVille — seu concorrente mais parecido (bar + comida + música diária + 35K seguidores) — tem <strong>zero anúncios ativos</strong> na Ad Library. Quem anunciar primeiro captura o público antes e paga menos por impressão.
+    </div>
+  </div>
+
+  <!-- ── SEÇÃO 1: COMPETIDORES ── -->
+  <div class="section-divider">Diagnóstico Competitivo</div>
+  <table class="strat-table" style="background:var(--card);border-radius:10px;overflow:hidden;border:1px solid var(--border);">
+    <thead>
+      <tr>
+        <th>Concorrente</th>
+        <th>Seguidores</th>
+        <th>Ads Pagos</th>
+        <th>Situação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Quintal BethaVille</strong><br><span style="font-size:11px;color:var(--grey)">Bar + música ao vivo diária — Barueri</span></td>
+        <td class="td-num">35K</td>
+        <td><span class="competitor-badge cb-gap">Zero ads</span></td>
+        <td class="td-green">Maior gap — cresceu só orgânico</td>
+      </tr>
+      <tr>
+        <td><strong>Cabana Burger Alphaville</strong><br><span style="font-size:11px;color:var(--grey)">Artisanal burger chain — Barueri</span></td>
+        <td class="td-num">39K</td>
+        <td><span class="competitor-badge cb-low">1 ad · 3h · &lt;R$100</span></td>
+        <td class="td-green">Investimento irrelevante em paid</td>
+      </tr>
+      <tr>
+        <td><strong>Killer Burger</strong><br><span style="font-size:11px;color:var(--grey)">Hamburgueria temática — Alphaville</span></td>
+        <td class="td-num">85K</td>
+        <td><span class="competitor-badge cb-chain">Rede nacional</span></td>
+        <td style="color:var(--grey)">Posicionamento diferente — franquia</td>
+      </tr>
+      <tr>
+        <td><strong>Bar Brahma Alphaville</strong><br><span style="font-size:11px;color:var(--grey)">Bar + música — Alphaville</span></td>
+        <td class="td-grey">—</td>
+        <td><span class="competitor-badge cb-chain">Ads corporativos</span></td>
+        <td style="color:var(--grey)">Marca nacional, ads nacionais</td>
+      </tr>
+      <tr>
+        <td><strong>Vila Los Muertos de Fome</strong><br><span style="font-size:11px;color:var(--terra)">Você — Rua Caldas Novas 49, Bethaville</span></td>
+        <td class="td-num" style="color:var(--terra)">11K</td>
+        <td><span class="competitor-badge" style="background:#2a1010;color:var(--terra)">Iniciando</span></td>
+        <td style="color:var(--gold);font-weight:600">Única proposta Tex Mex BR na região</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ── SEÇÃO 2: ARQUITETURA ── -->
+  <div class="section-divider">Arquitetura de Campanha — 3 Camadas</div>
+  <div class="funnel-arch">
+    <div class="farch-card ft">
+      <div class="farch-label">Topo de Funil</div>
+      <div style="font-size:11px;color:var(--grey);margin-bottom:8px">Brand Awareness · contínuo</div>
+      <div class="farch-budget">R$15<span style="font-size:13px;color:var(--grey)">/dia</span></div>
+      <div class="farch-desc">Fazer Bethaville saber que a Vila existe. Vídeo Chef Alex bastidor. Público frio, sem sobreposição com seguidores.</div>
+      <div style="margin-top:10px;font-size:11px;color:var(--topo)">~25.000 pessoas/mês</div>
+    </div>
+    <div class="farch-card fm">
+      <div class="farch-label">Meio de Funil</div>
+      <div style="font-size:11px;color:var(--grey);margin-bottom:8px">Engajamento · 2-3x por semana</div>
+      <div class="farch-budget">R$25<span style="font-size:13px;color:var(--grey)">/boost</span></div>
+      <div class="farch-desc">Impulsionar posts que já performaram bem. Vídeo de prato, bastidor, conteúdo cultural. CPE alvo: R$0,05–0,10.</div>
+      <div style="margin-top:10px;font-size:11px;color:var(--gold)">~3.000 engajamentos/semana</div>
+    </div>
+    <div class="farch-card ff">
+      <div class="farch-label">Fundo de Funil</div>
+      <div style="font-size:11px;color:var(--grey);margin-bottom:8px">Conversão · 48h antes do evento</div>
+      <div class="farch-budget">R$40–80<span style="font-size:13px;color:var(--grey)">/dia</span></div>
+      <div class="farch-desc">Show ao vivo, Copa, Stand-up. Retargeting dos engajadores. CTA: Obter Trajeto. Artista + horário + endereço.</div>
+      <div style="margin-top:10px;font-size:11px;color:var(--terra)">Raio 12km de Barueri</div>
+    </div>
+  </div>
+
+  <!-- ── SEÇÃO 3: META 5000 INTERAÇÕES ── -->
+  <div class="section-divider">Meta — 5.000 Interações com Menor Investimento</div>
+  <div class="alert-box">
+    <div class="insight-icon">📊</div>
+    <div class="insight-text">
+      Com <strong>R$950/mês</strong> nas 3 camadas e conteúdo de vídeo (Chef Alex bastidor, food porn), a estimativa conservadora é <strong>5.300 interações/mês</strong>. Com Copa do Mundo em junho, esse número sobe para <strong>8.000–12.000 interações</strong> sem aumentar o orçamento proporcionalmente.
+    </div>
+  </div>
+  <table class="strat-table" style="background:var(--card);border-radius:10px;overflow:hidden;border:1px solid var(--border);">
+    <thead>
+      <tr><th>Camada</th><th>Budget/mês</th><th>Interações estimadas</th><th>CPE médio</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Brand Awareness (alcance)</td>
+        <td class="td-num" style="font-size:14px">R$450</td>
+        <td>1.500–2.500</td>
+        <td class="td-grey">R$0,18–0,30</td>
+      </tr>
+      <tr>
+        <td>Boosted Posts (engajamento)</td>
+        <td class="td-num" style="font-size:14px">R$300</td>
+        <td>3.000–6.000</td>
+        <td class="td-green">R$0,05–0,10</td>
+      </tr>
+      <tr>
+        <td>Evento Show (2 shows/mês)</td>
+        <td class="td-num" style="font-size:14px">R$200</td>
+        <td>800–1.500</td>
+        <td class="td-grey">R$0,13–0,25</td>
+      </tr>
+      <tr style="background:#1a1a0e;">
+        <td><strong>TOTAL</strong></td>
+        <td class="td-num">R$950</td>
+        <td style="color:var(--gold);font-weight:700">5.300–10.000</td>
+        <td class="td-green">~R$0,09–0,18</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ── SEÇÃO 4: KPIs ── -->
+  <div class="section-divider">KPIs Semanais</div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Alcance semanal</div>
+      <div class="kpi-val">8.000+</div>
+      <div class="kpi-sub">pessoas únicas · meta ideal 15K</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Engajamentos/semana</div>
+      <div class="kpi-val">1.250+</div>
+      <div class="kpi-sub">meta ideal 2.500+</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">CPE médio alvo</div>
+      <div class="kpi-val">≤ R$0,20</div>
+      <div class="kpi-sub">meta ideal ≤ R$0,10</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">CTR (cliques CTA)</div>
+      <div class="kpi-val">≥ 1,5%</div>
+      <div class="kpi-sub">meta ideal ≥ 3%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">CPC alvo</div>
+      <div class="kpi-val">≤ R$1,50</div>
+      <div class="kpi-sub">meta ideal ≤ R$0,80</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Novos seguidores</div>
+      <div class="kpi-val">50+/sem</div>
+      <div class="kpi-sub">meta ideal 150+/sem</div>
+    </div>
+  </div>
+  <div style="background:#1a0e0e;border:1px solid #4a1a1a;border-radius:8px;padding:13px 16px;margin-bottom:28px;font-size:12px;color:var(--grey);line-height:1.6;">
+    <strong style="color:var(--terra)">Quando ajustar:</strong> CPE &gt; R$0,30 por 3 dias → trocar criativo · CTR &lt; 0,8% → reescrever copy · Frequência &gt; 5x em 7 dias → trocar público (fadiga de anúncio)
+  </div>
+
+  <!-- ── SEÇÃO 5: CRONOGRAMA JUNHO ── -->
+  <div class="section-divider">Cronograma de Ativação — Junho 2026</div>
+  <div class="timeline-row">
+    <div class="tl-item">
+      <div class="tl-date">01–07/jun</div>
+      <div class="tl-box normal"><div class="tl-label">Brand Awareness + Boosted Posts</div><div class="tl-sub">R$200 · regularidade — 3 posts/semana impulsionados</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">08–09/jun</div>
+      <div class="tl-box standup"><div class="tl-label">🎤 Stand-up — Enfermeiro Sincero</div><div class="tl-sub">R$80 · 48h antes do show · raio 12km · 22-40 anos · Comédia + Entretenimento</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">10–12/jun</div>
+      <div class="tl-box highlight"><div class="tl-label">⚽ Copa — aquecimento Brasil</div><div class="tl-sub">R$60/dia · iniciar 72h antes do jogo de 13/jun · raio 15km</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">13/jun 🔴</div>
+      <div class="tl-box copa"><div class="tl-label">⚽ JOGO DO BRASIL — Copa 2026</div><div class="tl-sub">R$80/dia · máximo alcance · Futebol + Seleção Brasileira + Bares esportivos · 18-55 anos</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">15–18/jun</div>
+      <div class="tl-box normal"><div class="tl-label">Shows regulares + retargeting Copa</div><div class="tl-sub">R$150 · lookalike dos engajadores do jogo de 13/jun</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">19/jun 🔴</div>
+      <div class="tl-box copa"><div class="tl-label">⚽ JOGO DO BRASIL — Copa 2026</div><div class="tl-sub">R$80/dia · segundo jogo da fase de grupos</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">20–23/jun</div>
+      <div class="tl-box normal"><div class="tl-label">Shows + reativação de audiência</div><div class="tl-sub">R$150 · consolidar base fidelizada</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">24/jun 🔴</div>
+      <div class="tl-box copa"><div class="tl-label">⚽ JOGO DO BRASIL — Copa 2026</div><div class="tl-sub">R$80/dia · terceiro jogo fase de grupos</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">25–30/jun</div>
+      <div class="tl-box normal"><div class="tl-label">Fechamento + relatório de junho</div><div class="tl-sub">R$150 · Rodrigo coleta métricas · revisão de estratégia para julho</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date" style="color:var(--gold);font-weight:700">TOTAL JUNHO</div>
+      <div class="tl-box" style="background:#1a1200;border:1px solid var(--gold);">
+        <div class="tl-label" style="color:var(--gold);font-family:'Oswald',sans-serif;font-size:16px">~R$1.200 → meta 8.000–12.000 interações</div>
+        <div class="tl-sub">3 jogos do Brasil · 1 Stand-up · shows regulares · brand awareness contínua</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SEÇÃO 6: AUDIÊNCIAS ── -->
+  <div class="section-divider">Mapa de Audiência</div>
+  <div class="strat-grid">
+    <div class="strat-card">
+      <div class="strat-card-accent" style="background:var(--terra)"></div>
+      <div class="strat-card-body">
+        <div class="strat-card-title">Público Primário</div>
+        <div class="strat-card-main">O Morador de Bethaville</div>
+        <div class="strat-card-sub">28-48 anos · condomínio horizontal · renda média-alta · sai 1-2x/semana · valoriza praticidade e experiência próxima de casa</div>
+        <div style="margin-top:10px;font-size:11px;font-weight:700;color:var(--terra)">~150.000 pessoas · raio 10km</div>
+      </div>
+    </div>
+    <div class="strat-card">
+      <div class="strat-card-accent" style="background:var(--gold)"></div>
+      <div class="strat-card-body">
+        <div class="strat-card-title">Público Secundário</div>
+        <div class="strat-card-main">Fã de Gastronomia</div>
+        <div class="strat-card-sub">25-45 anos · Barueri + Alphaville + Tamboré · descobre lugares pelo Instagram · decide pelo visual do prato</div>
+        <div style="margin-top:10px;font-size:11px;font-weight:700;color:var(--gold)">~100.000 pessoas · raio 12km</div>
+      </div>
+    </div>
+    <div class="strat-card">
+      <div class="strat-card-accent" style="background:#22c55e"></div>
+      <div class="strat-card-body">
+        <div class="strat-card-title">Público Terciário — Copa</div>
+        <div class="strat-card-main">O Torcedor</div>
+        <div class="strat-card-sub">18-55 anos · todos os gêneros · quer assistir jogos do Brasil com animação · busca telão + cerveja gelada · jogos 13, 19 e 24/jun</div>
+        <div style="margin-top:10px;font-size:11px;font-weight:700;color:#22c55e">250.000+ pessoas · raio 15km</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SEÇÃO 7: CRIATIVOS ── -->
+  <div class="section-divider">Criativos por Prioridade de Impacto</div>
+  <table class="strat-table" style="background:var(--card);border-radius:10px;overflow:hidden;border:1px solid var(--border);">
+    <thead>
+      <tr><th>#</th><th>Criativo</th><th>Formato</th><th>CPE estimado</th><th>Uso</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-num" style="font-size:18px">1</td>
+        <td><strong>Vídeo Chef Alex bastidor</strong></td>
+        <td style="color:var(--grey)">30s vertical</td>
+        <td class="td-green">R$0,05–0,10</td>
+        <td style="color:var(--grey)">Brand Awareness · sempre ativo</td>
+      </tr>
+      <tr>
+        <td class="td-num" style="font-size:18px">2</td>
+        <td><strong>Arte Copa do Mundo</strong></td>
+        <td style="color:var(--grey)">1080×1080 + 9:16</td>
+        <td class="td-green">R$0,06–0,12</td>
+        <td style="color:var(--grey)">Copa · 10–24/jun · raio 15km</td>
+      </tr>
+      <tr>
+        <td class="td-num" style="font-size:18px">3</td>
+        <td><strong>Vídeo food porn</strong></td>
+        <td style="color:var(--grey)">15s nacho/guacamole</td>
+        <td class="td-green">R$0,07–0,15</td>
+        <td style="color:var(--grey)">Boosted post · 2-3x/semana</td>
+      </tr>
+      <tr>
+        <td class="td-num" style="font-size:18px">4</td>
+        <td><strong>Arte Show — LU2CA / DHARA</strong></td>
+        <td style="color:var(--grey)">1080×1080 + 9:16</td>
+        <td style="color:var(--gold)">R$0,10–0,20</td>
+        <td style="color:var(--grey)">Fundo funil · 48h antes do show</td>
+      </tr>
+      <tr>
+        <td class="td-num" style="font-size:18px">5</td>
+        <td><strong>Arte Stand-up Enfermeiro Sincero</strong></td>
+        <td style="color:var(--grey)">1080×1080</td>
+        <td style="color:var(--gold)">R$0,12–0,22</td>
+        <td style="color:var(--grey)">09/jun · tom leve e bem-humorado</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ── SEÇÃO 8: PRÓXIMOS PASSOS ── -->
+  <div class="section-divider">Próximos Passos</div>
+  <div class="checklist" id="strat-checklist">
+    <div class="check-item checked" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Configurar Pixel Meta na página do Facebook e Instagram do Vila <span style="color:var(--green);font-size:11px;margin-left:6px">· ID 1137636435245896</span></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Criar Custom Audience "Engajadores Instagram 90d" no Ads Manager <span style="color:var(--grey2);font-size:11px;margin-left:6px">· nome: Vila - Engajadores IG 90d</span></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Criar Custom Audience "Engajadores Facebook 90d" no Ads Manager <span style="color:var(--grey2);font-size:11px;margin-left:6px">· nome: Vila - Engajadores FB 90d</span></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Criar Custom Audience "Visitantes do perfil IG 60d" no Ads Manager <span style="color:var(--grey2);font-size:11px;margin-left:6px">· nome: Vila - Visitantes IG 60d</span></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Criar Lookalike 1% baseado nos engajadores IG (para escalar) <span style="color:var(--grey2);font-size:11px;margin-left:6px">· nome: Vila - Lookalike 1% IG</span></div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Produzir vídeo Chef Alex 30s — bastidor de cozinha (Vito Visual)</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Criar arte Copa do Mundo 1080×1080 + 9:16 — ativar em 10/jun (Vito Visual)</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Ativar campanha Brand Awareness com R$15/dia — Pixel ID 1137636435245896 · criativo: vídeo Chef Alex</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Criar arte Stand-up Enfermeiro Sincero — ativar campanha em 07/jun (48h antes)</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Revisar KPIs toda sexta — ajustar criativos se CPE &gt; R$0,30 por 3 dias consecutivos</div></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Rodrigo coleta métricas de junho na 1ª segunda de julho — revisar estratégia para Copa fase eliminatória</div></div>
+  </div>
+
+</div>
+
+<!-- ═══════ MODAL: AGENTE ═══════ -->
+<div class="overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-head">
+      <div class="modal-agent-icon" id="modal-icon"></div>
+      <div>
+        <div class="modal-agent-name" id="modal-name"></div>
+        <div class="modal-agent-role" id="modal-role"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-title">Comando para o Claude</div>
+        <div class="prompt-box" id="modal-prompt">
+          <button class="btn-copy" id="copy-btn" onclick="copyPrompt()">Copiar</button>
+          <span id="prompt-text"></span>
+        </div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Tarefas da Semana</div>
+        <div class="modal-tasks" id="modal-tasks"></div>
+      </div>
+      <div class="modal-btns">
+        <button class="modal-btn primary" onclick="copyPrompt()">⚡ Copiar e Acionar</button>
+        <button class="modal-btn secondary" onclick="closeModal()">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ MODAL: REFRESH ═══════ -->
+<div class="overlay" id="refresh-overlay" onclick="closeRefreshModal(event)">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-agent-icon">↻</div>
+      <div>
+        <div class="modal-agent-name">Atualizar Dados</div>
+        <div class="modal-agent-role">Sincroniza Google Agenda com o dashboard</div>
+      </div>
+      <button class="modal-close" onclick="closeRefreshModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-title">Como funciona</div>
+        <p style="font-size:13px;color:var(--grey);line-height:1.6;margin-bottom:12px">
+          Copie o comando abaixo e cole no Claude Code. O agente vai ler o Google Agenda, comparar com os dados atuais do dashboard e reescrever o arquivo HTML com as alterações encontradas.
+        </p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Comando para o Claude Code</div>
+        <div class="refresh-cmd-box" id="refresh-cmd">Sincronize o dashboard do gestor-vila com o Google Agenda.
+
+1. Leia o calendário "Música e Eventos" (losmuertosdefome@gmail.com) para a semana atual
+2. Compare com os shows na constante WEEK em pipeline-visual.html
+3. Se houve alterações (artistas, horários, cachets, novos shows, cancelamentos):
+   — Atualize a constante WEEK no HTML
+   — Atualize o output/briefing.md se necessário
+4. Verifique também campanhas em output/campanha.md
+5. Salve o HTML atualizado em /Users/lu2ca/squads/gestor-vila/pipeline-visual.html
+6. Reporte o que mudou
+
+Arquivo: /Users/lu2ca/squads/gestor-vila/pipeline-visual.html</div>
+        <button class="btn-copy" style="position:static;margin-top:8px;display:inline-flex;align-items:center;gap:6px" id="refresh-copy-btn" onclick="copyRefreshCmd()">Copiar comando</button>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Dica</div>
+        <p style="font-size:12px;color:var(--grey);line-height:1.6">
+          Após o Claude processar o comando, recarregue esta página (F5) para ver os dados atualizados. O progresso das tarefas é preservado automaticamente.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ MODAL: NOVA CAMPANHA ═══════ -->
+<div class="form-overlay" id="campform-overlay" onclick="closeCampFormOverlay(event)">
+  <div class="form-modal">
+    <div class="form-head">
+      <div>
+        <div class="form-title" id="cf-title">Nova Campanha</div>
+        <div class="form-subtitle">Preencha os dados da campanha de anúncios</div>
+      </div>
+      <button class="modal-close" style="margin-left:auto" onclick="closeCampForm()">✕</button>
+    </div>
+    <div class="form-body" id="cf-body">
+      <!-- Preenchido por renderCampForm() -->
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span id="toast-msg"></span></div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  DATA — AGENTS
+// ═══════════════════════════════════════════════════════
+const AGENTS = {
+  cris: {
+    name:'Cris Criativa', icon:'✍️', role:'Criadora de Conteúdo Vila',
+    color:'#C4502A', mode:'inline',
+    steps:[{num:'02',name:'Criar Conteúdo Diário'},{num:'02',name:'Criar Anúncio de Evento'}],
+    prompt:'✍️ Cris Criativa, execute o Step 02 — Criar Conteúdo para {dia}.\n\nLeia output/briefing.md e escreva o copy completo de todos os slots ativos:\n• POST PRINCIPAL\n• STORY 1 (engajamento)\n• STORY 2 (informação)\n• STORY CHEF ALEX (bastidor)\n\nSe há evento com cachet ≥ R$400, também crie o ANÚNCIO PAGO (3 headlines ≤40 chars + 2 variações primary text ≤125 chars).'
+  },
+  vito: {
+    name:'Vito Visual', icon:'🎨', role:'Designer Visual Vila',
+    color:'#8B6914', mode:'subagent',
+    steps:[{num:'03',name:'Criar Visual de Post'},{num:'03',name:'Criar Arte de Evento'}],
+    prompt:'🎨 Vito Visual, execute o Step 03 — Criar Visual para {dia}.\n\nLeia output/conteudo.md e crie:\n1. visual-01.jpg — 1080×1440px (feed Instagram)\n   Fundo: #1A1A1A · Tipografia: Oswald Bold · Paleta Vila\n\nSe há seção ## ANÚNCIO PAGO no conteudo.md:\n2. arte-evento.jpg — 1080×1080px (Meta Ads / TikTok)\n   Texto ≤ 20% da área · margem segura 80px\n\nRenderizar via image-creator. Salvar em output/.'
+  },
+  paulo: {
+    name:'Paulo Postador', icon:'📲', role:'Publicador Multiplataforma',
+    color:'#166534', mode:'subagent',
+    steps:[{num:'05',name:'Publicar em Plataformas'}],
+    prompt:'📲 Paulo Postador, execute o Step 05 — Publicar.\n\nPré-requisito: aprovação explícita do Step 04 confirmada.\n\n1. Adaptar copy por plataforma (Instagram / Facebook / TikTok / Google Meu Negócio)\n2. Verificar horário ideal (Instagram: 18h-21h · TikTok: 20h)\n3. Executar dry-run (credenciais + formato + chars)\n4. Publicar plataforma por plataforma — reportar URL após cada uma\n5. Salvar relatório em output/publicacoes.md'
+  },
+  ana: {
+    name:'Ana Anúncio', icon:'📣', role:'Gestora de Tráfego Pago',
+    color:'#1E3A5F', mode:'subagent',
+    steps:[{num:'06',name:'Criar Campanha de Evento'},{num:'06',name:'Campanha Topo/Meio/Fundo Funil'}],
+    prompt:'📣 Ana Anúncio, execute o Step 06 — Criar Campanha.\n\nPixel Meta configurado: ID 1137636435245896 (Vila Los Muertos de Fome)\n\nLeia output/conteudo.md. Se há seção ## ANÚNCIO PAGO:\n• Monte briefing Meta Ads + TikTok Ads\n• Geolocalização: raio 12km de Barueri (Rua Caldas Novas 49)\n• Orçamento por tipo de evento (show padrão R$40/dia · destaque R$50/dia · Copa R$60-80/dia · Stand-up R$35/dia)\n• Público: usar Custom Audiences "Vila - Engajadores IG 90d" e "Vila - Engajadores FB 90d" para retargeting\n• CTA: Obter Trajeto\n• Inclua timing de ativação (data + hora exatas)\n• Salve em output/campanha.md\n\nSe não há evento pago: verifique se post qualifica para Brand Awareness (R$15/dia) ou boost de engajamento (R$25/boost).'
+  },
+  rodrigo: {
+    name:'Rodrigo Resultados', icon:'📊', role:'Analista de Marketing Vila',
+    color:'#2D4A8A', mode:'inline · segundas',
+    steps:[{num:'08',name:'Relatório de Marketing Semanal'}],
+    prompt:'📊 Rodrigo Resultados, execute o Step 08 — Relatório de Marketing.\n\nAnalise a semana encerrada (leia output/publicacoes.md e output/campanha.md):\n1. Performance por post: alcance + engajamento + taxa (%)\n2. Stories separado do feed\n3. Campanhas pagas: alcance, impressões, CPM\n4. Top 3 conteúdos com justificativa\n5. Comparação com semana anterior (ou baseline)\n6. Mínimo 3 recomendações por agente (Cris/Vito/Ana)\n\nSalvar em output/relatorio.md'
+  },
+  renata: {
+    name:'Renata Revisão', icon:'⚖️', role:'Revisora de Qualidade Vila',
+    color:'#5B2D8A', mode:'inline',
+    steps:[{num:'07',name:'Revisão de Qualidade'}],
+    prompt:'⚖️ Renata Revisão, execute o Step 07 — Revisão de Qualidade.\n\nLeia output/conteudo.md e output/visual-01.jpg.\n\n1. Verificar hard caps H1-H4 primeiro\n   H1: Marketing language | H2: Show sem artista+horário | H3: CTA digital em evento presencial | H4: Publicação sem aprovação\n2. Emitir tabela de vereditos por peça (nota 1-10)\n3. APROVADO / CONDICIONAL (máx 2 correções) / REJEITADO\n4. Status da sessão + próximo passo\n\nSalvar em output/review.md'
+  }
+};
+
+// ═══════════════════════════════════════════════════════
+//  DATA — WEEK
+// ═══════════════════════════════════════════════════════
+const WEEK = [
+  {date:'25',month:'05',day:'SEG',full:'Segunda 25/05',show:null,comem:null,tasks:[
+    {id:'s25a',agent:'cris',step:'02',label:'Agenda da Semana',type:'POST PRINCIPAL',funnel:'topo'},
+    {id:'s25b',agent:'cris',step:'02',label:'Story Evento Privado',type:'STORY 1',funnel:'topo'},
+    {id:'s25c',agent:'cris',step:'02',label:'Story Agenda da Semana',type:'STORY 2',funnel:'topo'},
+    {id:'s25d',agent:'cris',step:'02',label:'Story Chef Alex',type:'STORY CHEF',funnel:'meio'},
+    {id:'s25e',agent:'vito',step:'03',label:'Visual Agenda da Semana',type:'VISUAL',funnel:null},
+    {id:'s25f',agent:'paulo',step:'05',label:'Publicar plataformas',type:'PUBLICAR',funnel:null},
+    {id:'s25g',agent:'ana',step:'06',label:'Impulsionar (topo funil)',type:'ADS TOPO',funnel:'topo'},
+  ]},
+  {date:'26',month:'05',day:'TER',full:'Terça 26/05',show:null,comem:null,tasks:[
+    {id:'t26a',agent:'cris',step:'02',label:'Rodízio v1',type:'POST PRINCIPAL',funnel:'meio'},
+    {id:'t26b',agent:'cris',step:'02',label:'Story Experiência Cultural',type:'STORY 1',funnel:'meio'},
+    {id:'t26c',agent:'cris',step:'02',label:'Story Agenda Jogos',type:'STORY 2',funnel:'topo'},
+    {id:'t26d',agent:'cris',step:'02',label:'Story Chef Alex',type:'STORY CHEF',funnel:'meio'},
+    {id:'t26e',agent:'vito',step:'03',label:'Visual Rodízio v1',type:'VISUAL',funnel:null},
+    {id:'t26f',agent:'paulo',step:'05',label:'Publicar plataformas',type:'PUBLICAR',funnel:null},
+    {id:'t26g',agent:'ana',step:'06',label:'Impulsionar (meio funil)',type:'ADS MEIO',funnel:'meio'},
+  ]},
+  {date:'27',month:'05',day:'QUA',full:'Quarta 27/05',show:null,comem:null,tasks:[
+    {id:'q27a',agent:'cris',step:'02',label:'Domínio Territorial',type:'POST PRINCIPAL',funnel:'topo'},
+    {id:'q27b',agent:'cris',step:'02',label:'Story Apresentação Casa',type:'STORY 1',funnel:'topo'},
+    {id:'q27c',agent:'cris',step:'02',label:'Story Detalhes Vila',type:'STORY 2',funnel:'topo'},
+    {id:'q27d',agent:'cris',step:'02',label:'Story Chef Alex',type:'STORY CHEF',funnel:'meio'},
+    {id:'q27e',agent:'vito',step:'03',label:'Visual Dom. Territorial',type:'VISUAL',funnel:null},
+    {id:'q27f',agent:'paulo',step:'05',label:'Publicar plataformas',type:'PUBLICAR',funnel:null},
+    {id:'q27g',agent:'ana',step:'06',label:'⚡ Ativar campanha MARCELO (20h)',type:'ADS FUNDO',funnel:'fundo'},
+    {id:'q27h',agent:'ana',step:'06',label:'Impulsionar (topo funil)',type:'ADS TOPO',funnel:'topo'},
+  ]},
+  {date:'28',month:'05',day:'QUI',full:'Quinta 28/05',show:{name:'RUNA',hora:'20h',cachet:'R$250',level:'regular'},comem:'🍔 Dia Nacional do Hambúrguer',tasks:[
+    {id:'q28a',agent:'cris',step:'02',label:'Rodízio v2',type:'POST PRINCIPAL',funnel:'meio'},
+    {id:'q28b',agent:'cris',step:'02',label:'Story Detalhes do Vila',type:'STORY 1',funnel:'topo'},
+    {id:'q28c',agent:'cris',step:'02',label:'Story Agenda Fim de Semana',type:'STORY 2',funnel:'topo'},
+    {id:'q28d',agent:'cris',step:'02',label:'Story Chef Alex',type:'STORY CHEF',funnel:'meio'},
+    {id:'q28e',agent:'cris',step:'02',label:'Hambúrguer — copy temático',type:'EXTRA',funnel:'meio'},
+    {id:'q28f',agent:'vito',step:'03',label:'Visual Rodízio v2',type:'VISUAL',funnel:null},
+    {id:'q28g',agent:'paulo',step:'05',label:'Publicar plataformas',type:'PUBLICAR',funnel:null},
+    {id:'q28h',agent:'ana',step:'06',label:'⚡ Ativar campanha LU2CA (20h)',type:'ADS FUNDO',funnel:'fundo'},
+  ]},
+  {date:'29',month:'05',day:'SEX',full:'Sexta 29/05',show:{name:'MARCELO',hora:'20h',cachet:'R$400',level:'b'},comem:null,tasks:[
+    {id:'s29a',agent:'cris',step:'02',label:'Experiência Cultural',type:'POST PRINCIPAL',funnel:'meio'},
+    {id:'s29b',agent:'cris',step:'02',label:'Story Happy Hour (abertura)',type:'STORY 1',funnel:'fundo'},
+    {id:'s29c',agent:'cris',step:'02',label:'Story Happy Hour (reforço)',type:'STORY 2',funnel:'fundo'},
+    {id:'s29d',agent:'cris',step:'02',label:'Story Chef Alex',type:'STORY CHEF',funnel:'meio'},
+    {id:'s29e',agent:'vito',step:'03',label:'Visual Experiência Cultural',type:'VISUAL',funnel:null},
+    {id:'s29f',agent:'paulo',step:'05',label:'Publicar plataformas',type:'PUBLICAR',funnel:null},
+    {id:'s29g',agent:'renata',step:'07',label:'Revisão de qualidade',type:'REVISÃO',funnel:null},
+  ]},
+  {date:'30',month:'05',day:'SÁB',full:'Sábado 30/05 ⭐ LU2CA',show:{name:'LU2CA',hora:'20h',cachet:'R$600',level:'a'},comem:'🍟 Dia Mundial da Batata Frita',tasks:[
+    {id:'s30a',agent:'cris',step:'02',label:'Família — post sábado',type:'POST PRINCIPAL',funnel:'meio'},
+    {id:'s30b',agent:'cris',step:'02',label:'Story Feijoada (preview dom.)',type:'STORY 1',funnel:'meio'},
+    {id:'s30c',agent:'cris',step:'02',label:'Story Noite Temática / LU2CA',type:'STORY 2',funnel:'fundo'},
+    {id:'s30d',agent:'cris',step:'02',label:'Story Chef Alex',type:'STORY CHEF',funnel:'meio'},
+    {id:'s30e',agent:'vito',step:'03',label:'Visual Família',type:'VISUAL',funnel:null},
+    {id:'s30f',agent:'paulo',step:'05',label:'Publicar plataformas',type:'PUBLICAR',funnel:null},
+    {id:'s30g',agent:'renata',step:'07',label:'Revisão de qualidade',type:'REVISÃO',funnel:null},
+  ]},
+  {date:'31',month:'05',day:'DOM',full:'Domingo 31/05',show:{name:'JUAB',hora:'20h',cachet:'R$200',level:'regular'},comem:null,tasks:[
+    {id:'d31a',agent:'cris',step:'02',label:'Aniversário — post domingo',type:'POST PRINCIPAL',funnel:'meio'},
+    {id:'d31b',agent:'cris',step:'02',label:'Story Agradecimento da Semana',type:'STORY 1',funnel:'meio'},
+    {id:'d31c',agent:'cris',step:'02',label:'Story Cardápio',type:'STORY 2',funnel:'meio'},
+    {id:'d31d',agent:'cris',step:'02',label:'Story Chef Alex',type:'STORY CHEF',funnel:'meio'},
+    {id:'d31e',agent:'vito',step:'03',label:'Visual Aniversário',type:'VISUAL',funnel:null},
+    {id:'d31f',agent:'paulo',step:'05',label:'Publicar plataformas',type:'PUBLICAR',funnel:null},
+    {id:'d31g',agent:'renata',step:'07',label:'Revisão de qualidade',type:'REVISÃO',funnel:null},
+  ]}
+];
+
+// ═══════════════════════════════════════════════════════
+//  DATA — CAMPAIGN SEED + META
+// ═══════════════════════════════════════════════════════
+const CAMPS_SEED = [
+  {id:'camp-marcelo',tipo:'show',funnel:'fundo',platforms:['meta','tiktok'],
+   artist:'MARCELO',date:'Sexta 29/05',hora:'20h',cachet:'R$400',
+   objetivo:'Alcance',cta:'Obter Trajeto',
+   meta:{budget:'R$40/dia',days:2,total:'R$80'},
+   tiktok:{budget:'R$25/dia',days:2,total:'R$50'},
+   google:{budget:'—',days:2,total:'—'},
+   total:'R$130',
+   segmentation:'Raio 12km de Barueri · 25-45 anos · Música ao Vivo + Shows',
+   activateAt:'Qua 27/05 às 20h',pauseAt:'Sex 29/05 às 23h59',status:'upcoming',
+   headlines:['MARCELO ao vivo na Vila — sexta','Sexta tem show. Marcelo, 20h.','Vila recebe MARCELO nesta sexta'],
+   primary:['Música ao vivo, drinks e nacho. MARCELO toca às 20h. Rua Caldas Novas 49.','Vem com a galera. Marcelo começa às 20h. Mesa ainda disponível.'],
+   createdAt:'2026-05-20T18:41:55Z'},
+  {id:'camp-lu2ca',tipo:'show',funnel:'fundo',platforms:['meta','tiktok'],
+   artist:'LU2CA ⭐',date:'Sábado 30/05',hora:'20h',cachet:'R$600',
+   objetivo:'Alcance',cta:'Obter Trajeto',
+   meta:{budget:'R$50/dia',days:2,total:'R$100'},
+   tiktok:{budget:'R$30/dia',days:2,total:'R$60'},
+   google:{budget:'—',days:2,total:'—'},
+   total:'R$160',
+   segmentation:'Raio 12km de Barueri · 25-45 anos · LU2CA + MPB + Indie + Pop Alt.',
+   activateAt:'Qui 28/05 às 20h (pós-show RUNA)',pauseAt:'Sáb 30/05 às 23h59',status:'upcoming',
+   headlines:['LU2CA ao vivo na Vila — sábado','LU2CA. Sábado. Bethaville. 20h.','Sábado tem LU2CA na Vila'],
+   primary:['LU2CA ao vivo. Batata frita, nacho e muito show. Sábado, 20h. Rua Caldas Novas 49.','O sábado pediu show. LU2CA começa às 20h na Vila. Chega antes.'],
+   createdAt:'2026-05-20T18:41:55Z'}
+];
+
+const CAMP_META = {
+  tipos:[
+    {value:'show',       label:'🎵 Show ao vivo',              funnel:'fundo', objetivo:'Alcance',          cta:'Obter Trajeto'},
+    {value:'standup',    label:'🎤 Stand-up Comedy',           funnel:'fundo', objetivo:'Alcance',          cta:'Obter Trajeto'},
+    {value:'happy_hour', label:'🍹 Happy Hour',                funnel:'fundo', objetivo:'Alcance',          cta:'Obter Trajeto'},
+    {value:'comemorativa',label:'🎉 Data comemorativa',        funnel:'meio',  objetivo:'Engajamento',      cta:'Saiba Mais'},
+    {value:'cardapio',   label:'🍔 Promoção de cardápio',      funnel:'meio',  objetivo:'Engajamento',      cta:'Saiba Mais'},
+    {value:'rodizio',    label:'🔁 Rodízio / Recorrente',      funnel:'meio',  objetivo:'Engajamento',      cta:'Saiba Mais'},
+    {value:'copa',       label:'⚽ Copa do Mundo 2026',        funnel:'topo',  objetivo:'Alcance',          cta:'Saiba Mais'},
+    {value:'organico',   label:'📸 Post orgânico impulsionado',funnel:'topo',  objetivo:'Engajamento',      cta:'Saiba Mais'},
+    {value:'branding',   label:'🏷️ Branding / Institucional',  funnel:'topo',  objetivo:'Brand Awareness',  cta:'Saiba Mais'},
+    {value:'retargeting',label:'🎯 Retargeting / Remarketing', funnel:'fundo', objetivo:'Conversão',        cta:'Obter Trajeto'},
+  ],
+  funnels:[
+    {value:'topo', label:'Topo',  desc:'Alcance · público frio',       cls:'f-topo'},
+    {value:'meio', label:'Meio',  desc:'Engajamento · público morno',  cls:'f-meio'},
+    {value:'fundo',label:'Fundo', desc:'Conversão · público quente',   cls:'f-fundo'},
+  ],
+  objetivos:['Alcance','Engajamento','Tráfego','Conversão','Brand Awareness'],
+  ctas:['Obter Trajeto','Saiba Mais','Curtir Página','Ligar Agora','Reservar Mesa','Ver Cardápio'],
+  plataformas:[
+    {value:'meta',   label:'Meta Ads',    sub:'Instagram + Facebook'},
+    {value:'tiktok', label:'TikTok Ads',  sub:'In-Feed'},
+    {value:'google', label:'Google Ads',  sub:'Display + Search'},
+  ]
+};
+
+const FLOW_STEPS = [
+  {num:'01',icon:'📅',name:'Briefing do Dia',   agent:'Sistema',          type:'normal'},
+  {num:'02',icon:'✍️',name:'Criar Conteúdo',    agent:'Cris Criativa',    type:'active'},
+  {num:'03',icon:'🎨',name:'Criar Visual',       agent:'Vito Visual',      type:'normal'},
+  {num:'04',icon:'✋',name:'Aprovação',          agent:'Usuário',          type:'ckpt'},
+  {num:'05',icon:'📲',name:'Publicar',           agent:'Paulo Postador',   type:'normal'},
+  {num:'06',icon:'📣',name:'Campanhas',          agent:'Ana Anúncio',      type:'cond'},
+  {num:'07',icon:'⚖️',name:'Revisão',            agent:'Renata Revisão',   type:'normal'},
+  {num:'08',icon:'📊',name:'Relatório',          agent:'Rodrigo Resultados',type:'cond'},
+  {num:'09',icon:'✅',name:'Aprovação Final',    agent:'Usuário',          type:'ckpt'},
+];
+
+// ═══════════════════════════════════════════════════════
+//  STATE — TASKS
+// ═══════════════════════════════════════════════════════
+function loadState() { try{return JSON.parse(localStorage.getItem('vila-tasks')||'{}');}catch(e){return{};} }
+function saveState(s) { localStorage.setItem('vila-tasks',JSON.stringify(s)); }
+let STATE = loadState();
+function isTaskDone(id){return !!STATE[id];}
+function toggleTask(id){STATE[id]=!STATE[id];if(!STATE[id])delete STATE[id];saveState(STATE);}
+
+// ═══════════════════════════════════════════════════════
+//  STATE — CAMPAIGNS
+// ═══════════════════════════════════════════════════════
+function loadCampaigns() {
+  try {
+    const s = localStorage.getItem('vila-campaigns');
+    if (s) return JSON.parse(s);
+  } catch(e){}
+  return CAMPS_SEED.map(c=>({...c}));
+}
+function saveCampaigns(camps) {
+  localStorage.setItem('vila-campaigns', JSON.stringify(camps));
+}
+
+// ═══════════════════════════════════════════════════════
+//  PROGRESS
+// ═══════════════════════════════════════════════════════
+function calcProgress() {
+  let total=0,done=0;
+  WEEK.forEach(d=>d.tasks.forEach(t=>{total++;if(isTaskDone(t.id))done++;}));
+  return {total,done,pct:total?Math.round(done/total*100):0};
+}
+function calcDayProgress(day) {
+  let total=day.tasks.length,done=0;
+  day.tasks.forEach(t=>{if(isTaskDone(t.id))done++;});
+  return {total,done,pct:total?Math.round(done/total*100):0};
+}
+function calcAgentProgress(agentId) {
+  let total=0,done=0;
+  WEEK.forEach(d=>d.tasks.forEach(t=>{if(t.agent===agentId){total++;if(isTaskDone(t.id))done++;}}));
+  return {total,done,pct:total?Math.round(done/total*100):0};
+}
+function updateGlobal() {
+  const {total,done,pct}=calcProgress();
+  document.getElementById('global-label').textContent=`${done} de ${total} tarefas concluídas`;
+  document.getElementById('global-pct').textContent=`${pct}%`;
+  document.getElementById('global-fill').style.width=pct+'%';
+}
+
+// ═══════════════════════════════════════════════════════
+//  RENDER — WEEK
+// ═══════════════════════════════════════════════════════
+function funnelTag(f){if(!f)return '';const m={topo:'tag-topo',meio:'tag-meio',fundo:'tag-fundo'};const l={topo:'TOPO',meio:'MEIO',fundo:'FUNDO'};return `<span class="tag ${m[f]}">${l[f]}</span>`;}
+function agentTag(id){const a=AGENTS[id];return `<span class="tag tag-agent">${a.icon} ${a.name.split(' ')[0]}</span>`;}
+
+function renderWeek() {
+  const grid=document.getElementById('week-grid');
+  grid.innerHTML='';
+  WEEK.forEach(day=>{
+    const prog=calcDayProgress(day);
+    const isLU2CA=day.show&&day.show.level==='a';
+    const hasShow=!!day.show;
+    const isDone=prog.pct===100;
+    const col=document.createElement('div');
+    col.className=`day-col${isLU2CA?' has-lu2ca':hasShow?' has-show':''}${isDone?' day-done':''}`;
+    col.id=`day-col-${day.date}`;
+    col.innerHTML=`
+      <div class="day-head">
+        <div class="day-name-row">
+          <div class="day-name">${day.day}</div>
+          <div class="day-date">${day.date}/${day.month}</div>
+        </div>
+        <div class="day-bar-wrap">
+          <div class="day-bar-label">
+            <span>${prog.done}/${prog.total} tarefas</span>
+            <span class="pct">${prog.pct}%</span>
+          </div>
+          <div class="bar day-bar" id="bar-${day.date}"><div class="bar-fill" style="width:${prog.pct}%"></div></div>
+        </div>
+      </div>`;
+    const evDiv=document.createElement('div');
+    evDiv.className='day-event';
+    if(day.show){const lvl=day.show.level==='a'?'show-a':'show';evDiv.innerHTML=`<div class="event-badge ${lvl}">🎵 ${day.show.name} · ${day.show.hora} · ${day.show.cachet}</div>`;}
+    else{evDiv.innerHTML=`<div style="font-size:11px;color:var(--grey2);padding:2px 0">Sem show</div>`;}
+    if(day.comem)evDiv.innerHTML+=`<div class="event-badge comem">${day.comem}</div>`;
+    col.appendChild(evDiv);
+    const taskList=document.createElement('div');
+    taskList.className='task-list';
+    day.tasks.forEach(task=>{
+      const done=isTaskDone(task.id);
+      const item=document.createElement('div');
+      item.className=`task-item${done?' done':''}`;
+      item.dataset.id=task.id;
+      item.innerHTML=`<div class="task-cb"></div><div class="task-body"><div class="task-label">${task.label}</div><div class="task-meta">${agentTag(task.agent)}<span class="tag tag-step">S${task.step}</span>${funnelTag(task.funnel)}</div></div>`;
+      item.addEventListener('click',()=>{
+        toggleTask(task.id);
+        item.classList.toggle('done');
+        refreshDay(day);
+        updateGlobal();
+        refreshAgentsGrid();
+        showToast(isTaskDone(task.id)?`✓ "${task.label}" concluído`:`↩ "${task.label}" desmarcado`);
+      });
+      taskList.appendChild(item);
+    });
+    col.appendChild(taskList);
+    const foot=document.createElement('div');
+    foot.className='day-foot';
+    foot.innerHTML=`<span class="day-count" id="count-${day.date}">${prog.done}/${prog.total}</span><button class="day-act-btn${isDone?' done-btn':''}" onclick="openDayModal('${day.date}')">${isDone?'✓ Concluído':'⚡ Acionar'}</button>`;
+    col.appendChild(foot);
+    grid.appendChild(col);
+  });
+}
+
+function refreshDay(day) {
+  const prog=calcDayProgress(day);
+  const bar=document.querySelector(`#bar-${day.date} .bar-fill`);
+  if(bar)bar.style.width=prog.pct+'%';
+  const wrap=document.querySelector(`#bar-${day.date}`)?.closest('.day-head')?.querySelector('.day-bar-label');
+  if(wrap){wrap.querySelector('span').textContent=`${prog.done}/${prog.total} tarefas`;wrap.querySelector('.pct').textContent=`${prog.pct}%`;}
+  const count=document.getElementById(`count-${day.date}`);
+  if(count)count.textContent=`${prog.done}/${prog.total}`;
+  const col=document.getElementById(`day-col-${day.date}`);
+  const btn=col&&col.querySelector('.day-act-btn');
+  if(btn){if(prog.pct===100){btn.className='day-act-btn done-btn';btn.textContent='✓ Concluído';}else{btn.className='day-act-btn';btn.textContent='⚡ Acionar';}}
+}
+
+// ═══════════════════════════════════════════════════════
+//  RENDER — AGENTS
+// ═══════════════════════════════════════════════════════
+function renderAgents() {
+  const grid=document.getElementById('agents-grid');
+  grid.innerHTML='';
+  Object.entries(AGENTS).forEach(([id,agent])=>{
+    const prog=calcAgentProgress(id);
+    const card=document.createElement('div');
+    card.className='agent-card';
+    const stepsHtml=agent.steps.map(s=>`<div class="ac-step"><span class="snum">S${s.num}</span><span class="sname">${s.name}</span></div>`).join('');
+    card.innerHTML=`
+      <div class="agent-banner" style="background:${agent.color}22;border-top:3px solid ${agent.color}"></div>
+      <div class="ac-head">
+        <div class="ac-icon-row">
+          <div class="ac-icon">${agent.icon}</div>
+          <div><div class="ac-name">${agent.name}</div><div class="ac-role">${agent.role}</div><div class="ac-mode">${agent.mode}</div></div>
+        </div>
+      </div>
+      <div class="ac-steps">${stepsHtml}</div>
+      <div class="ac-progress">
+        <div class="ac-prog-label"><span>${prog.done} de ${prog.total} tarefas na semana</span><span class="ac-pct">${prog.pct}%</span></div>
+        <div class="bar ac-bar"><div class="bar-fill" style="width:${prog.pct}%;background:${agent.color}"></div></div>
+      </div>
+      <div class="ac-foot">
+        <button class="btn-ativar" style="background:${agent.color}" onclick="openAgentModal('${id}')">
+          <span class="bicon">${agent.icon}</span> Acionar ${agent.name.split(' ')[0]}
+        </button>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function refreshAgentsGrid() {
+  const cards=document.querySelectorAll('#agents-grid .agent-card');
+  Object.keys(AGENTS).forEach((id,i)=>{
+    const prog=calcAgentProgress(id);
+    if(cards[i]){
+      const fill=cards[i].querySelector('.ac-bar .bar-fill');
+      if(fill)fill.style.width=prog.pct+'%';
+      const pctEl=cards[i].querySelector('.ac-pct');
+      if(pctEl)pctEl.textContent=prog.pct+'%';
+      const lbl=cards[i].querySelector('.ac-prog-label span');
+      if(lbl)lbl.textContent=`${prog.done} de ${prog.total} tarefas na semana`;
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+//  RENDER — PIPELINE FLOW
+// ═══════════════════════════════════════════════════════
+function renderFlow() {
+  const row=document.getElementById('flow-row');
+  row.innerHTML='';
+  FLOW_STEPS.forEach((step,i)=>{
+    const cls=step.type==='ckpt'?'ckpt':step.type==='cond'?'cond':step.type==='active'?'active-step':'';
+    const card=document.createElement('div');
+    card.className=`flow-card ${cls}`;
+    let badge='';
+    if(step.type==='ckpt')badge=`<div class="fc-badge badge-ck">✋ Aprovação</div>`;
+    if(step.type==='cond')badge=`<div class="fc-badge badge-cd">Condicional</div>`;
+    if(step.type==='active')badge=`<div class="fc-badge" style="background:var(--terra);color:#fff">Em andamento</div>`;
+    card.innerHTML=`${badge}<div class="fc-num">Step ${step.num}</div><div class="fc-icon">${step.icon}</div><div class="fc-name">${step.name}</div><div class="fc-agent">${step.agent}</div>`;
+    row.appendChild(card);
+    if(i<FLOW_STEPS.length-1){const arr=document.createElement('div');arr.className='flow-arr';arr.textContent='→';row.appendChild(arr);}
+  });
+  const dc=document.getElementById('data-cards');
+  dc.innerHTML=`
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;">
+      <div style="font-family:Oswald,sans-serif;font-size:12px;color:var(--terra);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">📥 Entradas</div>
+      ${['Google Calendar — Música e Eventos','briefing.md — Slots do dia','vila-identity.md — Identidade','tone-of-voice.md — 6 tons de voz','quality-criteria.md — Hard caps H1–H4'].map(f=>`<div style="font-size:12px;color:var(--grey);padding:4px 0;border-bottom:1px solid #222">${f}</div>`).join('')}
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;">
+      <div style="font-family:Oswald,sans-serif;font-size:12px;color:var(--terra);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">📤 Saídas</div>
+      ${['conteudo.md — Copy de todos os slots','visual-01.jpg — Arte 1080×1440px','arte-evento.jpg — Arte de anúncio 1:1','publicacoes.md — URLs + status','campanha.md — Briefing Meta + TikTok','review.md — Vereditos por peça','relatorio.md — Métricas semanais'].map(f=>`<div style="font-size:12px;color:var(--grey);padding:4px 0;border-bottom:1px solid #222">${f}</div>`).join('')}
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;">
+      <div style="font-family:Oswald,sans-serif;font-size:12px;color:var(--terra);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">🔀 Condições</div>
+      ${['Step 06 ativa se cachet ≥ R$400','Step 06 ativa se Copa do Mundo','Step 06 ativa se Stand-up Comedy','Step 08 roda às segundas-feiras','Step 07 rejeição → volta ao Step 02','Publicação exige aprovação no Step 04'].map(f=>`<div style="font-size:12px;color:var(--grey);padding:4px 0;border-bottom:1px solid #222">${f}</div>`).join('')}
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════
+//  RENDER — CAMPAIGNS
+// ═══════════════════════════════════════════════════════
+const FUNNEL_COLOR  = {topo:'var(--topo)',meio:'var(--gold)',fundo:'var(--terra)'};
+const FUNNEL_LABEL  = {topo:'TOPO',meio:'MEIO',fundo:'FUNDO'};
+const FUNNEL_BG     = {topo:'#0e1828',meio:'#1a1200',fundo:'#1a0e0e'};
+const STATUS_MAP    = {
+  upcoming:{dot:'var(--gold)',anim:'1.5s infinite',label:'Aguardando ativação', btnTxt:'Marcar como Ativo', btnCls:'ready'},
+  active:  {dot:'var(--green)',anim:'.8s infinite', label:'Campanha ativa',     btnTxt:'Marcar como Pausada', btnCls:'activated'},
+  done:    {dot:'var(--grey2)',anim:'none',          label:'Encerrada',          btnTxt:'Reativar',            btnCls:'done-c'},
+};
+const PLAT_LABEL    = {meta:'Meta Ads',tiktok:'TikTok Ads',google:'Google Ads'};
+
+function renderCamps() {
+  const camps=loadCampaigns();
+  const grid=document.getElementById('camp-grid');
+  grid.innerHTML='';
+
+  if(!camps.length){
+    grid.innerHTML=`<div class="camp-empty"><div class="ce-icon">📣</div><div class="ce-text">Nenhuma campanha criada.<br>Clique em <strong>+ Nova Campanha</strong> para começar.</div></div>`;
+    document.getElementById('act-timeline').innerHTML='';
+    return;
+  }
+
+  camps.forEach(camp=>{
+    const status=camp.status||'upcoming';
+    const s=STATUS_MAP[status];
+    const funnel=camp.funnel||'fundo';
+    const ac=FUNNEL_COLOR[funnel];
+    const bg=FUNNEL_BG[funnel];
+    const platforms=camp.platforms||['meta','tiktok'];
+
+    const budgetRows=platforms.map(p=>{
+      const b=camp[p];
+      if(!b||b.budget==='—')return '';
+      return `<div class="camp-row"><span class="label">${PLAT_LABEL[p]}</span><span class="value">${b.budget} × ${b.days} dias = ${b.total}</span></div>`;
+    }).join('');
+
+    const wrap=document.createElement('div');
+    wrap.className='camp-wrap';
+    wrap.innerHTML=`
+      <button class="camp-del-btn" onclick="deleteCamp('${camp.id}')">✕ Excluir</button>
+      <div class="camp-card">
+        <div class="camp-card-top" style="background:${ac}"></div>
+        <div class="camp-header">
+          <div class="camp-title-row">
+            <div class="camp-title">${camp.artist||'Sem nome'}</div>
+            <span class="camp-funnel-tag" style="background:${bg};color:${ac}">${FUNNEL_LABEL[funnel]}</span>
+          </div>
+          <div class="camp-date">${camp.date||''} ${camp.hora?'· '+camp.hora:''} ${camp.cachet?'· cachet '+camp.cachet:''}</div>
+          <div class="camp-budget">R$${(camp.total||'0').replace('R$','')} <span>total em ads</span></div>
+        </div>
+        <div class="camp-body">
+          ${budgetRows}
+          ${camp.objetivo?`<div class="camp-row"><span class="label">Objetivo</span><span class="value">${camp.objetivo}</span></div>`:''}
+          ${camp.cta?`<div class="camp-row"><span class="label">CTA</span><span class="value">${camp.cta}</span></div>`:''}
+          ${camp.segmentation?`<div class="camp-row"><span class="label">Segmentação</span><span class="value" style="font-size:11px">${camp.segmentation}</span></div>`:''}
+          ${camp.activateAt?`<div class="camp-row"><span class="label">Ativar em</span><span class="value">${camp.activateAt}</span></div>`:''}
+          ${camp.pauseAt?`<div class="camp-row"><span class="label">Pausar em</span><span class="value">${camp.pauseAt}</span></div>`:''}
+          ${camp.headlines&&camp.headlines.some(h=>h)?`<div style="margin-top:8px;font-size:10px;color:var(--grey);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px">Headlines</div>${camp.headlines.filter(h=>h).map(h=>`<div style="font-size:11px;color:var(--white);padding:2px 0;border-bottom:1px solid #1e1e1e">"${h}"</div>`).join('')}`:''}
+        </div>
+        <div class="camp-actions">
+          <div class="camp-timer">
+            <div class="ct-dot" style="background:${s.dot};animation:pulse ${s.anim}"></div>
+            <span class="ct-label">${s.label}</span>
+          </div>
+          <div class="camp-btn-row">
+            <button class="camp-cycle-btn ${s.btnCls}" onclick="cycleCamp('${camp.id}')">${s.btnTxt}</button>
+            <button class="camp-edit-btn" onclick="openCampForm('${camp.id}')">Editar</button>
+          </div>
+        </div>
+      </div>`;
+    grid.appendChild(wrap);
+  });
+
+  renderActivationTimeline(camps);
+}
+
+function renderActivationTimeline(camps) {
+  const tl=document.getElementById('act-timeline');
+  const evs=[];
+  camps.forEach(c=>{
+    if(c.activateAt)evs.push({time:c.activateAt,label:`▶ ATIVAR — ${c.artist}`,sub:`${c.total||''} · ${(c.platforms||[]).map(p=>PLAT_LABEL[p]).join(' + ')}`,color:'var(--terra)',bg:'#14181A',border:'var(--terra)'});
+    if(c.pauseAt)evs.push({time:c.pauseAt,label:`⏹ PAUSAR — ${c.artist}`,sub:'',color:'var(--grey)',bg:'var(--card)',border:'var(--border)'});
+  });
+  evs.push({time:'Seg 02/06 · manhã',label:'📊 Rodrigo coleta métricas das campanhas',sub:'Relatório de marketing — alcance, CPM, recomendações por agente',color:'var(--green)',bg:'var(--card)',border:'#166534'});
+  tl.innerHTML=evs.map(ev=>`
+    <div style="display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center">
+      <div style="font-size:11px;color:var(--grey);text-align:right">${ev.time}</div>
+      <div style="background:${ev.bg};border:1px solid ${ev.border};border-radius:8px;padding:12px 16px;">
+        <div style="font-family:Oswald,sans-serif;font-size:13px;color:${ev.color}">${ev.label}</div>
+        ${ev.sub?`<div style="font-size:11px;color:var(--grey);margin-top:3px">${ev.sub}</div>`:''}
+      </div>
+    </div>`).join('');
+}
+
+function cycleCamp(id) {
+  const camps=loadCampaigns();
+  const c=camps.find(x=>x.id===id);
+  if(!c)return;
+  const prev=c.status||'upcoming';
+  c.status={upcoming:'active',active:'done',done:'upcoming'}[prev];
+  saveCampaigns(camps);
+  renderCamps();
+  const msgs={upcoming:'Campanha marcada como ATIVA',active:'Campanha encerrada',done:'Campanha redefinida'};
+  showToast(msgs[prev]);
+}
+
+function deleteCamp(id) {
+  if(!confirm('Excluir esta campanha permanentemente?'))return;
+  let camps=loadCampaigns().filter(c=>c.id!==id);
+  saveCampaigns(camps);
+  renderCamps();
+  showToast('Campanha excluída');
+}
+
+function exportCampaigns() {
+  const camps=loadCampaigns();
+  const data={exported:new Date().toISOString(),week:'25-31/05/2026',campaigns:camps};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='campanhas.json';a.click();
+  URL.revokeObjectURL(url);
+  showToast('↓ campanhas.json exportado');
+}
+
+// ═══════════════════════════════════════════════════════
+//  CAMPAIGN FORM
+// ═══════════════════════════════════════════════════════
+let campFormData={};
+let campFormEditId=null;
+
+function openCampForm(editId) {
+  campFormEditId=editId||null;
+  const title=document.getElementById('cf-title');
+  if(editId){
+    const c=loadCampaigns().find(x=>x.id===editId);
+    if(!c)return;
+    campFormData={...c,platforms:[...(c.platforms||['meta','tiktok'])]};
+    title.textContent='Editar Campanha';
+  } else {
+    campFormData={
+      id:'camp-'+Date.now(),tipo:'show',funnel:'fundo',
+      platforms:['meta','tiktok'],objetivo:'Alcance',cta:'Obter Trajeto',
+      artist:'',date:'',hora:'20h',cachet:'',
+      meta:{budget:'',days:2,total:''},tiktok:{budget:'',days:2,total:''},
+      google:{budget:'',days:2,total:''},total:'',
+      segmentation:'Raio 12km de Barueri, SP · 25-45 anos',
+      activateAt:'',pauseAt:'',status:'upcoming',
+      headlines:['','',''],primary:['',''],createdAt:new Date().toISOString()
+    };
+    title.textContent='Nova Campanha';
+  }
+  renderCampForm();
+  document.getElementById('campform-overlay').classList.add('open');
+}
+
+function renderCampForm() {
+  const d=campFormData;
+  const metaBudget=d.meta&&d.meta.budget?parseFloat(d.meta.budget)||'':'';
+  const tiktokBudget=d.tiktok&&d.tiktok.budget?parseFloat(d.tiktok.budget)||'':'';
+  const googleBudget=d.google&&d.google.budget?parseFloat(d.google.budget)||'':'';
+  const days=d.meta&&d.meta.days?d.meta.days:2;
+
+  document.getElementById('cf-body').innerHTML=`
+    <div class="form-section">
+      <div class="form-section-title">Tipo e Contexto</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Categoria da Campanha</label>
+          <select class="form-select" id="cf-tipo" onchange="onTipoChange(this.value)">
+            ${CAMP_META.tipos.map(t=>`<option value="${t.value}"${d.tipo===t.value?' selected':''}>${t.label}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div class="form-row g3">
+        <div class="form-group">
+          <label class="form-label">Artista / Tema <small>* obrigatório</small></label>
+          <input class="form-input" id="cf-artist" type="text" placeholder="ex: LU2CA" value="${d.artist||''}">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Data</label>
+          <input class="form-input" id="cf-date" type="text" placeholder="ex: Sexta 29/05" value="${d.date||''}">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Horário</label>
+          <input class="form-input" id="cf-hora" type="text" placeholder="20h" value="${d.hora||'20h'}">
+        </div>
+      </div>
+      <div class="form-row g2">
+        <div class="form-group">
+          <label class="form-label">Cachet (informativo)</label>
+          <input class="form-input" id="cf-cachet" type="text" placeholder="ex: R$400" value="${d.cachet||''}">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-title">Estratégia de Funil</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Posição no Funil</label>
+          <div class="funnel-cards">
+            ${CAMP_META.funnels.map(f=>`
+              <div class="funnel-card ${f.cls}${d.funnel===f.value?' sel':''}" onclick="selectFunnel('${f.value}')">
+                <div class="fc-lbl">${f.label}</div>
+                <div class="fc-sub">${f.desc}</div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+      <div class="form-row g2">
+        <div class="form-group">
+          <label class="form-label">Objetivo</label>
+          <select class="form-select" id="cf-objetivo">
+            ${CAMP_META.objetivos.map(o=>`<option${d.objetivo===o?' selected':''}>${o}</option>`).join('')}
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">CTA (Call to Action)</label>
+          <select class="form-select" id="cf-cta">
+            ${CAMP_META.ctas.map(c=>`<option${d.cta===c?' selected':''}>${c}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Plataformas</label>
+          <div class="plat-cards">
+            ${CAMP_META.plataformas.map(p=>`
+              <div class="plat-card${(d.platforms||[]).includes(p.value)?' sel':''}" onclick="togglePlatform('${p.value}',this)">
+                <div class="pc-name">${p.label}</div>
+                <div class="pc-sub">${p.sub}</div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-title">Orçamento</div>
+      <div class="form-row g4">
+        <div class="form-group">
+          <label class="form-label">Meta R$/dia</label>
+          <input class="form-input" id="cf-meta" type="number" min="0" placeholder="0" value="${metaBudget}" oninput="updateBudgetCalc()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">TikTok R$/dia</label>
+          <input class="form-input" id="cf-tiktok" type="number" min="0" placeholder="0" value="${tiktokBudget}" oninput="updateBudgetCalc()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Google R$/dia</label>
+          <input class="form-input" id="cf-google" type="number" min="0" placeholder="0" value="${googleBudget}" oninput="updateBudgetCalc()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Duração (dias)</label>
+          <input class="form-input" id="cf-days" type="number" min="1" placeholder="2" value="${days}" oninput="updateBudgetCalc()">
+        </div>
+      </div>
+      <div class="budget-total">
+        <span class="bt-label">Total estimado em ads</span>
+        <span class="bt-value" id="cf-total">R$0</span>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-title">Segmentação e Timing</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Segmentação <small>(raio, idade, interesses)</small></label>
+          <textarea class="form-textarea" id="cf-seg">${d.segmentation||''}</textarea>
+        </div>
+      </div>
+      <div class="form-row g2">
+        <div class="form-group">
+          <label class="form-label">Ativar em</label>
+          <input class="form-input" id="cf-activate" type="text" placeholder="ex: Qua 27/05 às 20h" value="${d.activateAt||''}">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Pausar em</label>
+          <input class="form-input" id="cf-pause" type="text" placeholder="ex: Sex 29/05 às 23h59" value="${d.pauseAt||''}">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-title">Copies <small style="font-family:Inter,sans-serif;text-transform:none;letter-spacing:0;color:var(--grey2);font-size:10px">— headlines ≤40 chars · primary text ≤125 chars</small></div>
+      <div class="form-row">
+        ${[0,1,2].map(i=>`
+          <div class="form-group" style="margin-bottom:8px">
+            <label class="form-label">Headline ${i+1}</label>
+            <input class="form-input" id="cf-h${i}" type="text" maxlength="40" placeholder="Headline ${i+1}" value="${d.headlines&&d.headlines[i]?d.headlines[i]:''}">
+          </div>`).join('')}
+      </div>
+      <div class="form-row g2">
+        ${[0,1].map(i=>`
+          <div class="form-group">
+            <label class="form-label">Primary Text ${['A','B'][i]}</label>
+            <textarea class="form-textarea" id="cf-p${i}" maxlength="125" placeholder="Variação ${['A','B'][i]}">${d.primary&&d.primary[i]?d.primary[i]:''}</textarea>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="form-footer">
+      <button class="btn-cancel" onclick="closeCampForm()">Cancelar</button>
+      <button class="btn-save" onclick="saveCampForm()">💾 Salvar Campanha</button>
+    </div>`;
+
+  updateBudgetCalc();
+}
+
+function selectFunnel(value) {
+  campFormData.funnel=value;
+  document.querySelectorAll('#cf-body .funnel-card').forEach(el=>el.classList.remove('sel'));
+  document.querySelector(`#cf-body .f-${value}`)?.classList.add('sel');
+}
+
+function togglePlatform(value, el) {
+  const p=campFormData.platforms||[];
+  const idx=p.indexOf(value);
+  if(idx>-1){if(p.length>1){p.splice(idx,1);el.classList.remove('sel');}}
+  else{p.push(value);el.classList.add('sel');}
+  campFormData.platforms=p;
+}
+
+function onTipoChange(value) {
+  campFormData.tipo=value;
+  const meta=CAMP_META.tipos.find(t=>t.value===value);
+  if(meta){
+    selectFunnel(meta.funnel);
+    const obj=document.getElementById('cf-objetivo');
+    if(obj)obj.value=meta.objetivo;
+    const cta=document.getElementById('cf-cta');
+    if(cta)cta.value=meta.cta;
+  }
+}
+
+function updateBudgetCalc() {
+  const meta=parseFloat(document.getElementById('cf-meta')?.value)||0;
+  const tiktok=parseFloat(document.getElementById('cf-tiktok')?.value)||0;
+  const google=parseFloat(document.getElementById('cf-google')?.value)||0;
+  const days=parseInt(document.getElementById('cf-days')?.value)||1;
+  const total=(meta+tiktok+google)*days;
+  const el=document.getElementById('cf-total');
+  if(el)el.textContent=`R$${total.toFixed(0)}`;
+}
+
+function saveCampForm() {
+  const artist=document.getElementById('cf-artist').value.trim();
+  if(!artist){showToast('Preencha o Artista / Tema',true);return;}
+  const meta=parseFloat(document.getElementById('cf-meta').value)||0;
+  const tiktok=parseFloat(document.getElementById('cf-tiktok').value)||0;
+  const google=parseFloat(document.getElementById('cf-google').value)||0;
+  const days=parseInt(document.getElementById('cf-days').value)||2;
+  const total=(meta+tiktok+google)*days;
+  const camp={
+    ...campFormData,
+    artist,
+    date:document.getElementById('cf-date').value,
+    hora:document.getElementById('cf-hora').value||'20h',
+    cachet:document.getElementById('cf-cachet').value,
+    tipo:document.getElementById('cf-tipo').value,
+    funnel:campFormData.funnel,
+    platforms:[...campFormData.platforms],
+    objetivo:document.getElementById('cf-objetivo').value,
+    cta:document.getElementById('cf-cta').value,
+    meta:{budget:meta>0?`R$${meta}/dia`:'—',days,total:meta>0?`R$${meta*days}`:'—'},
+    tiktok:{budget:tiktok>0?`R$${tiktok}/dia`:'—',days,total:tiktok>0?`R$${tiktok*days}`:'—'},
+    google:{budget:google>0?`R$${google}/dia`:'—',days,total:google>0?`R$${google*days}`:'—'},
+    total:`R$${total.toFixed(0)}`,
+    segmentation:document.getElementById('cf-seg').value,
+    activateAt:document.getElementById('cf-activate').value,
+    pauseAt:document.getElementById('cf-pause').value,
+    headlines:[document.getElementById('cf-h0').value,document.getElementById('cf-h1').value,document.getElementById('cf-h2').value],
+    primary:[document.getElementById('cf-p0').value,document.getElementById('cf-p1').value],
+  };
+  let camps=loadCampaigns();
+  if(campFormEditId){
+    const idx=camps.findIndex(c=>c.id===campFormEditId);
+    if(idx>-1)camps[idx]=camp;else camps.push(camp);
+  } else {
+    camps.push(camp);
+  }
+  saveCampaigns(camps);
+  closeCampForm();
+  renderCamps();
+  showToast(`✓ Campanha "${artist}" salva`);
+}
+
+function closeCampForm() {
+  document.getElementById('campform-overlay').classList.remove('open');
+}
+function closeCampFormOverlay(e) {
+  if(e.target===document.getElementById('campform-overlay'))closeCampForm();
+}
+
+// ═══════════════════════════════════════════════════════
+//  REFRESH MODAL
+// ═══════════════════════════════════════════════════════
+function openRefreshModal() {
+  const btn=document.getElementById('refresh-hdr-btn');
+  btn.classList.add('spinning');
+  setTimeout(()=>btn.classList.remove('spinning'),700);
+  document.getElementById('refresh-overlay').classList.add('open');
+}
+function closeRefreshModal(e) {
+  if(e&&e.target!==document.getElementById('refresh-overlay'))return;
+  document.getElementById('refresh-overlay').classList.remove('open');
+}
+function copyRefreshCmd() {
+  const text=document.getElementById('refresh-cmd').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('refresh-copy-btn');
+    btn.textContent='Copiado!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='Copiar comando';btn.classList.remove('copied');},2000);
+    showToast('Comando copiado — cole no Claude Code');
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+//  AGENT MODALS
+// ═══════════════════════════════════════════════════════
+function openAgentModal(agentId) {
+  const agent=AGENTS[agentId];
+  document.getElementById('modal-icon').textContent=agent.icon;
+  document.getElementById('modal-name').textContent=agent.name;
+  document.getElementById('modal-role').textContent=agent.role;
+  document.getElementById('prompt-text').textContent=agent.prompt;
+  const tasks=[];
+  WEEK.forEach(d=>d.tasks.forEach(t=>{if(t.agent===agentId)tasks.push({day:d.full,label:t.label,done:isTaskDone(t.id)});}));
+  document.getElementById('modal-tasks').innerHTML=tasks.map(t=>`
+    <div class="modal-task">
+      <span class="mt-day">${t.day.split(' ')[0]}</span>
+      <span class="mt-label">${t.label}</span>
+      <span class="mt-status ${t.done?'mt-done':'mt-todo'}">${t.done?'✓ Feito':'A fazer'}</span>
+    </div>`).join('');
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function openDayModal(date) {
+  const day=WEEK.find(d=>d.date===date);
+  if(!day)return;
+  openAgentModal('cris');
+  document.getElementById('prompt-text').textContent=AGENTS.cris.prompt.replace('{dia}',day.full);
+}
+function closeModal(e) {
+  if(e&&e.target!==document.getElementById('modal-overlay'))return;
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+function copyPrompt() {
+  const text=document.getElementById('prompt-text').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('copy-btn');
+    btn.textContent='Copiado!';btn.classList.add('copied');
+    showToast('Prompt copiado! Cole no Claude para acionar o agente.');
+    setTimeout(()=>{btn.textContent='Copiar';btn.classList.remove('copied');},2000);
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+//  STRATEGY CHECKLIST
+// ═══════════════════════════════════════════════════════
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  const checked=[...document.querySelectorAll('#strat-checklist .check-item.checked')].map(c=>c.querySelector('.check-text').textContent);
+  localStorage.setItem('vila-strat-checks', JSON.stringify(checked));
+}
+function loadChecks() {
+  try {
+    const saved=JSON.parse(localStorage.getItem('vila-strat-checks')||'[]');
+    document.querySelectorAll('#strat-checklist .check-item').forEach(el=>{
+      const txt=el.querySelector('.check-text').textContent;
+      if(saved.includes(txt))el.classList.add('checked');
+    });
+  } catch(e){}
+}
+
+// ═══════════════════════════════════════════════════════
+//  TOAST
+// ═══════════════════════════════════════════════════════
+let toastTimer;
+function showToast(msg, isErr) {
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.className='toast'+(isErr?' err':'')+' show';
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ═══════════════════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════════════════
+function show(id, tab) {
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('view-'+id).classList.add('on');
+  tab.classList.add('on');
+  if(id==='agentes')renderAgents();
+  if(id==='pipeline')renderFlow();
+  if(id==='campanhas')renderCamps();
+}
+
+// ═══════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════
+renderWeek();
+updateGlobal();
+loadChecks();
+</script>
+</body>
+</html>

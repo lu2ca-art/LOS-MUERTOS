@@ -1,0 +1,20 @@
+# Sessão de browser (login privado)
+_opensquad/_browser_profile/
+_opensquad/logs/
+_opensquad/_investigations/
+
+# Outputs gerados a cada run (não são código)
+squads/*/output/*
+!squads/*/output/.gitkeep
+
+# Artefatos compilados e estado de runtime
+squads/*/_build/
+squads/*/state.json
+squads/*/squad-party.csv
+
+# Node / Python
+node_modules/
+__pycache__/
+*.pyc
+.env
+.env.local

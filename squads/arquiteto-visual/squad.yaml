@@ -1,0 +1,23 @@
+name: Arquiteto Visual
+code: arquiteto-visual
+description: Squad de produção de conteúdo que transforma o universo criativo de LU2CA em material visual e textual para Instagram e outras plataformas, com foco no ecossistema gamificado lu2ca.art
+language: "Português (Brasil)"
+
+skills:
+  - web_search
+  - web_fetch
+  - image-creator
+  - instagram-publisher
+  - blotato
+
+data:
+  - pipeline/data/lu2ca-universe.md
+  - pipeline/data/tone-of-voice.md
+  - pipeline/data/research-brief.md
+  - pipeline/data/domain-framework.md
+  - pipeline/data/quality-criteria.md
+  - pipeline/data/output-examples.md
+  - pipeline/data/anti-patterns.md
+
+pipeline: pipeline/pipeline.yaml
+memory: _memory/memories.md

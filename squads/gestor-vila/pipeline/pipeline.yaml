@@ -1,0 +1,124 @@
+id: "gestor-vila"
+name: "Gestor Vila Los Muertos de Fome"
+description: "Pipeline de gestão de social media e marketing para a Vila Los Muertos de Fome"
+version: "1.0.0"
+
+steps:
+  - id: step-01
+    name: "Briefing do Dia"
+    file: "pipeline/steps/step-01-briefing-do-dia.md"
+    agent: inline
+    type: data_collection
+    reads:
+      - google_calendar: "Música e Eventos (losmuertosdefome@gmail.com)"
+    writes:
+      - "output/briefing.md"
+
+  - id: step-02
+    name: "Criar Conteúdo"
+    file: "pipeline/steps/step-02-criar-conteudo.md"
+    agent: "cris-criativa"
+    execution: inline
+    type: content_creation
+    reads:
+      - "output/briefing.md"
+      - "pipeline/data/vila-identity.md"
+      - "pipeline/data/tone-of-voice.md"
+      - "pipeline/data/output-examples.md"
+      - "pipeline/data/anti-patterns.md"
+    writes:
+      - "output/conteudo.md"
+
+  - id: step-03
+    name: "Criar Visual"
+    file: "pipeline/steps/step-03-criar-visual.md"
+    agent: "vito-visual"
+    execution: subagent
+    type: visual_creation
+    reads:
+      - "output/conteudo.md"
+      - "pipeline/data/vila-identity.md"
+    writes:
+      - "output/visual-01.jpg"
+      - "output/arte-evento.jpg"
+    depends_on: step-02
+
+  - id: step-04
+    name: "Aprovação de Conteúdo"
+    file: "pipeline/steps/step-04-aprovacao-conteudo.md"
+    agent: inline
+    type: checkpoint
+    reads:
+      - "output/conteudo.md"
+      - "output/visual-01.jpg"
+    depends_on: step-03
+
+  - id: step-05
+    name: "Publicar em Plataformas"
+    file: "pipeline/steps/step-05-publicar-plataformas.md"
+    agent: "paulo-postador"
+    execution: subagent
+    type: distribution
+    reads:
+      - "output/conteudo.md"
+      - "output/visual-01.jpg"
+    writes:
+      - "output/publicacoes.md"
+    depends_on: step-04
+    requires_approval: true
+
+  - id: step-06
+    name: "Criar Campanha de Anúncios"
+    file: "pipeline/steps/step-06-criar-campanha.md"
+    agent: "ana-anuncio"
+    execution: subagent
+    type: paid_media
+    condition: "briefing.tem_evento_pago == true"
+    reads:
+      - "output/conteudo.md"
+      - "output/arte-evento.jpg"
+      - "pipeline/data/research-brief.md"
+    writes:
+      - "output/campanha.md"
+    depends_on: step-05
+
+  - id: step-07
+    name: "Revisão de Qualidade"
+    file: "pipeline/steps/step-07-revisao-qualidade.md"
+    agent: "renata-revisao"
+    execution: inline
+    type: quality_review
+    reads:
+      - "output/conteudo.md"
+      - "output/visual-01.jpg"
+      - "output/publicacoes.md"
+      - "output/campanha.md"
+      - "pipeline/data/quality-criteria.md"
+    writes:
+      - "output/review.md"
+    depends_on: step-05
+    on_reject: step-02
+
+  - id: step-08
+    name: "Relatório de Marketing"
+    file: "pipeline/steps/step-08-relatorio-marketing.md"
+    agent: "rodrigo-resultados"
+    execution: inline
+    type: reporting
+    condition: "dia_da_semana == 'segunda' OR solicitado_explicitamente == true"
+    reads:
+      - "output/publicacoes.md"
+      - "output/campanha.md"
+    writes:
+      - "output/relatorio.md"
+    depends_on: step-07
+
+  - id: step-09
+    name: "Aprovação Final"
+    file: "pipeline/steps/step-09-aprovacao-final.md"
+    agent: inline
+    type: checkpoint
+    reads:
+      - "output/review.md"
+      - "output/relatorio.md"
+    depends_on: step-07
