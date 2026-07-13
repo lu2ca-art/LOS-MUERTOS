@@ -2,14 +2,14 @@
 task: "Publicar em Plataformas"
 order: 1
 input: |
-  - conteudo: output/conteudo.md — copy por slot e por plataforma
-  - visual: output/visual-01.jpg — imagem do feed
+  - conteudo: output/{projeto}/conteudo.md — copy por slot e por plataforma
+  - visual: output/{projeto}/visuais.md — imagem do feed
   - aprovacao: confirmação explícita do usuário no Step 04
 skills:
   - instagram-publisher
   - blotato
 output: |
-  - file: output/publicacoes.md — relatório de publicação com URLs e status por plataforma
+  - file: output/{projeto}/publicacoes.md — relatório de publicação com URLs e status por plataforma
 ---
 
 # Publicar em Plataformas
@@ -34,7 +34,7 @@ Confirmar que o checkpoint Step 04 foi respondido com aprovação. Se não há r
 
 ### 2. Preparar adaptações por plataforma
 
-Do `output/conteudo.md`, adaptar o POST PRINCIPAL para cada plataforma:
+Do `output/{projeto}/conteudo.md`, adaptar o POST PRINCIPAL para cada plataforma:
 
 | Plataforma        | Limite      | Adaptação necessária                        | Skill         |
 |-------------------|-------------|---------------------------------------------|---------------|
@@ -89,7 +89,7 @@ Após cada publicação, reportar resultado antes de continuar para a próxima.
 
 ### 6. Salvar relatório
 
-Salvar `output/publicacoes.md` com todas as URLs e status.
+Salvar `output/{projeto}/publicacoes.md` com todas as URLs e status.
 
 ## Formato de Saída
 
@@ -151,7 +151,7 @@ Salvar `output/publicacoes.md` com todas as URLs e status.
 - [ ] Publicação plataforma por plataforma com reporte
 - [ ] URLs retornadas para todas as publicações bem-sucedidas
 - [ ] Horário respeitado por plataforma
-- [ ] Relatório salvo em output/publicacoes.md
+- [ ] Relatório salvo em output/{projeto}/publicacoes.md
 
 ## Condições de Veto
 

@@ -42,7 +42,7 @@ Paulo verifica o estado de conexão do Meta Business Suite antes de qualquer pub
 ### Comportamento em Estado PENDENTE
 Quando a conta não é `@vilalosmuertosdefome`:
 1. Gerar o **pacote de publicação completo**: copy adaptado por plataforma + arte + metadados
-2. Salvar em `output/YYYY-MM-DD-HHmmss/v1/pacote-publicacao.md`
+2. Salvar em `output/{projeto}/pacote-publicacao.md`
 3. Notificar o usuário claramente:
    ```
    ⚠️ PUBLICAÇÃO PENDENTE — conta Meta não conectada em @vilalosmuertosdefome
@@ -53,7 +53,7 @@ Quando a conta não é `@vilalosmuertosdefome`:
 
 ## Principles
 
-1. **Nunca publicar sem aprovação explícita.** O checkpoint de aprovação no Step 04 é obrigatório. Sem confirmação do usuário, não há publicação.
+1. **Nunca publicar sem aprovação explícita.** O checkpoint final de publicação é sempre obrigatório, em qualquer projeto — mesmo quando o conteúdo foi fornecido manualmente pelo usuário e já passou pela Renata. Sem esse sim/não explícito, não há publicação.
 2. **Nunca publicar pela conta errada.** Sempre `@vilalosmuertosdefome`. Se a conta for outra, entrar em estado PENDENTE.
 3. **Dry-run sempre.** Valida credenciais, formato das imagens e limites de caracteres antes de qualquer publicação real.
 4. **Horário importa.** Instagram: 18h-21h. TikTok: 12h ou 20h. Google Meu Negócio: horário comercial. Publicar no horário certo multiplica o alcance orgânico.
@@ -104,8 +104,8 @@ Quando a conta não é `@vilalosmuertosdefome`:
 
 ## Integration
 
-- **Reads from:** `squads/gestor-vila/output/conteudo.md`, `squads/gestor-vila/output/visual-01.jpg`
-- **Writes to:** `squads/gestor-vila/output/publicacoes.md`
-- **Triggers:** Step 05 do pipeline, após Aprovação de Conteúdo (checkpoint Step 04)
-- **Depends on:** aprovação explícita do usuário no Step 04
+- **Reads from:** `output/{projeto}/conteudo.md`, `output/{projeto}/visuais.md`
+- **Writes to:** `output/{projeto}/publicacoes.md`
+- **Triggers:** por pedido do usuário, quando o projeto inclui publicação — sempre depois do checkpoint final de aprovação manual
+- **Depends on:** aprovação explícita do usuário no checkpoint final (nunca pulado, mesmo com conteúdo manual)
 - **Uses skills:** `instagram-publisher` (Instagram), `blotato` (TikTok, Facebook, Google Meu Negócio)

@@ -23,12 +23,7 @@ Eventos confirmados (Música e Eventos):
 - Stand-up Comedy: Enfermeiro Sincero (09/06)
 - Samba: 13/06, 19/06
 
-### Investimento em Música (cachês confirmados no calendário)
-- Artistas R$200-250: Carlos, Runa (qui)
-- Artistas R$400: Runa (sex), Marcelo
-- Artistas R$600: Dhara, LU2CA
-
-### Custo total músicos (estimativa semanal): R$900-1.800/semana
+> ⚠️ Dados de cachê e custo de artista são informação financeira interna — não pertencem a nenhum arquivo consultado pela agência de marketing. Quem precisa dessa informação é o financeiro, não os agentes de conteúdo/campanha.
 
 ---
 
@@ -37,8 +32,8 @@ Eventos confirmados (Música e Eventos):
 ### Princípio 1: Mostrar a experiência, não vender comida
 O produto já é excelente. O conteúdo deve mostrar o ambiente, a energia do show, o chef Alex na cozinha, as pessoas se divertindo. Isso converte mais do que fotos de prato isoladas.
 
-### Princípio 2: Cada show é uma campanha mini
-Para artistas com cachet ≥ R$400, vale ativar um anúncio de R$30-50 por 24h antes do evento. O retorno (mesa cheia = R$2.000-4.000 em consumo) justifica o investimento.
+### Princípio 2: Campanha é decisão do usuário, nunca gatilho automático
+Nenhuma campanha é disparada por dado frio (cachê, valor de contrato, histórico). Uma campanha só é criada quando o usuário pede explicitamente, pelo motivo que ele der. O orçamento e a segmentação seguem o tipo de evento (tabela de orçamento por tipo), não o cachê do artista.
 
 ### Princípio 3: Copa do Mundo 2026 é a maior janela do ano
 Jogos do Brasil no telão são eventos de alto tráfego local. Campanhas de R$50-80 com segmentação de futebol + raio 10km têm o maior potencial de alcance do calendário.

@@ -1,43 +1,40 @@
 ---
-task: "Criar Anúncio de Evento"
+task: "Criar Copy de Campanha"
 order: 2
 input: |
-  - briefing: output/briefing.md — evento, artista, data, cachet
+  - projeto: output/plano-projeto.md — evento, artista, data (quando aplicável)
   - identity: pipeline/data/vila-identity.md — endereço, público, diferenciais
-  - tone: pipeline/data/tone-of-voice.md — Urgente/FOMO para eventos
+  - tone: pipeline/data/tone-of-voice.md — Urgente/FOMO e Animado/Festivo para eventos
   - examples: pipeline/data/output-examples.md — exemplos de anúncios aprovados
 output: |
-  - append: output/conteudo.md — seção ANÚNCIO DE EVENTO com headline + descrição + CTA
+  - append: output/{projeto}/conteudo.md — seção ANÚNCIO PAGO com headline + descrição + CTA
 ---
 
-# Criar Anúncio de Evento
+# Criar Copy de Campanha
 
 ## Descrição
 
-Quando há evento com artista ≥ R$400, Copa do Mundo ou stand-up, Cris escreve o copy do anúncio pago. O anúncio é passado para Ana Anúncio que monta o briefing de campanha. O copy precisa ser mais direto e urgente que o post orgânico — é para quem ainda não segue a Vila.
+Quando o projeto pede copy de campanha/evento — porque o usuário pediu explicitamente, não por gatilho automático — Cris escreve o copy do anúncio pago. Esse copy é passado para Ana Anúncio, que monta o briefing de campanha. É mais direto e urgente que o post orgânico — é para quem ainda não segue a Vila.
 
-## Gatilho
+## Quando esta task roda
 
-Esta task é executada APENAS quando o briefing indica:
-- Artista com cachet ≥ R$400 (LU2CA, DHARA, artistas especiais)
-- Copa do Mundo (jogos do Brasil: 13/06, 19/06, 24/06)
-- Stand-up comedy (evento específico)
-
-Para shows de artistas com cachet < R$400, usar apenas conteúdo orgânico.
+Esta task roda **apenas quando o plano do projeto (Beto ou pedido direto do usuário) pede copy de campanha**. Não existe gatilho automático baseado em cachê, valor de contrato ou histórico de lotação — essa decisão é sempre do usuário, nunca de um dado frio.
 
 ## Processo
 
 ### 1. Identificar parâmetros do evento
 
-Do `output/briefing.md`, extrair:
-- **Evento:** nome do artista OU "Copa do Mundo — Brasil vs X"
+Do `output/plano-projeto.md` ou do que o usuário forneceu diretamente, extrair:
+- **Evento:** nome do artista OU "Copa do Mundo — Brasil vs X" OU outro evento
 - **Data + Horário:** obrigatório
 - **Diferenciais do evento:** por que esta noite é especial
 - **Público-alvo principal:** fãs de [gênero musical] OU torcida OU fãs de stand-up
 
+Nunca ler ou incluir valor de cachê, custo de artista ou qualquer dado financeiro interno — essa informação não pertence a este processo.
+
 ### 2. Escrever headline (3 variações)
 
-Tom: **Urgente/FOMO**
+Tom: **Urgente/FOMO** ou **Animado/Festivo**, conforme o tipo de evento.
 
 Regras da headline:
 - Máx 40 chars (limite Meta Ads)
@@ -67,15 +64,15 @@ Não substituir o conteúdo orgânico — adicionar seção separada.
 
 ## Formato de Saída
 
-Adicionar ao `output/conteudo.md`:
+Adicionar ao `output/{projeto}/conteudo.md`:
 
 ```markdown
 ---
 
 ## ANÚNCIO PAGO — [EVENTO] — [DATA]
 
-**Gatilho:** [artista ≥ R$400 / Copa / Stand-up]
-**Destinatário:** Ana Anúncio (Step 06)
+**Motivo da campanha:** [pedido do usuário — nunca "gatilho automático"]
+**Destinatário:** Ana Anúncio
 
 ### Headlines (escolher 1)
 1. [headline A — máx 40 chars]
@@ -92,19 +89,18 @@ Adicionar ao `output/conteudo.md`:
 ### Contexto para Ana Anúncio
 - Evento: [nome]
 - Data: [data]
-- Cachet estimado: R$[valor]
 - Público: [público-alvo]
 - Urgência: [horas até o evento no momento de ativar]
 ```
 
 ## Exemplo de Saída
 
-**Contexto:** LU2CA, sábado 23/05, cachet R$600
+**Contexto:** projeto pedido pelo usuário para divulgar o show de LU2CA no sábado 23/05
 
 ```markdown
 ## ANÚNCIO PAGO — LU2CA — sábado 23/05
 
-**Gatilho:** artista ≥ R$400
+**Motivo da campanha:** pedido do usuário
 
 ### Headlines
 1. LU2CA ao vivo na Vila — sábado
@@ -121,7 +117,6 @@ Obter Trajeto
 ### Contexto para Ana Anúncio
 - Evento: LU2CA ao vivo
 - Data: sábado, 23/05, 21h
-- Cachet estimado: R$600
 - Público: fãs de MPB/indie, 25-40 anos, Barueri/Bethaville
 - Urgência: ativar campanha 48h antes (quinta às 21h)
 ```
@@ -133,9 +128,11 @@ Obter Trajeto
 - [ ] CTA físico (Obter Trajeto ou Reservar)
 - [ ] Evento + horário presentes
 - [ ] 3 variações de headline para teste A/B
+- [ ] Nenhum valor de cachê ou dado financeiro interno presente
 
 ## Condições de Veto
 
 - **Headline sem nome do evento/artista** → reescrever
 - **CTA "Saiba Mais" ou "Comprar"** → substituir imediatamente
-- **Anúncio para show com cachet < R$400** → remover, não há gatilho
+- **Qualquer valor de cachê, custo de artista ou dado financeiro interno** → VETO absoluto — remover
+- **Copy gerada sem pedido explícito do usuário/plano do projeto** → bloqueio, essa task não roda sozinha

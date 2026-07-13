@@ -2,13 +2,14 @@
 task: "Criar Conteúdo Diário"
 order: 1
 input: |
-  - briefing: output/briefing.md — categoria do post, stories, tipo de dia, entretenimento
+  - projeto: output/plano-projeto.md (plano do Beto) OU descrição direta do usuário — categoria do post, stories, entretenimento do dia
   - identity: pipeline/data/vila-identity.md — restaurante, chef, cardápio, identidade
   - tone: pipeline/data/tone-of-voice.md — 6 tons, frequência, regras universais
   - examples: pipeline/data/output-examples.md — modelos de copy aprovados
   - anti_patterns: pipeline/data/anti-patterns.md — erros a evitar
+  - direcao_semanal: pipeline/data/direcao-semanal-atual.md — quando existir
 output: |
-  - file: output/conteudo.md — copy de cada slot do dia
+  - file: output/{projeto}/conteudo.md — copy de cada slot do dia
 ---
 
 # Criar Conteúdo Diário
@@ -39,7 +40,7 @@ O calendário define uma categoria para cada dia da semana. Esses são os pilare
 
 ### 1. Identificar o contexto do dia
 
-Ler `output/briefing.md` e extrair:
+Ler `output/plano-projeto.md` (se veio do Beto) ou a descrição direta do usuário, e extrair:
 - **Categoria do post principal:** qual é o tema do feed hoje?
 - **Stories do dia:** quais categorias de story estão agendadas?
 - **Tipo de dia:** copa / standup / samba / show / domingo / normal

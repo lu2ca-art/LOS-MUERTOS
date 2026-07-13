@@ -2,40 +2,43 @@
 task: "Relatório de Marketing Semanal"
 order: 1
 input: |
-  - publicacoes: output/publicacoes.md — posts da semana anterior com URLs
-  - campanha: output/campanha.md — campanhas pagas da semana (se houver)
-  - metricas: informadas pelo usuário ou via analytics das plataformas
+  - publicacoes: output/{projeto}/publicacoes.md — posts do período com URLs
+  - campanha: output/{projeto}/campanha.md — campanhas pagas do período (se houver)
+  - metricas: via skill meta-business (quando configurada) ou informadas manualmente pelo usuário
 output: |
-  - file: output/relatorio.md — relatório semanal de performance de marketing
+  - file: output/{projeto}/relatorio.md — relatório de performance de marketing
 ---
 
-# Relatório de Marketing Semanal
+# Relatório de Marketing
 
 ## Descrição
 
-Rodrigo analisa a performance de tudo que foi publicado e impulsionado na semana anterior — orgânico e pago — e entrega direção para a próxima semana com recomendações específicas por agente.
+Rodrigo analisa a performance de tudo que foi publicado e impulsionado no período — orgânico e pago — e entrega direção com recomendações específicas por agente. Roda **apenas quando o usuário pede um projeto de relatório** — não existe execução automática por dia da semana.
 
-## Gatilho
+## Fonte de dados — Meta Business (placeholder)
 
-Esta task é executada **apenas às segundas-feiras** ou quando explicitamente solicitada. Em outros dias, não roda automaticamente.
+Rodrigo usa a skill `meta-business` para puxar métricas reais automaticamente. **Enquanto essa skill não estiver configurada** (depende de credenciais que o usuário vai fornecer):
+- Rodrigo avisa: "Integração Meta Business ainda não configurada — informe os dados manualmente ou configure a skill para puxar automaticamente."
+- Segue com dados fornecidos manualmente pelo usuário como alternativa temporária, registrando claramente quais números vieram de qual fonte.
+- Assim que a skill estiver configurada, passa a puxar os dados automaticamente sem mudança de processo.
 
 ## Processo
 
-### 1. Levantar publicações da semana anterior
+### 1. Levantar publicações do período
 
-De `output/publicacoes.md`, listar todos os posts publicados com:
+De `output/{projeto}/publicacoes.md`, listar todos os posts publicados com:
 - Plataforma
 - Tipo de conteúdo (show, gastronomia, bastidor, Copa, etc.)
 - Data e horário de publicação
 - URL
 
-Se as métricas estão disponíveis (via analytics das plataformas ou informadas pelo usuário), registrar para cada post:
+Registrar para cada post (via skill `meta-business` quando configurada, ou manualmente):
 - **Alcance:** pessoas únicas que viram
 - **Impressões:** visualizações totais
 - **Engajamento:** curtidas + comentários + compartilhamentos + salvamentos
 - **Taxa de engajamento:** engajamento / alcance × 100
 
-Se métricas não estão disponíveis, registrar como "dado não coletado" e indicar onde coletar (Instagram Insights, Meta Business Suite, TikTok Analytics).
+Se métricas não estão disponíveis por nenhuma das duas vias, registrar como "dado não coletado" e indicar onde coletar (Instagram Insights, Meta Business Suite, TikTok Analytics).
 
 ### 2. Analisar performance de stories separadamente
 
@@ -93,9 +96,9 @@ Exemplo: "Taxa de engajamento de stories com enquete foi 2× maior que stories i
 
 ### 7. Projeção / alertas para próxima semana
 
-- Quais eventos da próxima semana têm maior potencial de alcance
-- Recomendar quando ativar campanha para cada evento qualificado (≥ R$400 cachet ou Copa)
-- Copa do Mundo: jogos do Brasil em 13/06, 19/06, 24/06 — se próximo, emitir **ALERTA DE OPORTUNIDADE**
+- Quais eventos do próximo período têm maior potencial de alcance
+- Sinalizar oportunidades para o usuário decidir se quer pedir uma campanha — nunca recomendar ativação automática por cachê ou valor
+- Copa do Mundo ou outro evento de alto potencial — se próximo, emitir **ALERTA DE OPORTUNIDADE**
 
 ## Formato de Saída
 

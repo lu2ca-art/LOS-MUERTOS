@@ -2,21 +2,17 @@
 task: "Revisão de Qualidade"
 order: 1
 input: |
-  - conteudo: output/conteudo.md — copy de Cris Criativa
-  - visual: output/visual-01.jpg — arte de Vito Visual
-  - arte_evento: output/arte-evento.jpg — (se existir) arte de evento de Vito Visual
-  - publicacoes: output/publicacoes.md — relatório de publicação de Paulo Postador
-  - campanha: output/campanha.md — (se existir) briefing de Ana Anúncio
+  - outputs: todo output gerado no projeto (o que existir): conteudo.md, visuais.md, arte-evento.jpg, roteiro-video.md, orientacao-edicao.md, publicacoes.md, campanha.md, relatorio.md, analise-concorrencia.md, plano-campanha-mensal.md, direcao-semanal.md
   - criteria: pipeline/data/quality-criteria.md — critérios objetivos de avaliação
 output: |
-  - file: output/review.md — tabela de vereditos com notas e briefings de correção
+  - file: output/{projeto}/review.md — tabela de vereditos com notas e briefings de correção
 ---
 
 # Revisão de Qualidade
 
 ## Descrição
 
-Renata emite veredito formal para cada peça da sessão: APROVADO / CONDICIONAL / REJEITADO, com nota 1-10 e raciocínio baseado nos critérios da Vila. Hard caps são verificados primeiro. CONDICIONAL aceita máx 2 correções. Mais de 2 problemas = REJEITADO. A sessão só encerra como APROVADA quando todas as peças estão ≥ 7/10.
+Renata emite veredito formal para **todo output do projeto** — não só conteúdo de marca (copy, visual, vídeo, anúncio), mas também documentos internos (relatório, análise de concorrência, plano estratégico, direção editorial). APROVADO / CONDICIONAL / REJEITADO, com nota 1-10 e raciocínio baseado nos critérios da Vila. Hard caps são verificados primeiro. CONDICIONAL aceita máx 2 correções. Mais de 2 problemas = REJEITADO. A sessão só encerra como APROVADA quando todas as peças estão ≥ 7/10. Renata roda sempre, em qualquer tipo de projeto — não é opcional mesmo quando o projeto não termina em publicação.
 
 ## Processo
 
@@ -29,9 +25,22 @@ Do `pipeline/data/quality-criteria.md`:
 | H1  | Marketing language ("confira", "venha nos visitar", "link na bio", "temos o melhor") | REJEITADO automático |
 | H2  | Post de show sem artista + horário + dia                         | REJEITADO automático |
 | H3  | CTA digital em evento presencial ("clique aqui", "acesse")      | REJEITADO automático |
-| H4  | Publicação sem aprovação do usuário (verificar publicacoes.md)  | REJEITADO automático |
+| H4  | Publicação sem aprovação do usuário (verificar publicacoes.md, quando existir) | REJEITADO automático |
+| H5  | Qualquer valor de cachê, custo de artista ou dado financeiro interno presente em qualquer output (incluindo relatório, análise de concorrência, plano estratégico) | REJEITADO automático |
+| H6  | Campanha ou decisão justificada por cachê/valor/histórico automático em vez de pedido explícito do usuário | REJEITADO automático |
 
 Se qualquer hard cap for violado, emitir REJEITADO imediatamente para a peça afetada — sem nota numérica — e incluir briefing de correção.
+
+### 1b. Critérios para documentos internos (relatório, análise de concorrência, plano estratégico, direção editorial)
+
+Quando o projeto produz esse tipo de output, avaliar também:
+
+| Critério | O que avaliar | Peso |
+|----------|----------------|------|
+| D1 Fonte e data | Toda observação/dado tem origem identificável | Alto |
+| D2 Sem estimativa inventada | Nenhuma métrica ou performance apresentada sem base real | Alto |
+| D3 Recomendação justificada | Nenhuma recomendação sem motivo concreto | Médio |
+| D4 KPI mensurável (planos estratégicos) | Objetivos têm métrica numérica, não vagos | Alto |
 
 ### 2. Avaliar critérios soft (peças sem hard cap violado)
 
@@ -72,7 +81,7 @@ Uma linha por peça. Para CONDICIONAL e REJEITADO, incluir briefing de correçã
 
 - **APROVADA:** indicar que sessão está completa
 - **CONDICIONAL:** briefing de correção para cada agente responsável
-- **REJEITADA:** briefing de retrabalho para o Step 02 (Cris Criativa) com direção clara
+- **REJEITADA:** briefing de retrabalho para o agente que produziu a peça rejeitada — não um step fixo, já que projetos diferentes envolvem agentes diferentes
 
 ## Formato de Saída
 
@@ -92,6 +101,8 @@ Uma linha por peça. Para CONDICIONAL e REJEITADO, incluir briefing de correçã
 | H2  | Posts de show com artista + horário | ✅ / ❌ |
 | H3  | CTAs físicos                        | ✅ / ❌ |
 | H4  | Publicação com aprovação            | ✅ / ❌ |
+| H5  | Nenhum dado financeiro interno (cachê) exposto | ✅ / ❌ |
+| H6  | Nenhuma decisão por gatilho automático | ✅ / ❌ |
 
 ---
 

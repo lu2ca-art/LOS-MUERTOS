@@ -1,12 +1,13 @@
 ---
 task: "Criar Arte de Evento"
-order: 2
+order: 3
 input: |
-  - conteudo: output/conteudo.md — seção ANÚNCIO PAGO com evento e dados
+  - conteudo: output/{projeto}/conteudo.md — seção ANÚNCIO PAGO com evento e dados
+  - conceito: output/{projeto}/conceito-visual.md — conceito aprovado, seção ANÚNCIO PAGO
   - identity: pipeline/data/vila-identity.md — design system, paleta
 skill: image-creator
 output: |
-  - file: output/arte-evento.jpg — arte 1080×1080px para anúncio pago (formato quadrado Meta Ads)
+  - file: output/{projeto}/arte-evento.jpg — arte 1080×1080px para anúncio pago (formato quadrado Meta Ads)
 ---
 
 # Criar Arte de Evento
@@ -17,7 +18,7 @@ Arte específica para anúncio pago. Formato quadrado 1080×1080px (padrão Meta
 
 ## Gatilho
 
-Esta task roda APENAS quando `output/conteudo.md` contém seção `## ANÚNCIO PAGO`. Sem essa seção, não há arte de evento.
+Esta task roda apenas quando `output/{projeto}/conteudo.md` contém seção `## ANÚNCIO PAGO` **e** o conceito correspondente já foi aprovado pelo usuário em `conceito-visual.md`. Sem essas duas condições, não há arte de evento.
 
 ## Processo
 

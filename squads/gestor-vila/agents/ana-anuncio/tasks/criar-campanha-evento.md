@@ -2,11 +2,11 @@
 task: "Criar Campanha de Evento"
 order: 1
 input: |
-  - conteudo: output/conteudo.md — seção ANÚNCIO PAGO com headlines e contexto
-  - arte: output/arte-evento.jpg — visual 1080×1080px aprovado
+  - conteudo: output/{projeto}/conteudo.md — seção ANÚNCIO PAGO com headlines e contexto
+  - arte: output/{projeto}/arte-evento.jpg — visual 1080×1080px aprovado
   - research: pipeline/data/research-brief.md — contexto restaurante e público
 output: |
-  - file: output/campanha.md — briefing completo de campanha Meta Ads + TikTok Ads
+  - file: output/{projeto}/campanha.md — briefing completo de campanha Meta Ads + TikTok Ads
 ---
 
 # Criar Campanha de Evento
@@ -17,13 +17,13 @@ Ana monta o briefing completo de campanha para Meta Ads (Instagram + Facebook) e
 
 ## Gatilho
 
-Esta task roda APENAS quando `output/conteudo.md` contém seção `## ANÚNCIO PAGO`. Sem essa seção, não há campanha.
+Esta task roda APENAS quando `output/{projeto}/conteudo.md` contém seção `## ANÚNCIO PAGO`. Sem essa seção, não há campanha.
 
 ## Processo
 
 ### 1. Identificar parâmetros do evento
 
-Do `output/conteudo.md`, seção ANÚNCIO PAGO:
+Do `output/{projeto}/conteudo.md`, seção ANÚNCIO PAGO:
 - Evento âncora + data + horário
 - Tipo de campanha (show ao vivo / Copa / stand-up / data comemorativa)
 - Público-alvo indicado por Cris Criativa
@@ -88,7 +88,7 @@ Dois briefings separados: Meta Ads e TikTok Ads.
 - Objetivo: Alcance ou Consideração local
 - Posicionamento: Instagram Feed + Instagram Stories + Facebook Feed
 - CTA: Obter Trajeto (preferencial) ou Reservar
-- Visual: `output/arte-evento.jpg`
+- Visual: `output/{projeto}/arte-evento.jpg`
 - Headlines: 3 variações (A/B/C testing)
 
 **TikTok Ads:**
@@ -116,7 +116,7 @@ Dois briefings separados: Meta Ads e TikTok Ads.
 ### Configuração Geral
 - **Objetivo:** Alcance / Consideração local
 - **Conta:** Vila Los Muertos de Fome
-- **Visual:** output/arte-evento.jpg (1080×1080px)
+- **Visual:** output/{projeto}/arte-evento.jpg (1080×1080px)
 
 ### Segmentação
 - **Geolocalização:** Raio [X]km de Barueri, SP (Rua Caldas Novas 49)

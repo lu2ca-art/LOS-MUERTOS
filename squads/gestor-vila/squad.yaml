@@ -1,6 +1,6 @@
 name: Gestor Vila
 code: gestor-vila
-description: "Motor de social media e marketing para a Vila Los Muertos de Fome — do calendário editorial ao anúncio pago, 7 dias por semana"
+description: "Agência de marketing sob demanda da Vila Los Muertos de Fome — briefing, curadoria, copy, visual, vídeo, tráfego pago, estratégia e análise de concorrência, por projeto, sem automação de calendário"
 icon: "🌮"
 
 skills:
@@ -9,15 +9,20 @@ skills:
   - image-creator
   - instagram-publisher
   - blotato
+  - canva
+  - apify
+  - meta-business
+  - video-analysis
 
 data:
   - pipeline/data/research-brief.md
-  - pipeline/data/domain-framework.md
   - pipeline/data/quality-criteria.md
   - pipeline/data/output-examples.md
   - pipeline/data/anti-patterns.md
   - pipeline/data/tone-of-voice.md
   - pipeline/data/vila-identity.md
+  - pipeline/data/direcao-semanal-atual.md
+  - pipeline/data/plano-campanha-mensal-atual.md
 
 pipeline: pipeline/pipeline.yaml
 memory: _memory/memories.md

@@ -1,159 +1,109 @@
-# Gestor Vila — Resumo do Sistema
+# Gestor Vila — Resumo do Sistema (v2)
 
 ## O que é
 
-Sistema de gestão de social media e marketing para o **Vila Los Muertos de Fome**, restaurante Tex Mex BR em Bethaville, Barueri, SP. Rua Caldas Novas 49. Chef Alex Coelho. Aberto 7 dias. Música ao vivo qui-sáb 20h. Stand-up comedy, Copa 2026.
+Sistema de gestão de social media e marketing para o **Vila Los Muertos de Fome**, restaurante Tex Mex BR em Bethaville, Barueri, SP. Rua Caldas Novas 49. Chef Alex Coelho. Aberto 7 dias. Música ao vivo qui-sáb 20h. Stand-up comedy, samba, Copa do Mundo.
 
-Construído no **Opensquad**, um framework de orquestração de agentes de IA. Cada agente tem uma persona, tasks e regras próprias. O pipeline executa os agentes em sequência.
+Construído no **Opensquad**, um framework de orquestração de agentes de IA. Reescrito de ponta a ponta em julho/2026: saiu o modelo de cadência automática (rodava sozinho por dia da semana), entrou um modelo **por projeto, sob demanda** — nada roda sem comando explícito do usuário.
 
 ---
 
-## Hierarquia de Conteúdo (regra mais importante)
+## Princípio Central
 
-O **Google Agenda principal** (`losmuertosdefome@gmail.com`) é a fonte primária — define o conteúdo de cada dia. O calendário **Música e Eventos** é fonte secundária — fornece nome do artista e horário apenas.
+**Você inicia tudo.** Não existe execução automática por data, calendário ou dado frio (cachê, valor de contrato, histórico). Um projeto só nasce quando você diz o que quer — em texto livre ("projeto story almoço, iniciar pipe") ou nomeando um agente direto ("Cris, escreve uma copy pra isso aqui").
+
+- **Pedido amplo/ambíguo** → passa pelo **Beto Briefing**, que traduz em um plano de quais especialistas entram, confirma com você antes de despachar.
+- **Pedido específico** → vai direto ao agente certo, sem essa triagem.
+
+Em ambos os casos, três garantias valem sempre:
+1. **Contexto compartilhado é automático** — identidade da marca, hard caps, direção editorial mais recente (Lia), plano mensal em vigor (Estela), achados de concorrência (Íris).
+2. **Renata Revisão roda sempre**, em qualquer tipo de output — conteúdo de marca ou documento interno.
+3. **Nunca publica sem seu sim/não explícito**, mesmo com conteúdo fornecido manualmente.
+
+---
+
+## Hierarquia de Conteúdo (regra mais importante, inalterada)
 
 O restaurante, a comida e a experiência são **sempre o protagonista**. Shows são um pilar de entretenimento, nunca o foco principal.
 
-**NUNCA** expor cachê, custo de artista, valor de contrato em nenhum conteúdo ou campanha.
+**NUNCA** expor cachê, custo de artista, valor de contrato em nenhum output — nem em documentos internos (relatório, análise de concorrência, plano estratégico). Essa informação é do financeiro, não da agência de marketing. E **nenhuma campanha nasce de cachê ou dado frio** — só de pedido explícito seu.
 
 ---
 
-## Pilares de Conteúdo por Dia
+## Agentes (12)
 
-| Dia | POST PRINCIPAL |
-|-----|----------------|
-| Segunda | Agenda da Semana |
-| Terça | Rodízio v1 — cardápio, abundância |
-| Quarta | Domínio Territorial — Vila como referência de Bethaville |
-| Quinta | Rodízio v2 — experiência, preparo do Chef Alex |
-| Sexta | Experiência Cultural — happy hour, clima, entretenimento |
-| Sábado | Família — acolhimento, refeição compartilhada |
-| Domingo | Aniversário — celebração, comunidade |
+| Agente | Função | Execução | Entra em ação quando |
+|--------|--------|----------|----------------------|
+| **Beto Briefing** | Recepção/triagem | inline | pedido amplo/ambíguo |
+| **Cris Criativa** | Copywriter única — orgânico e campanha | inline | plano inclui copy |
+| **Vito Visual** | Designer — conceito + arte final | subagent | plano inclui visual |
+| **Duda Direção** | Vídeo — pré e pós-produção | subagent | plano inclui vídeo |
+| **Paulo Postador** | Publicação multiplataforma | subagent | plano inclui publicação |
+| **Ana Anúncio** | Briefing tático de campanha paga | subagent | plano inclui tráfego pago |
+| **Renata Revisão** | QA — hard caps e qualidade | inline | sempre |
+| **Rodrigo Resultados** | Relatório de métricas | inline | projeto de relatório |
+| **Lia Linha** | Curadoria — pra frente e pra trás | inline | projeto de curadoria |
+| **Estela Estratégia** | Planejamento de campanha mensal | inline | projeto de planejamento mensal |
+| **Íris Investigação** | Análise de concorrência recorrente | subagent | projeto de análise de concorrência |
 
----
-
-## Agentes
-
-| Agente | Função |
-|--------|--------|
-| **Cris Criativa** | Copywriter — escreve todo o conteúdo orgânico (post feed + stories) |
-| **Vito Visual** | Designer — cria artes para post, stories e anúncios |
-| **Paulo Postador** | Publica nas plataformas (Instagram, TikTok, Facebook, iFood, Google Meu Negócio) |
-| **Ana Anúncio** | Tráfego pago — briefing de campanhas Meta Ads + TikTok Ads |
-| **Renata Revisão** | QA — verifica hard caps antes de publicar |
-| **Rodrigo Resultados** | Relatórios de marketing — métricas, insights, ROI |
+Sem "editor estático" separado — Vito já cobre 100% da arte estática.
 
 ---
 
-## Pipeline (9 steps)
+## Pipeline (19 passos possíveis, todos condicionais)
+
+Nenhum passo roda por data. Cada um é avaliado sobre o plano do projeto (do Beto, ou implícito no pedido direto):
 
 ```
-Step 01 — Briefing do Dia     → lê Google Agenda, monta briefing
-Step 02 — Criar Conteúdo      → Cris escreve copy de todos os slots
-Step 03 — Criar Visual        → Vito cria as artes
-Step 04 — Aprovação           → checkpoint com o usuário
-Step 05 — Publicar            → Paulo publica nas plataformas
-Step 06 — Criar Campanha      → Ana monta briefing de ads (condicional)
-Step 07 — Revisão de Qualidade → Renata verifica hard caps
-Step 08 — Relatório           → Rodrigo registra métricas
-Step 09 — Aprovação Final     → checkpoint de encerramento
+01 Abertura do Projeto (checkpoint) → 02 Triagem [se amplo] → 03 Confirmação do Time (checkpoint)
+→ 04 Criar Conteúdo [se copy] → 05 Propor Conceito Visual [se visual] → 06 Checkpoint de Conceito
+→ 07 Gerar Arte Final [se aprovado] → 08 Roteirizar Vídeo Pré-Produção [se vídeo a filmar]
+→ 09 Checkpoint de Conceito de Vídeo → 10 Orientar Edição Pós-Produção [se vídeo já filmado]
+→ 11 Criar Campanha [se tráfego pago] → 12 Revisão de Qualidade [sempre]
+→ 13 Checkpoint Final de Publicação [se publicação, inegociável] → 14 Publicar [se aprovado]
+→ 15 Relatório [se projeto de relatório] → 16 Curadoria [se projeto de curadoria]
+→ 17 Planejamento Mensal [se projeto de planejamento] → 18 Checkpoint de Escopo de Concorrência
+→ 19 Análise de Concorrência [se projeto de concorrência]
 ```
 
----
-
-## Slots de Conteúdo Diário
-
-Produzidos pelo Cris Criativa toda vez que o pipeline roda:
-
-1. **POST PRINCIPAL** — feed Instagram + Facebook. Segue o pilar do dia. Show mencionado em no máximo uma linha, nunca como tema central.
-2. **STORY 1** — engajamento 15s com pergunta interativa (enquete, slider, caixa).
-3. **STORY 2** — informação 15s com detalhe concreto + CTA físico.
-4. **STORY CHEF ALEX** — bastidor de cozinha 30s. Tom pessoal, sem CTA comercial. Recorrente todo dia.
-5. **STORY SHOW** *(condicional — só quando há entretenimento)* — artista + horário + experiência. Nunca cachê.
-6. **ANÚNCIO PAGO** *(condicional — só quando briefing.campanha_paga == SIM)* — dados para Ana Anúncio.
+Detalhe completo em `squads/gestor-vila/pipeline/pipeline.yaml` e nos 19 arquivos em `pipeline/steps/`.
 
 ---
 
-## Hard Caps (regras invioláveis do copy)
+## Tipos de Projeto
 
-- **H1** — Zero marketing language: "confira", "venha nos visitar", "link na bio", "o melhor de Barueri" → reescrever
-- **H2** — Todo story de show deve ter artista + horário + dia
-- **H3** — CTA físico apenas: "vem", "reserva", "aparece", "chega" — nunca "clique", "acesse"
-- **H4** — Nenhum valor financeiro interno: cachê, custo do artista, preço de contrato → VETO absoluto
-
----
-
-## Tom de Voz (6 tons)
-
-| Tom | Quando usar |
-|-----|-------------|
-| Acolhedor/Familiar | Domingo, família, feijoada |
-| Animado/Festivo | Shows, stand-up, Copa, Samba |
-| Gastronômico/Sensorial | Pratos, cardápio, Chef Alex |
-| Cultural/Identitário | Identidade Tex Mex BR, Día de los Muertos |
-| Comunitário/Local | Bethaville, Barueri, pertencimento |
-| Urgente/FOMO | Copa, eventos esgotando, última hora |
-
-Regras universais: sempre minúsculo (exceto nome próprio/artista), sem hashtags excessivos, máximo 2 emojis por post.
+| Tipo | Exemplo de pedido |
+|------|--------------------|
+| Conteúdo do dia | "projeto story almoço" |
+| Copy avulsa | "Cris, preciso de uma copy pra isso aqui" |
+| Campanha de evento | "projeto: divulgar o show de sábado" |
+| Só tráfego pago | "projeto: campanha de tráfego pro fim de semana" |
+| Relatório | "projeto: relatório da semana" |
+| Curadoria | "projeto: planejar a semana" |
+| Planejamento mensal | "projeto: planejamento de julho" |
+| Análise de concorrência | "projeto: análise de concorrência" |
 
 ---
 
-## Campanhas Pagas (Ana Anúncio)
+## Placeholders de API (aguardando configuração)
 
-Ativadas quando há: show com artista nomeado, Jogo do Brasil (Copa), Stand-up Comedy.
+Dois pontos do sistema têm a estrutura pronta mas dependem de credenciais que o usuário ainda não forneceu:
 
-**Orçamento por tipo de evento** (não por cachê):
+- **`skills/meta-business/`** — Rodrigo Resultados usaria isso pra puxar métricas reais do Meta Business automaticamente. Até configurar, ele pede os dados manualmente.
+- **`skills/video-analysis/`** — Duda Direção usaria isso pra assistir vídeo bruto na pós-produção. Até configurar, essa parte fica bloqueada com aviso claro (a pré-produção funciona normalmente sem depender disso).
 
-| Tipo | Meta Ads/dia | TikTok/dia | Duração |
-|------|-------------|------------|---------|
-| Show padrão | R$40 | R$25 | 2 dias |
-| Show destaque | R$50 | R$30 | 2 dias |
-| Copa do Mundo | R$60–80 | R$40 | 3 dias |
-| Stand-up | R$35 | R$20 | 2 dias |
-| Samba | R$30 | R$15 | 1-2 dias |
-
-Geolocalização: raio 12km de Barueri (obrigatório). CTA padrão: Obter Trajeto.
+Nenhum dos dois placeholders quebra o resto do sistema.
 
 ---
 
-## Google Agenda — Estrutura Real
+## Organização de Output
 
-O calendário principal tem ~250 eventos mapeados para mai-jun 2026. Cada dia tem:
-- `[POST PRINCIPAL]` — categoria do post do feed
-- `[STORY]` + `[STORY] Chef Alex Coelho` — stories do dia
-- Datas comemorativas com relevância gastronômica
-- Ações offline (feiras, panfletagem) — informativas, não entram no conteúdo digital
+`output/{projeto}/{run_id}/` — organizado por nome do projeto, não só por timestamp, pra facilitar achar tudo de um projeto depois.
 
-Calendário secundário: `8aae14c6f254952e7d792048ac23a573ce8e6b90fa32508f7ad832c49b335614@group.calendar.google.com`
-Ler apenas: nome do artista + horário. Ignorar valores monetários nos títulos dos eventos.
-
----
-
-## Brand Kit Canva
-
-Brand Kit ID: `kAHGNC-y7zM` ("LOS MUERTOS") — obrigatório em toda geração de arte.
-
-Assets:
-- Logo com mascotes: `MAHGNLbQWgA`
-- Logo texto: `MAHGNFlIHeA`
-- Mascote cachorro: `MAHGNAoapdI`
-- Mascote gato: `MAHGNL0Ig4Y`
-- Post referência: `DAHGRk_auLQ`
-
-Nunca usar brand kit "Perna de Porco + Texano".
-
----
-
-## Dashboard (`pipeline-visual.html`)
-
-Arquivo HTML interativo com 4 abas:
-- **Semana** — visualização da semana com progresso de cada dia
-- **Agentes** — cards com status de cada agente
-- **Pipeline** — barra de progresso dos 9 steps
-- **Campanhas** — gerenciador de campanhas pagas com CRUD completo
-
-Campanhas salvas em `localStorage` (chave: `vila-campaigns`).
-Botão "Refresh" no header: gera comando para sincronizar dados do Google Agenda no dashboard.
+Dados persistentes (fora de `output/`, nunca versionados por run):
+- `pipeline/data/direcao-semanal-atual.md` — última curadoria da Lia
+- `pipeline/data/plano-campanha-mensal-atual.md` — último plano da Estela
+- `_investigations/concorrentes/` — histórico acumulado de monitoramento da Íris
 
 ---
 
@@ -161,37 +111,36 @@ Botão "Refresh" no header: gera comando para sincronizar dados do Google Agenda
 
 ```
 squads/gestor-vila/
-├── pipeline-visual.html          ← dashboard interativo
+├── pipeline-visual.html          ← dashboard (roster de agentes, fluxo do pipeline, tipos de projeto)
 ├── squad.yaml                    ← configuração do squad
 ├── agents/
-│   ├── cris-criativa.agent.md
-│   ├── cris-criativa/tasks/criar-conteudo-diario.md
-│   ├── ana-anuncio.agent.md
-│   ├── ana-anuncio/tasks/criar-campanha-evento.md
-│   ├── vito-visual.agent.md
-│   ├── paulo-postador.agent.md
-│   ├── renata-revisao.agent.md
-│   └── rodrigo-resultados.agent.md
+│   ├── beto-briefing.agent.md + tasks/
+│   ├── cris-criativa.agent.md + tasks/
+│   ├── vito-visual.agent.md + tasks/ (conceito + arte final + arte de evento)
+│   ├── duda-direcao.agent.md + tasks/ (pré-produção + pós-produção)
+│   ├── paulo-postador.agent.md + tasks/
+│   ├── ana-anuncio.agent.md + tasks/
+│   ├── renata-revisao.agent.md + tasks/
+│   ├── rodrigo-resultados.agent.md + tasks/
+│   ├── lia-linha.agent.md + tasks/
+│   ├── estela-estrategia.agent.md + tasks/
+│   └── iris-investigacao.agent.md + tasks/
 ├── pipeline/
-│   ├── steps/step-01 ao step-09
+│   ├── pipeline.yaml              ← 19 steps condicionais
+│   ├── steps/step-01 a step-19
 │   └── data/
-│       ├── vila-identity.md      ← identidade do restaurante
-│       ├── tone-of-voice.md      ← 6 tons, frequência, regras
-│       ├── output-examples.md    ← modelos de copy aprovados
-│       └── anti-patterns.md      ← erros a evitar
+│       ├── vila-identity.md, tone-of-voice.md, output-examples.md, anti-patterns.md
+│       ├── research-brief.md, quality-criteria.md
+│       ├── direcao-semanal-atual.md, plano-campanha-mensal-atual.md (persistentes)
+├── _investigations/concorrentes/  ← histórico da Íris
 └── output/
-    └── YYYY-MM-DD-HHmmss/v1/
-        ├── briefing.md
-        ├── conteudo.md
-        └── campanha.md
+    └── {projeto}/{run_id}/v1/
 ```
 
 ---
 
 ## O que ainda pode melhorar
 
-- **Dashboard WEEK** — a constante `WEEK` no HTML ainda não reflete o calendário real com a hierarquia corrigida (comida primeiro, shows como contexto)
-- **Copa do Mundo** — jogos do Brasil em 13, 19 e 24/jun precisam de tratamento especial no pipeline (prioridade máxima, dobra orçamento de campanha)
-- **Vito Visual** — as tasks de criação de arte ainda não têm diretrizes visuais detalhadas por tipo de slot (story 15s vs. post feed vs. story show)
-- **Output atual** (`output/2026-05-20-184155/`) — ainda foi gerado com a hierarquia errada (cachê visível, show como foco). Precisaria de um novo run para gerar output correto.
-- **Integração real com plataformas** — Paulo Postador ainda não tem sessão autenticada para publicar automaticamente
+- **Skills de API pendentes** — Meta Business e análise de vídeo precisam das credenciais do usuário pra sair do modo placeholder.
+- **Nunca rodou de verdade** — todo o sistema foi reescrito nesta sessão; falta uma primeira execução real ponta a ponta pra validar o fluxo condicional na prática.
+- **Publicação real** — Paulo Postador ainda não tem sessão autenticada nas plataformas (sem `.mcp.json`/credenciais no repo).

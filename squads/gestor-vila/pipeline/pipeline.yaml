@@ -1,124 +1,232 @@
 id: "gestor-vila"
-name: "Gestor Vila Los Muertos de Fome"
-description: "Pipeline de gestão de social media e marketing para a Vila Los Muertos de Fome"
-version: "1.0.0"
+name: "Gestor Vila — Agência sob Demanda"
+description: "Pipeline por projeto da Vila Los Muertos de Fome — sem cadência automática. Todo passo depende de comando explícito do usuário; passos condicionais são avaliados sobre o plano do projeto (definido pelo Beto ou pelo pedido direto do usuário), nunca sobre data/calendário."
+version: "2.0.0"
 
 steps:
   - id: step-01
-    name: "Briefing do Dia"
-    file: "pipeline/steps/step-01-briefing-do-dia.md"
+    name: "Abertura do Projeto"
+    file: "pipeline/steps/step-01-abertura-projeto.md"
     agent: inline
-    type: data_collection
-    reads:
-      - google_calendar: "Música e Eventos (losmuertosdefome@gmail.com)"
+    type: checkpoint
     writes:
-      - "output/briefing.md"
+      - "output/plano-projeto.md"
 
   - id: step-02
-    name: "Criar Conteúdo"
-    file: "pipeline/steps/step-02-criar-conteudo.md"
-    agent: "cris-criativa"
+    name: "Triagem"
+    file: "pipeline/steps/step-02-triagem.md"
+    agent: "beto-briefing"
     execution: inline
-    type: content_creation
+    type: agent
+    condition: "pedido_amplo_ou_ambiguo == true"
     reads:
-      - "output/briefing.md"
-      - "pipeline/data/vila-identity.md"
-      - "pipeline/data/tone-of-voice.md"
-      - "pipeline/data/output-examples.md"
-      - "pipeline/data/anti-patterns.md"
+      - "output/plano-projeto.md"
     writes:
-      - "output/conteudo.md"
+      - "output/plano-projeto.md"
+    depends_on: step-01
 
   - id: step-03
-    name: "Criar Visual"
-    file: "pipeline/steps/step-03-criar-visual.md"
-    agent: "vito-visual"
-    execution: subagent
-    type: visual_creation
+    name: "Confirmação do Time"
+    file: "pipeline/steps/step-03-confirmacao-time.md"
+    agent: inline
+    type: checkpoint
+    condition: "step-02 executado"
     reads:
-      - "output/conteudo.md"
-      - "pipeline/data/vila-identity.md"
-    writes:
-      - "output/visual-01.jpg"
-      - "output/arte-evento.jpg"
+      - "output/plano-projeto.md"
     depends_on: step-02
 
   - id: step-04
-    name: "Aprovação de Conteúdo"
-    file: "pipeline/steps/step-04-aprovacao-conteudo.md"
-    agent: inline
-    type: checkpoint
+    name: "Criar Conteúdo"
+    file: "pipeline/steps/step-04-criar-conteudo.md"
+    agent: "cris-criativa"
+    execution: inline
+    type: agent
+    condition: "plano.inclui_copy == true"
     reads:
+      - "output/plano-projeto.md"
+      - "pipeline/data/vila-identity.md"
+      - "pipeline/data/tone-of-voice.md"
+      - "pipeline/data/direcao-semanal-atual.md"
+    writes:
       - "output/conteudo.md"
-      - "output/visual-01.jpg"
     depends_on: step-03
 
   - id: step-05
-    name: "Publicar em Plataformas"
-    file: "pipeline/steps/step-05-publicar-plataformas.md"
-    agent: "paulo-postador"
+    name: "Propor Conceito Visual"
+    file: "pipeline/steps/step-05-propor-conceito-visual.md"
+    agent: "vito-visual"
     execution: subagent
-    type: distribution
+    type: agent
+    condition: "plano.inclui_visual == true"
     reads:
       - "output/conteudo.md"
-      - "output/visual-01.jpg"
+      - "pipeline/data/vila-identity.md"
     writes:
-      - "output/publicacoes.md"
+      - "output/conceito-visual.md"
     depends_on: step-04
-    requires_approval: true
 
   - id: step-06
+    name: "Checkpoint de Conceito Visual"
+    file: "pipeline/steps/step-06-checkpoint-conceito-visual.md"
+    agent: inline
+    type: checkpoint
+    condition: "step-05 executado"
+    reads:
+      - "output/conceito-visual.md"
+    depends_on: step-05
+
+  - id: step-07
+    name: "Gerar Arte Final"
+    file: "pipeline/steps/step-07-gerar-arte-final.md"
+    agent: "vito-visual"
+    execution: subagent
+    type: agent
+    condition: "step-06 aprovado"
+    reads:
+      - "output/conceito-visual.md"
+      - "output/conteudo.md"
+    writes:
+      - "output/visuais.md"
+      - "output/arte-evento.jpg"
+    depends_on: step-06
+
+  - id: step-08
+    name: "Roteirizar Vídeo (Pré-Produção)"
+    file: "pipeline/steps/step-08-roteirizar-video.md"
+    agent: "duda-direcao"
+    execution: subagent
+    type: agent
+    condition: "plano.inclui_video_pre_producao == true"
+    reads:
+      - "output/plano-projeto.md"
+      - "pipeline/data/vila-identity.md"
+    writes:
+      - "output/roteiro-video.md"
+    depends_on: step-03
+
+  - id: step-09
+    name: "Checkpoint de Conceito de Vídeo"
+    file: "pipeline/steps/step-09-checkpoint-conceito-video.md"
+    agent: inline
+    type: checkpoint
+    condition: "step-08 executado"
+    reads:
+      - "output/roteiro-video.md"
+    depends_on: step-08
+
+  - id: step-10
+    name: "Orientar Edição (Pós-Produção)"
+    file: "pipeline/steps/step-10-orientar-edicao.md"
+    agent: "duda-direcao"
+    execution: subagent
+    type: agent
+    condition: "plano.inclui_video_pos_producao == true"
+    writes:
+      - "output/orientacao-edicao.md"
+    depends_on: step-03
+
+  - id: step-11
     name: "Criar Campanha de Anúncios"
-    file: "pipeline/steps/step-06-criar-campanha.md"
+    file: "pipeline/steps/step-11-criar-campanha.md"
     agent: "ana-anuncio"
     execution: subagent
-    type: paid_media
-    condition: "briefing.tem_evento_pago == true"
+    type: agent
+    condition: "plano.inclui_trafego_pago == true"
     reads:
       - "output/conteudo.md"
       - "output/arte-evento.jpg"
       - "pipeline/data/research-brief.md"
     writes:
       - "output/campanha.md"
-    depends_on: step-05
+    depends_on: step-07
 
-  - id: step-07
+  - id: step-12
     name: "Revisão de Qualidade"
-    file: "pipeline/steps/step-07-revisao-qualidade.md"
+    file: "pipeline/steps/step-12-revisao-qualidade.md"
     agent: "renata-revisao"
     execution: inline
-    type: quality_review
+    type: agent
+    condition: "qualquer_output_de_conteudo_ou_documento_produzido == true"
     reads:
-      - "output/conteudo.md"
-      - "output/visual-01.jpg"
-      - "output/publicacoes.md"
-      - "output/campanha.md"
       - "pipeline/data/quality-criteria.md"
     writes:
       - "output/review.md"
-    depends_on: step-05
-    on_reject: step-02
+    depends_on: step-11
+    on_reject: "agente_de_origem_da_peca_rejeitada"
 
-  - id: step-08
-    name: "Relatório de Marketing"
-    file: "pipeline/steps/step-08-relatorio-marketing.md"
-    agent: "rodrigo-resultados"
-    execution: inline
-    type: reporting
-    condition: "dia_da_semana == 'segunda' OR solicitado_explicitamente == true"
-    reads:
-      - "output/publicacoes.md"
-      - "output/campanha.md"
-    writes:
-      - "output/relatorio.md"
-    depends_on: step-07
-
-  - id: step-09
-    name: "Aprovação Final"
-    file: "pipeline/steps/step-09-aprovacao-final.md"
+  - id: step-13
+    name: "Checkpoint Final de Publicação"
+    file: "pipeline/steps/step-13-checkpoint-publicacao.md"
     agent: inline
     type: checkpoint
+    condition: "plano.inclui_publicacao == true"
     reads:
       - "output/review.md"
+    depends_on: step-12
+
+  - id: step-14
+    name: "Publicar em Plataformas"
+    file: "pipeline/steps/step-14-publicar.md"
+    agent: "paulo-postador"
+    execution: subagent
+    type: agent
+    condition: "step-13 aprovado"
+    reads:
+      - "output/conteudo.md"
+      - "output/visuais.md"
+    writes:
+      - "output/publicacoes.md"
+    depends_on: step-13
+    requires_approval: true
+
+  - id: step-15
+    name: "Relatório de Marketing"
+    file: "pipeline/steps/step-15-relatorio-marketing.md"
+    agent: "rodrigo-resultados"
+    execution: inline
+    type: agent
+    condition: "plano.tipo_projeto == 'relatorio'"
+    writes:
       - "output/relatorio.md"
-    depends_on: step-07
+    depends_on: step-03
+
+  - id: step-16
+    name: "Curadoria de Conteúdo"
+    file: "pipeline/steps/step-16-curadoria-conteudo.md"
+    agent: "lia-linha"
+    execution: inline
+    type: agent
+    condition: "plano.tipo_projeto == 'curadoria'"
+    writes:
+      - "output/direcao-semanal.md"
+    depends_on: step-03
+
+  - id: step-17
+    name: "Planejamento de Campanha Mensal"
+    file: "pipeline/steps/step-17-planejamento-mensal.md"
+    agent: "estela-estrategia"
+    execution: inline
+    type: agent
+    condition: "plano.tipo_projeto == 'planejamento_mensal'"
+    writes:
+      - "output/plano-campanha-mensal.md"
+    depends_on: step-03
+
+  - id: step-18
+    name: "Checkpoint de Escopo de Concorrência"
+    file: "pipeline/steps/step-18-checkpoint-escopo-concorrencia.md"
+    agent: inline
+    type: checkpoint
+    condition: "plano.tipo_projeto == 'analise_concorrencia'"
+    depends_on: step-03
+
+  - id: step-19
+    name: "Análise de Concorrência"
+    file: "pipeline/steps/step-19-analise-concorrencia.md"
+    agent: "iris-investigacao"
+    execution: subagent
+    type: agent
+    condition: "step-18 confirmado"
+    writes:
+      - "output/analise-concorrencia.md"
+    depends_on: step-18

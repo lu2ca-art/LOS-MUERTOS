@@ -126,7 +126,7 @@ vem nem que seja pela comida
 2. RUNA qui — 8% engajamento, performance consistente com artistas B
 3. Feijoada dom — menor alcance mas 3× mais salvamentos que média
 
-Padrão: artistas com cachet ≥ R$500 entregam 1,5-2× mais alcance.
+Padrão: shows com artista já conhecido do público local entregam 1,5-2× mais alcance que shows regulares — sinal de histórico de público, não de cachê.
 Stories com enquete: 40% mais interações que stories informativos.
 
 ## CAMPANHAS PAGAS
