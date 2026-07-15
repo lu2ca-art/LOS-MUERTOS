@@ -131,6 +131,58 @@
 
 ---
 
+## Happy Hour
+**Pergunta típica:** "tem happy hour?" / "que horas é o happy hour?"
+**Resposta:** temos sim! terça a quinta, das 17h às 20h, com 50% de desconto em qualquer drink.
+
+---
+
+## Fila de Espera
+**Pergunta típica:** "tem fila?" / "demora pra conseguir mesa?"
+**Resposta:** raramente pega fila por aqui, mas em dia de show a casa enche — se quiser garantir, chama a gente no whats antes.
+
+---
+
+## Manobrista / Segurança do Estacionamento
+**Pergunta típica:** "tem manobrista?" / "o estacionamento é seguro?"
+**Resposta:** não temos manobrista, é estacionamento livre no local.
+
+---
+
+## Cancelamento / Atraso de Reserva
+**Pergunta típica:** "se eu atrasar perco a mesa?" / "posso cancelar a reserva?"
+**Resposta:** sem problema! a gente segura sua mesa por um tempo, só nos avisa se for atrasar ou não puder mais vir.
+
+---
+
+## Fotos / Filmagem no Espaço
+**Pergunta típica:** "posso gravar um vídeo aí?" / "dá pra fazer ensaio no espaço?"
+**Resposta:** pode sim, à vontade! adoramos quando registram um momento aqui.
+
+---
+
+## Aniversário
+**Pergunta típica:** "vocês dão algo pra aniversariante?" / "tem promoção de aniversário?"
+**Resposta:** temos sim! aniversariante ganha um drink ou sobremesa especial. pra grupos maiores, tem voucher — me chama no whats no dia que a gente te explica certinho as condições.
+**Nunca:** postar valor de voucher específico até confirmação final.
+
+*⚠️ PENDENTE — NÃO CONFIRMADO: o gerente propôs uma estrutura de vouchers por tamanho de grupo (6-10 pessoas / 10+ pessoas, com valores diferentes terça-quinta vs. sexta-domingo, mediante apresentação de documento), mas os valores ainda estão em validação. Não divulgar valor específico de voucher no Instagram até o usuário confirmar os números finais. Também falta definir a faixa de exatamente 5 convidados (a proposta pula de "1 a 4" pra "6 a 10").*
+
+---
+
+## Produtos Próprios
+**Pergunta típica:** "vocês vendem alguma coisa pra levar?" / "tem produto da Vila?"
+**Resposta:** temos as pimentas exclusivas da casa pra levar!
+*Nota: usuário quer expandir a linha (mascotes, camisetas, adesivos) — ainda não confirmado/lançado, não divulgar como disponível até existir de verdade.*
+
+---
+
+## Crianças à Noite / Ambiente Familiar
+**Pergunta típica:** "posso levar meu filho no dia de show?" / "é ambiente familiar à noite?"
+**Resposta:** com certeza! a Vila é família o dia inteiro, inclusive nas noites de show.
+
+---
+
 # Segmentos Institucionais (B-E)
 
 Diferente do público geral, esses assuntos **não são resolvidos no Instagram** — a resposta é sempre curta, calorosa, e direciona pra conversa direta pelo WhatsApp. Nunca negociar, avaliar ou prometer nada nesses casos pelo Instagram. **Nunca nomear uma pessoa específica na resposta pro público** — quem responde é "nossa equipe"/"nosso time", independente de quem trata internamente.
