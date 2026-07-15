@@ -100,7 +100,7 @@ body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;m
 <!-- ═══ PIPELINE ═══ -->
 <div id="view-pipeline" class="view">
   <div class="stitle">Fluxo do Pipeline</div>
-  <div class="ssub">19 passos possíveis — nenhum roda automaticamente. As condições são avaliadas sobre o plano do projeto (definido pelo Beto ou pelo seu pedido direto), nunca sobre data ou calendário.</div>
+  <div class="ssub">20 passos possíveis — nenhum roda automaticamente. As condições são avaliadas sobre o plano do projeto (definido pelo Beto ou pelo seu pedido direto), nunca sobre data ou calendário.</div>
   <div class="legend">
     <span><i class="dot" style="background:var(--teal)"></i> Passo de agente</span>
     <span><i class="dot" style="background:var(--ouro)"></i> Checkpoint (sua aprovação)</span>
@@ -133,6 +133,7 @@ const AGENTS = [
   {icon:'🗂️',name:'Lia Linha',title:'Curadora de Conteúdo',mode:'inline',role:'Planeja pra frente (prioridades) e recicla pra trás (o que já performou bem).',trigger:'Projeto de curadoria'},
   {icon:'🧭',name:'Estela Estratégia',title:'Estrategista de Campanha',mode:'inline',role:'Plano de campanha em nível de mês — objetivos com KPI, alocação por pilar, diferenciação da concorrência.',trigger:'Projeto de planejamento mensal'},
   {icon:'🔎',name:'Íris Investigação',title:'Analista de Concorrência',mode:'subagent',role:'Monitoramento leve e recorrente de concorrentes locais — o que mudou desde a última checagem.',trigger:'Projeto de análise de concorrência'},
+  {icon:'💬',name:'Rita Resposta',title:'Biblioteca de Respostas',mode:'inline',role:'Mantém as respostas padrão de Instagram por categoria (reserva, horário, reclamação) no tom da Vila, pra equipe usar. Não automatiza nada — isso é um projeto futuro.',trigger:'Projeto de biblioteca de respostas'},
 ];
 
 const PIPELINE = [
@@ -155,6 +156,7 @@ const PIPELINE = [
   {n:'17',icon:'🧭',name:'Planejamento de Campanha Mensal',type:'agent',agent:'Estela Estratégia',cond:'projeto é planejamento mensal'},
   {n:'18',icon:'✅',name:'Checkpoint de Escopo de Concorrência',type:'checkpoint',cond:'projeto é análise de concorrência'},
   {n:'19',icon:'🔎',name:'Análise de Concorrência',type:'agent',agent:'Íris Investigação',cond:'escopo confirmado'},
+  {n:'20',icon:'💬',name:'Criar Biblioteca de Respostas',type:'agent',agent:'Rita Resposta',cond:'projeto é biblioteca de respostas'},
 ];
 
 const PROJECT_TYPES = [
@@ -166,6 +168,7 @@ const PROJECT_TYPES = [
   {title:'Curadoria', desc:'Direção editorial — pra frente e reaproveitamento do que já performou.', ex:'"projeto: planejar a semana"'},
   {title:'Planejamento mensal', desc:'Estratégia de campanha em nível de mês, com KPIs.', ex:'"projeto: planejamento de julho"'},
   {title:'Análise de concorrência', desc:'Monitoramento leve dos concorrentes locais.', ex:'"projeto: análise de concorrência"'},
+  {title:'Biblioteca de respostas', desc:'Respostas padrão de Instagram por categoria, pra você e a equipe usarem.', ex:'"projeto: criar biblioteca de respostas"'},
 ];
 
 function renderAgents(){

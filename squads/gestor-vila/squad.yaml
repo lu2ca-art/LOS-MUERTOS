@@ -23,6 +23,7 @@ data:
   - pipeline/data/vila-identity.md
   - pipeline/data/direcao-semanal-atual.md
   - pipeline/data/plano-campanha-mensal-atual.md
+  - pipeline/data/biblioteca-respostas-atual.md
 
 pipeline: pipeline/pipeline.yaml
 memory: _memory/memories.md

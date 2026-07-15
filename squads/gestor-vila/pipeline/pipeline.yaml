@@ -230,3 +230,14 @@ steps:
     writes:
       - "output/analise-concorrencia.md"
     depends_on: step-18
+
+  - id: step-20
+    name: "Criar Biblioteca de Respostas"
+    file: "pipeline/steps/step-20-biblioteca-respostas.md"
+    agent: "rita-resposta"
+    execution: inline
+    type: agent
+    condition: "plano.tipo_projeto == 'biblioteca_respostas'"
+    writes:
+      - "output/biblioteca-respostas.md"
+    depends_on: step-03

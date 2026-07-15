@@ -45,12 +45,13 @@ O restaurante, a comida e a experiência são **sempre o protagonista**. Shows s
 | **Lia Linha** | Curadoria — pra frente e pra trás | inline | projeto de curadoria |
 | **Estela Estratégia** | Planejamento de campanha mensal | inline | projeto de planejamento mensal |
 | **Íris Investigação** | Análise de concorrência recorrente | subagent | projeto de análise de concorrência |
+| **Rita Resposta** | Biblioteca de respostas padrão de Instagram | inline | projeto de biblioteca de respostas |
 
 Sem "editor estático" separado — Vito já cobre 100% da arte estática.
 
 ---
 
-## Pipeline (19 passos possíveis, todos condicionais)
+## Pipeline (20 passos possíveis, todos condicionais)
 
 Nenhum passo roda por data. Cada um é avaliado sobre o plano do projeto (do Beto, ou implícito no pedido direto):
 
@@ -63,10 +64,10 @@ Nenhum passo roda por data. Cada um é avaliado sobre o plano do projeto (do Bet
 → 13 Checkpoint Final de Publicação [se publicação, inegociável] → 14 Publicar [se aprovado]
 → 15 Relatório [se projeto de relatório] → 16 Curadoria [se projeto de curadoria]
 → 17 Planejamento Mensal [se projeto de planejamento] → 18 Checkpoint de Escopo de Concorrência
-→ 19 Análise de Concorrência [se projeto de concorrência]
+→ 19 Análise de Concorrência [se projeto de concorrência] → 20 Criar Biblioteca de Respostas [se projeto de respostas]
 ```
 
-Detalhe completo em `squads/gestor-vila/pipeline/pipeline.yaml` e nos 19 arquivos em `pipeline/steps/`.
+Detalhe completo em `squads/gestor-vila/pipeline/pipeline.yaml` e nos 20 arquivos em `pipeline/steps/`.
 
 ---
 
@@ -82,6 +83,7 @@ Detalhe completo em `squads/gestor-vila/pipeline/pipeline.yaml` e nos 19 arquivo
 | Curadoria | "projeto: planejar a semana" |
 | Planejamento mensal | "projeto: planejamento de julho" |
 | Análise de concorrência | "projeto: análise de concorrência" |
+| Biblioteca de respostas | "projeto: criar biblioteca de respostas" |
 
 ---
 
@@ -103,6 +105,7 @@ Nenhum dos dois placeholders quebra o resto do sistema.
 Dados persistentes (fora de `output/`, nunca versionados por run):
 - `pipeline/data/direcao-semanal-atual.md` — última curadoria da Lia
 - `pipeline/data/plano-campanha-mensal-atual.md` — último plano da Estela
+- `pipeline/data/biblioteca-respostas-atual.md` — versão viva da biblioteca da Rita, compartilhada com a equipe
 - `_investigations/concorrentes/` — histórico acumulado de monitoramento da Íris
 
 ---
@@ -124,14 +127,15 @@ squads/gestor-vila/
 │   ├── rodrigo-resultados.agent.md + tasks/
 │   ├── lia-linha.agent.md + tasks/
 │   ├── estela-estrategia.agent.md + tasks/
-│   └── iris-investigacao.agent.md + tasks/
+│   ├── iris-investigacao.agent.md + tasks/
+│   └── rita-resposta.agent.md + tasks/
 ├── pipeline/
-│   ├── pipeline.yaml              ← 19 steps condicionais
-│   ├── steps/step-01 a step-19
+│   ├── pipeline.yaml              ← 20 steps condicionais
+│   ├── steps/step-01 a step-20
 │   └── data/
 │       ├── vila-identity.md, tone-of-voice.md, output-examples.md, anti-patterns.md
 │       ├── research-brief.md, quality-criteria.md
-│       ├── direcao-semanal-atual.md, plano-campanha-mensal-atual.md (persistentes)
+│       ├── direcao-semanal-atual.md, plano-campanha-mensal-atual.md, biblioteca-respostas-atual.md (persistentes)
 ├── _investigations/concorrentes/  ← histórico da Íris
 └── output/
     └── {projeto}/{run_id}/v1/
@@ -144,3 +148,4 @@ squads/gestor-vila/
 - **Skills de API pendentes** — Meta Business e análise de vídeo precisam das credenciais do usuário pra sair do modo placeholder.
 - **Nunca rodou de verdade** — todo o sistema foi reescrito nesta sessão; falta uma primeira execução real ponta a ponta pra validar o fluxo condicional na prática.
 - **Publicação real** — Paulo Postador ainda não tem sessão autenticada nas plataformas (sem `.mcp.json`/credenciais no repo).
+- **Bot de resposta automática no Instagram** — sinalizado como prioridade real pelo usuário (cliente sem resposta = receita perdendo). A Rita Resposta cobre a biblioteca manual primeiro; a automação de verdade é um projeto técnico separado (Instagram Messaging API, atenção às restrições da Meta pra automação de DM) ainda não escopado.

@@ -44,6 +44,7 @@ Antes de montar o plano, verificar (sem perguntar ao usuário, se os arquivos ex
 | Planejar a semana / reaproveitar conteúdo antigo | Lia Linha |
 | Planejamento de campanha em nível de mês/calendário | Estela Estratégia |
 | Análise de concorrentes locais | Íris Investigação |
+| Criar/atualizar biblioteca de respostas de Instagram (reserva, horário, reclamação etc.) | Rita Resposta |
 
 Um pedido pode envolver mais de um especialista (ex: copy + visual + publicar). Incluir só os que o objetivo realmente exige.
 
