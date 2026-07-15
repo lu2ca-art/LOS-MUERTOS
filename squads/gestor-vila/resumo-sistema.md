@@ -1,5 +1,18 @@
 # Gestor Vila — Resumo do Sistema (v2)
 
+## 🔴 Sessão em andamento — retomar daqui (2026-07-15)
+
+**Trabalho ativo:** expandindo `pipeline/data/biblioteca-respostas-atual.md` (Rita Resposta) rumo a ~50 categorias.
+
+- **Status atual:** 30 categorias no público geral (segmento A) + 4 institucionais (B-E) = 34 total.
+- **Meta:** ~46-50 no público geral, mantendo B-E enxutos (são só redirecionamento pro WhatsApp, não expandir).
+- **Pendências já marcadas no arquivo** (não inventar, só confirmar com o usuário): lista de pratos vegetarianos/veganos/sem-glúten, valores do voucher de aniversário (em validação pelo gerente), detalhes do novo sistema de delivery, lista completa do cardápio à la carte.
+- **Bloqueio:** a extensão Claude in Chrome não conectou nesta sessão (tentativas via skill, `/chrome`, e restart parcial não surtiram efeito) — sem isso, não dá pra ler comentários/DMs reais do Instagram @vilalosmuertosdefome pra minerar mais categorias com precisão. Alternativa que funcionou: usar avaliações públicas do Google/Restaurant Guru via WebSearch/WebFetch (revelou cardápio à la carte não documentado em nenhum lugar — Hambúrguer Yellow, Dadinho de Tapioca, Parmegiana, Peixe-espada).
+- **Próximo passo sugerido:** (1) tentar `/chrome` de novo numa sessão nova pra ver se conecta; (2) se conectar, navegar de verdade no Instagram pra ler comentários reais; (3) se não conectar, seguir expandindo por prints que o usuário manda + brainstorm assistido categoria por categoria, do jeito que vinha funcionando bem até aqui.
+- **Regra que já foi corrigida e não pode voltar a acontecer:** nunca nomear uma pessoa específica (ex: "Lucas") no texto de resposta que vai pro público — só como nota interna. Isso já está registrado como Principle/Anti-Pattern permanente no `rita-resposta.agent.md`.
+
+---
+
 ## O que é
 
 Sistema de gestão de social media e marketing para o **Vila Los Muertos de Fome**, restaurante Tex Mex BR em Bethaville, Barueri, SP. Rua Caldas Novas 49. Chef Alex Coelho. Aberto 7 dias. Música ao vivo qui-sáb 20h. Stand-up comedy, samba, Copa do Mundo.
