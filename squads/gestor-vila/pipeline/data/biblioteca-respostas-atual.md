@@ -107,10 +107,37 @@
 
 ---
 
+---
+
+# Segmentos Institucionais (B-E)
+
+Diferente do público geral, esses assuntos **não são resolvidos no Instagram** — a resposta é sempre curta, calorosa, e direciona pra conversa direta com o Lucas (WhatsApp). Nunca negociar, avaliar ou prometer nada nesses casos pelo Instagram.
+
+## B. Artista querendo tocar na Vila
+**Situação típica:** banda/artista mandando material, perguntando sobre se apresentar, book de shows
+**Resposta:** que bom o interesse! quem cuida da parte musical é o Lucas — manda seu material (vídeo/áudio) pro nosso whats que ele te retorna.
+
+## C. Parceria, patrocínio, imprensa ou proposta de empresa
+**Situação típica:** proposta de co-marketing, patrocínio, matéria de imprensa, influenciador propondo permuta
+**Resposta:** que legal o interesse! isso quem trata é o Lucas — manda os detalhes da proposta pro nosso whats que ele dá um retorno.
+
+## D. Fornecedor / distribuidora oferecendo produto
+**Situação típica:** fábrica ou distribuidora de bebida/insumo/equipamento se oferecendo como fornecedor
+**Resposta:** obrigado pelo contato! quem avalia fornecedor é o Lucas — manda a proposta/catálogo pro nosso whats que ele analisa.
+
+## E. Vaga de emprego / currículo / colaborador
+**Situação típica:** pessoa perguntando sobre vaga, mandando currículo, dúvida de ex/atual colaborador
+**Resposta:** obrigado pelo interesse! quem cuida disso é o Lucas — manda mensagem pro nosso whats que ele te dá retorno sobre oportunidades.
+
+*Nota: hoje não há processo seletivo formal confirmado — resposta é sempre um direcionamento, nunca uma promessa de vaga ou prazo de retorno.*
+
+---
+
 ## Pendências
 - Lista específica de pratos vegetarianos/veganos/sem-glúten (aguardando cardápio do usuário)
 - Detalhes do programa de benefícios pra reservas de 10+ pessoas (usuário vai passar mais pra frente) — não divulgar no Instagram até então
 - Detalhes do novo sistema de delivery (em repaginação)
+- Categorias do público geral (segmento A) ainda em expansão — foco atual do projeto
 
 ## Nota sobre automação futura
 
