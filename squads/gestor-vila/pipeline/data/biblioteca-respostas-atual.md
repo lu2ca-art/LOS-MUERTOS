@@ -183,6 +183,20 @@
 
 ---
 
+## Cardápio À La Carte (além do rodízio)
+**Pergunta típica:** "vocês só fazem rodízio?" / "tem opção fora do rodízio?"
+**Resposta:** temos sim! além do rodízio, temos cardápio à la carte também — hambúrguer, dadinho de tapioca, parmegiana, peixe, entre outros.
+*Nota: baseado em avaliações reais de clientes (Google/Restaurant Guru) que mencionam espontaneamente esses pratos — vale confirmar com o usuário a lista completa e atual do cardápio à la carte pra deixar essa resposta mais precisa.*
+
+---
+
+## Quanto Custa Comer na Vila (ticket médio, fora do rodízio)
+**Pergunta típica:** "quanto custa em média?" / "é caro?"
+**Resposta:** o rodízio tem preço fixo (R$98 terça-quinta, R$108 sexta-domingo). fora do rodízio, o ticket varia bastante conforme o que você pede — se quiser algo específico me chama no whats que te ajudo a montar o pedido.
+*Nota: baseado em avaliações reais de clientes, ticket médio à la carte varia entre R$40 e R$120 por pessoa — faixa ampla demais pra virar resposta padrão sem mais detalhe do usuário.*
+
+---
+
 # Segmentos Institucionais (B-E)
 
 Diferente do público geral, esses assuntos **não são resolvidos no Instagram** — a resposta é sempre curta, calorosa, e direciona pra conversa direta pelo WhatsApp. Nunca negociar, avaliar ou prometer nada nesses casos pelo Instagram. **Nunca nomear uma pessoa específica na resposta pro público** — quem responde é "nossa equipe"/"nosso time", independente de quem trata internamente.
@@ -215,7 +229,9 @@ Diferente do público geral, esses assuntos **não são resolvidos no Instagram*
 - Lista específica de pratos vegetarianos/veganos/sem-glúten (aguardando cardápio do usuário)
 - Detalhes do programa de benefícios pra reservas de 10+ pessoas (usuário vai passar mais pra frente) — não divulgar no Instagram até então
 - Detalhes do novo sistema de delivery (em repaginação)
-- Categorias do público geral (segmento A) ainda em expansão — foco atual do projeto
+- Valores do voucher de aniversário (em validação pelo gerente) — não divulgar valor até confirmação
+- Lista completa e atual do cardápio à la carte (hoje só temos os pratos mencionados espontaneamente em reviews — Hambúrguer Yellow, Dadinho de Tapioca, Parmegiana, Peixe-espada)
+- Categorias do público geral (segmento A) ainda em expansão — foco atual do projeto (30 categorias até agora, meta ~46-50 no público + institucionais)
 
 ## Nota sobre automação futura
 
