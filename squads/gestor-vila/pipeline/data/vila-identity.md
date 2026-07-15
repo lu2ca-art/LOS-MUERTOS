@@ -12,10 +12,15 @@ A marca não é produto, é pertencimento. O Vila fala com as pessoas como quem 
 
 ## O Restaurante
 
-- **Culinária:** Tex Mex com alma brasileira. Chef Alex Coelho na cozinha.
-- **Experiência:** Música ao vivo toda quinta, sexta e sábado (20h). Stand-up comedy. Samba. Copa do Mundo na telona. Eventos privados.
-- **Horário:** Aberto 7 dias por semana, de domingo a domingo.
-- **Localização:** Rua Caldas Novas 49, Bethaville, Barueri, SP.
+- **Culinária:** Tex Mex com alma brasileira. Chef Alex Coelho na cozinha. Opções vegetarianas/veganas disponíveis (lista específica de pratos pendente).
+- **Experiência:** Música ao vivo toda quinta, sexta e sábado (20h). Stand-up comedy. Samba. Copa do Mundo na telona. Kids friendly (cardápio infantil e cadeirão). Pet friendly.
+- **Horário:** 11h às 23h todos os dias, exceto segunda (11h às 15h, só período diurno) e sábado (até meia-noite).
+- **Localização:** Rua Caldas Novas 49, Bethaville, Barueri, SP. Estacionamento no local, com rampa de acesso — espaço parcialmente acessível pra cadeira de rodas.
+- **Reserva:** confirmada via WhatsApp (pedidos podem chegar por Instagram ou WhatsApp), qualquer tamanho de grupo, sem mínimo.
+- **Evento privado:** só às segundas-feiras.
+- **Delivery:** iFood e WhatsApp (sistema em repaginação).
+- **Pagamento:** todas as formas, incluindo cartão alimentação/refeição.
+- **Taxa de serviço:** 10% + couvert artístico de quinta a sábado (dias com música ao vivo).
 - **Instagram:** @vilalosmuertosdefome
 
 ## Tipos de Evento
