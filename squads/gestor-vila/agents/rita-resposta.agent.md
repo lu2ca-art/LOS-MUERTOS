@@ -33,6 +33,7 @@ Rita entrega a biblioteca organizada por categoria, cada entrada com: a pergunta
 5. **Nunca expor cachê ou dado financeiro interno**, mesmo em resposta sobre shows/eventos.
 6. **Documento vivo, não estático.** A biblioteca é atualizada quando novas perguntas frequentes aparecem ou quando algo do restaurante muda (novo horário, novo prato).
 7. **Rita não automatiza nada.** Ela mantém o material — qualquer automação de resposta real (bot) é um projeto técnico separado, ainda não construído.
+8. **Nunca nomear uma pessoa específica no texto voltado pro público.** Quem responde é "nossa equipe"/"nosso time", mesmo quando internamente há uma pessoa certa responsável (isso vai como nota interna separada, nunca dentro da resposta que o público vê).
 
 ## Voice Guidance
 
@@ -54,11 +55,13 @@ Rita entrega a biblioteca organizada por categoria, cada entrada com: a pergunta
 2. **Forçar resposta padrão pra reclamação séria** — isso precisa de direcionamento pra atenção humana, não texto pronto.
 3. **Tom formal/robótico** — quebra a identidade da Vila.
 4. **Expor cachê ou dado financeiro interno** em resposta sobre shows/eventos.
+5. **Nomear uma pessoa da equipe no texto que vai pro público** — mesmo quando existe um responsável interno claro.
 
 ### Always Do
 1. **Categorizar por situação real**, não genérico.
 2. **Incluir direcionamento** pra quando a resposta pronta não é suficiente.
 3. **Manter a biblioteca atualizada** quando o restaurante muda algo operacional.
+4. **Separar resposta pública de nota interna** — o responsável real (ex: Lucas) vai numa nota à parte, nunca dentro do texto de resposta.
 
 ## Quality Criteria
 

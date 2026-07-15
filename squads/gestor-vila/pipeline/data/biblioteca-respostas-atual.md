@@ -107,27 +107,53 @@
 
 ---
 
+## Wifi
+**Pergunta típica:** "tem wifi?"
+**Resposta:** temos sim! é só pedir a senha pro nosso time quando chegar.
+
+---
+
+## Bebidas
+**Pergunta típica:** "tem drink?" / "tem cerveja artesanal?" / "tem carta de vinho?"
+**Resposta:** temos sim, carta completa — drinks autorais, cerveja artesanal e vinho. bora escolher o seu?
+
+---
+
+## Preço do Rodízio
+**Pergunta típica:** "quanto custa o rodízio?" / "qual o valor?"
+**Resposta:** o rodízio sai R$98 de terça a quinta, e R$108 de sexta a domingo.
+
+---
+
+## Espaço / Ambiente
+**Pergunta típica:** "é um lugar aberto ou fechado?" / "tem área externa?"
+**Resposta:** temos os dois — área interna e uma área externa bem gostosa também.
+
 ---
 
 # Segmentos Institucionais (B-E)
 
-Diferente do público geral, esses assuntos **não são resolvidos no Instagram** — a resposta é sempre curta, calorosa, e direciona pra conversa direta com o Lucas (WhatsApp). Nunca negociar, avaliar ou prometer nada nesses casos pelo Instagram.
+Diferente do público geral, esses assuntos **não são resolvidos no Instagram** — a resposta é sempre curta, calorosa, e direciona pra conversa direta pelo WhatsApp. Nunca negociar, avaliar ou prometer nada nesses casos pelo Instagram. **Nunca nomear uma pessoa específica na resposta pro público** — quem responde é "nossa equipe"/"nosso time", independente de quem trata internamente.
 
 ## B. Artista querendo tocar na Vila
 **Situação típica:** banda/artista mandando material, perguntando sobre se apresentar, book de shows
-**Resposta:** que bom o interesse! quem cuida da parte musical é o Lucas — manda seu material (vídeo/áudio) pro nosso whats que ele te retorna.
+**Resposta:** que bom o interesse! manda seu material (vídeo/áudio) pro nosso whats que nossa equipe dá um retorno.
+*Contato interno responsável: Lucas.*
 
 ## C. Parceria, patrocínio, imprensa ou proposta de empresa
 **Situação típica:** proposta de co-marketing, patrocínio, matéria de imprensa, influenciador propondo permuta
-**Resposta:** que legal o interesse! isso quem trata é o Lucas — manda os detalhes da proposta pro nosso whats que ele dá um retorno.
+**Resposta:** que legal o interesse! manda os detalhes da proposta pro nosso whats que nossa equipe dá um retorno.
+*Contato interno responsável: Lucas.*
 
 ## D. Fornecedor / distribuidora oferecendo produto
 **Situação típica:** fábrica ou distribuidora de bebida/insumo/equipamento se oferecendo como fornecedor
-**Resposta:** obrigado pelo contato! quem avalia fornecedor é o Lucas — manda a proposta/catálogo pro nosso whats que ele analisa.
+**Resposta:** obrigado pelo contato! manda a proposta/catálogo pro nosso whats que nossa equipe analisa.
+*Contato interno responsável: Lucas.*
 
 ## E. Vaga de emprego / currículo / colaborador
 **Situação típica:** pessoa perguntando sobre vaga, mandando currículo, dúvida de ex/atual colaborador
-**Resposta:** obrigado pelo interesse! quem cuida disso é o Lucas — manda mensagem pro nosso whats que ele te dá retorno sobre oportunidades.
+**Resposta:** obrigado pelo interesse! manda mensagem pro nosso whats que nossa equipe te dá retorno sobre oportunidades.
+*Contato interno responsável: Lucas.*
 
 *Nota: hoje não há processo seletivo formal confirmado — resposta é sempre um direcionamento, nunca uma promessa de vaga ou prazo de retorno.*
 
