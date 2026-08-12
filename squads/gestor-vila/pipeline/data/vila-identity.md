@@ -12,7 +12,7 @@ A marca não é produto, é pertencimento. O Vila fala com as pessoas como quem 
 
 ## O Restaurante
 
-- **Culinária:** Tex Mex com alma brasileira. Chef Alex Coelho na cozinha.
+- **Culinária:** Tex Mex com alma brasileira, com opções de hamburgueria no cardápio. Chef Alex Coelho na cozinha.
 - **Experiência:** Música ao vivo toda quinta, sexta e sábado (20h). Stand-up comedy. Samba. Copa do Mundo na telona. Eventos privados.
 - **Horário:** Aberto 7 dias por semana, de domingo a domingo.
 - **Localização:** Rua Caldas Novas 49, Bethaville, Barueri, SP.
@@ -32,15 +32,33 @@ A marca não é produto, é pertencimento. O Vila fala com as pessoas como quem 
 
 ## Público-Alvo
 
-Moradores de Barueri, Bethaville, Alphaville e região (raio 12-15km):
-- Famílias que querem sair no domingo para a feijoada
+Moradores de Barueri, Bethaville, Alphaville e região (raio 12-15km), com alcance estendido também para Carapicuíba, Jandira, Itapevi e Osasco:
+- Famílias e casais 35+ que querem sair no domingo para a feijoada
 - Casais e grupos querendo uma noite com música ao vivo
-- Amantes de comida mexicana e cultura tex mex
+- Amantes de comida mexicana, cultura tex mex e hamburgueria
 - Fãs de stand-up comedy e entretenimento ao vivo
 - Torcedores que querem assistir o jogo com animação
 
-**Idade:** 25-50 anos  
-**Perfil:** Moradores de condomínio, jovens profissionais, famílias consolidadas
+**Idade:** 25-50 anos, núcleo mais forte 35+  
+**Perfil:** Moradores de condomínio, jovens profissionais, famílias consolidadas, casais 35+
+
+### Dores
+
+- Cansados de encontrar sempre mais do mesmo — falta de opções diferentes na região
+- Sensação de gastar muito sem valor à altura
+- Dificuldade de achar um lugar que sirva comida boa de verdade
+
+### Desejos
+
+- Ser bem atendidos, com atenção de verdade
+- Ter uma noite ou almoço agradável, sem estresse
+- Um lugar pra reunir o grupo/família, com boa música e boa comida
+
+### Medos
+
+- Não sair satisfeito da experiência
+- Ser mal atendido
+- Pagar caro e comer mal
 
 ## Tom de Voz
 
