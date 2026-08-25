@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vila Los Muertos de Fome — Tex Mex BR em Bethaville, Barueri</title>
+<meta name="description" content="Rodízio Tex Mex, tacos, quesadillas, burritos e nachos em Bethaville, Barueri. Música ao vivo quinta, sexta e sábado. Delivery no iFood e 99Food. Reserva pelo WhatsApp.">
+<meta name="theme-color" content="#000000">
+<link rel="canonical" href="https://vilalosmuertosdefome.com.br/">
+
+<meta property="og:type" content="restaurant">
+<meta property="og:title" content="Vila Los Muertos de Fome — Tex Mex BR em Barueri">
+<meta property="og:description" content="Rodízio Tex Mex a partir de R$ 98. Música ao vivo qui, sex e sáb. Delivery iFood e 99Food.">
+<meta property="og:image" content="img/tex-nachos.jpg">
+<meta property="og:locale" content="pt_BR">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000'/%3E%3Cpath d='M16 5c-5 0-9 3.6-9 8.4 0 2.8 1.4 4.6 3 5.7v2.4c0 .8.6 1.5 1.5 1.5h9c.9 0 1.5-.7 1.5-1.5v-2.4c1.6-1.1 3-2.9 3-5.7C25 8.6 21 5 16 5z' fill='%23F0B400'/%3E%3Ccircle cx='12.4' cy='13' r='2.3' fill='%23000'/%3E%3Ccircle cx='19.6' cy='13' r='2.3' fill='%23000'/%3E%3Cpath d='M16 16.4l1.4 2.2h-2.8z' fill='%23000'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Vila Los Muertos de Fome",
+  "servesCuisine":["Tex-Mex","Mexicana","Brasileira"],
+  "priceRange":"$$",
+  "address":{"@type":"PostalAddress","streetAddress":"Rua Caldas Novas, 49","addressLocality":"Barueri","addressRegion":"SP","addressCountry":"BR","neighborhood":"Bethaville I"},
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Sunday"],"opens":"11:00","closes":"23:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"11:00","closes":"00:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Monday","opens":"11:00","closes":"15:00"}
+  ],
+  "acceptsReservations":"True",
+  "sameAs":["https://www.instagram.com/vilalosmuertosdefome/"]
+}
+</script>
+</head>
+
+<body>
+
+<!-- ===================== barra de aviso ===================== -->
+<div class="topbar">
+  <div class="topbar__in wrap">
+    <span class="status" id="status" data-aberto="1"><i class="bolinha"></i><span id="statusTxt">carregando horário…</span></span>
+    <span class="sep-1" aria-hidden="true">•</span>
+    <span>rodízio Tex Mex a partir de R$ 98</span>
+    <span class="sep-2" aria-hidden="true">•</span>
+    <span class="promo-2">música ao vivo qui, sex e sáb às 20h</span>
+  </div>
+</div>
+
+<!-- ===================== navegação ===================== -->
+<header class="nav">
+  <div class="nav__in wrap">
+    <a class="marca" href="#topo" aria-label="Vila Los Muertos de Fome — início">
+      <svg class="marca__cranio" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 3c-5.6 0-10 4-10 9.3 0 3.1 1.6 5.2 3.4 6.4v2.8c0 1 .8 1.8 1.8 1.8h9.6c1 0 1.8-.8 1.8-1.8v-2.8c1.8-1.2 3.4-3.3 3.4-6.4C26 7 21.6 3 16 3z" fill="#F0B400"/>
+        <circle cx="12.1" cy="12.4" r="2.6" fill="#000"/><circle cx="19.9" cy="12.4" r="2.6" fill="#000"/>
+        <path d="M16 16.2l1.6 2.6h-3.2z" fill="#000"/>
+        <path d="M12.4 21.2v2.4M16 21.2v2.4M19.6 21.2v2.4" stroke="#000" stroke-width="1.3"/>
+      </svg>
+      <span class="marca__txt"><b>los muertos</b><span>de fome · barueri</span></span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="menuNav" aria-label="abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav__links" id="menuNav">
+      <a href="#rodizio">rodízio</a>
+      <a href="#cardapio">cardápio</a>
+      <a href="#delivery">delivery</a>
+      <a href="#espaco">nosso espaço</a>
+      <a href="#eventos">eventos</a>
+      <a href="#visite">visite</a>
+      <a class="btn btn--zap btn--sm nav__cta" data-zap="reserva">reservar mesa</a>
+    </nav>
+  </div>
+</header>
+<div class="picado" aria-hidden="true"></div>
+
+<main id="topo">
+
+<!-- ===================== carrossel ===================== -->
+<section class="carrossel" id="carrossel" aria-roledescription="carrossel" aria-label="destaques da Vila">
+  <div class="slides" id="slides">
+
+    <!-- slide 1 · rodízio -->
+    <article class="slide" data-cor="ouro" aria-roledescription="slide" aria-label="1 de 4: rodízio Tex Mex">
+      <div class="slide__bg"><img src="img/tex-nachos.jpg" alt="" width="1320" height="620" fetchpriority="high"></div>
+      <div class="slide__in wrap">
+        <div class="slide__grid">
+          <div>
+            <span class="slide__tag" style="background:var(--laranja)">todos os dias</span>
+            <h2>rodízio <em>tex mex</em></h2>
+            <p class="slide__sub">quatro etapas de comida quente saindo sem parar da cozinha do chef Alex — entradas, burrito, tacos, mini burgers, al pastor e sobremesa.</p>
+            <div class="slide__preco">
+              <div class="preco-bloco"><b>R$ 98</b><span>segunda a quinta</span></div>
+              <div class="preco-bloco"><b>R$ 108</b><span>sexta a domingo</span></div>
+            </div>
+            <div class="slide__acoes">
+              <a class="btn btn--zap" data-zap="rodizio">garantir minha mesa</a>
+              <a class="btn btn--fantasma" href="#rodizio">ver as 4 etapas</a>
+            </div>
+          </div>
+          <figure class="slide__foto"><img src="img/prato-panelinha.jpg" alt="panelinhas mexicanas com totopos, batata frita e onion rings" width="756" height="766" loading="eager"></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- slide 2 · delivery -->
+    <article class="slide" data-cor="vermelho" aria-roledescription="slide" aria-label="2 de 4: delivery">
+      <div class="slide__bg"><img src="img/tex-cheddar.jpg" alt="" width="1320" height="620" loading="lazy"></div>
+      <div class="slide__in wrap">
+        <div class="slide__grid">
+          <div>
+            <span class="slide__tag" style="background:var(--ifood)">chega quentinho aí</span>
+            <h2>a vila <em>vai até você</em></h2>
+            <p class="slide__sub">nachos, burrito, quesadilla e combo completo no iFood e no 99Food. sem sair do sofá, sem perder o sabor.</p>
+            <div class="slide__acoes">
+              <a class="btn" style="background:var(--ifood);color:#fff" data-link="ifood" target="_blank" rel="noopener">pedir no iFood</a>
+              <a class="btn" style="background:var(--99);color:#111" data-link="food99" target="_blank" rel="noopener">pedir no 99Food</a>
+            </div>
+          </div>
+          <figure class="slide__foto"><img src="img/prato-miniburger.jpg" alt="mini burgers da Vila" width="719" height="839" loading="lazy"></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- slide 3 · música ao vivo -->
+    <article class="slide" data-cor="magenta" aria-roledescription="slide" aria-label="3 de 4: música ao vivo">
+      <div class="slide__bg"><img src="img/tex-guacamole.jpg" alt="" width="1320" height="620" loading="lazy"></div>
+      <div class="slide__in wrap">
+        <div class="slide__grid">
+          <div>
+            <span class="slide__tag" style="background:var(--magenta)">quinta, sexta e sábado · 20h</span>
+            <h2>música <em>ao vivo</em></h2>
+            <p class="slide__sub">a semana termina com som na Vila — banda, samba e stand-up em noites selecionadas. mesa boa acaba cedo, então chega cedo.</p>
+            <div class="slide__acoes">
+              <a class="btn btn--zap" data-zap="reserva">reservar pra noite do show</a>
+              <a class="btn btn--fantasma" data-link="instagram" target="_blank" rel="noopener">ver a programação</a>
+            </div>
+          </div>
+          <figure class="slide__foto"><img src="img/prato-tacos-burrito.jpg" alt="tacos e burrito de carne" width="667" height="643" loading="lazy"></figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- slide 4 · eventos -->
+    <article class="slide" data-cor="azul" aria-roledescription="slide" aria-label="4 de 4: faça seu evento na Vila">
+      <div class="slide__bg"><img src="img/tex-nachos.jpg" alt="" width="1320" height="620" loading="lazy"></div>
+      <div class="slide__in wrap">
+        <div class="slide__grid">
+          <div>
+            <span class="slide__tag" style="background:var(--azul)">segundas-feiras</span>
+            <h2>faça seu evento <em>no vila</em></h2>
+            <p class="slide__sub">aniversário, confraternização da firma, encontro de amigos: a Vila fecha só pra você às segundas. cardápio fechado, som e o espaço inteiro na sua mão.</p>
+            <div class="slide__acoes">
+              <a class="btn btn--azul" data-zap="evento">pedir orçamento</a>
+              <a class="btn btn--fantasma" href="#eventos">como funciona</a>
+            </div>
+          </div>
+          <figure class="slide__foto"><img src="img/prato-combo.jpg" alt="combo completo com taco, burrito e tostada" width="764" height="436" loading="lazy"></figure>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="setas">
+    <button class="seta" id="ant" aria-label="destaque anterior">&#8249;</button>
+    <button class="seta" id="prox" aria-label="próximo destaque">&#8250;</button>
+  </div>
+  <div class="pontos" id="pontos" role="tablist" aria-label="escolher destaque"></div>
+</section>
+
+<!-- ===================== delivery ===================== -->
+<section class="delivery" id="delivery">
+  <img class="delivery__bg" src="img/tex-nachos.jpg" alt="" loading="lazy">
+  <div class="wrap delivery__in">
+    <div class="delivery__topo rev">
+      <span class="olho" style="color:#fff">delivery · iFood e 99Food</span>
+      <h2>com fome aí? <em>a gente leva</em></h2>
+      <p class="lead" style="color:#e8e2dc;max-width:56ch">o cardápio inteiro da Vila no aplicativo que você já usa. nachos, burrito, quesadilla, combo completo — sai da nossa chapa e chega quente na sua porta.</p>
+      <div class="regioes">
+        <span>entregamos em</span>
+        <b>bethaville</b><b>alphaville</b><b>barueri</b><b>tamboré</b><b>região</b>
+      </div>
+    </div>
+
+    <div class="apps">
+      <a class="app app--ifood rev" data-link="ifood" target="_blank" rel="noopener">
+        <span class="app__logo"><b>iFood</b></span>
+        <span class="app__txt">
+          <strong>pedir no iFood</strong>
+          <span>cardápio completo, promoções do app e acompanhamento do pedido em tempo real.</span>
+        </span>
+        <span class="app__seta" aria-hidden="true">&#8594;</span>
+      </a>
+
+      <a class="app app--99 rev" data-link="food99" target="_blank" rel="noopener">
+        <span class="app__logo"><b>99<br>food</b></span>
+        <span class="app__txt">
+          <strong>pedir no 99Food</strong>
+          <span>a mesma comida, com os cupons e a entrega do 99Food. bom pra quem já roda no app.</span>
+        </span>
+        <span class="app__seta" aria-hidden="true">&#8594;</span>
+      </a>
+
+      <a class="app app--zap rev" data-zap="delivery">
+        <span class="app__logo">
+          <svg width="42" height="42" viewBox="0 0 24 24" fill="#04240f"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.6 14.2c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.5-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9 1-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.2.1.3 0 .5s-.2.4-.3.5l-.4.5c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.5.3 0 .1 0 .5-.2 1z"/></svg>
+        </span>
+        <span class="app__txt">
+          <strong>pedir pelo whats</strong>
+          <span>prefere falar com gente de verdade? chama no WhatsApp que a gente monta seu pedido.</span>
+        </span>
+        <span class="app__seta" aria-hidden="true">&#8594;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== rodízio ===================== -->
+<section class="secao rodizio" id="rodizio">
+  <div class="wrap">
+    <div class="cab rev">
+      <span class="olho">o carro-chefe da casa</span>
+      <h2>rodízio <em>tex mex</em></h2>
+      <p class="lead">é assim: você senta, a gente traz. entrada, três etapas de prato quente e sobremesa, na mesa, sem pressa e sem contar quantas vezes você repetiu.</p>
+      <div class="rodizio__preco">
+        <div class="tag-preco"><b>R$ 98</b><span>segunda a quinta · por pessoa</span></div>
+        <div class="tag-preco"><b>R$ 108</b><span>sexta a domingo · por pessoa</span></div>
+      </div>
+      <div style="margin-top:26px"><a class="btn btn--zap" data-zap="rodizio">reservar rodízio</a></div>
+    </div>
+
+    <div class="etapas">
+      <article class="etapa etapa--1 rev">
+        <div class="etapa__foto"><img src="img/prato-panelinha.jpg" alt="panelinhas mexicanas com totopos" loading="lazy"></div>
+        <div class="etapa__corpo">
+          <span class="etapa__n">entradas</span>
+          <h3>pra abrir o apetite</h3>
+          <ul>
+            <li>panelinhas mexicana com totopos muy lokos</li>
+            <li>batata frita e onion rings</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="etapa etapa--2 rev">
+        <div class="etapa__foto"><img src="img/prato-tacos-burrito.jpg" alt="burrito de carne e tacos" loading="lazy"></div>
+        <div class="etapa__corpo">
+          <span class="etapa__n">etapa 1</span>
+          <h3>o clássico</h3>
+          <ul>
+            <li>burrito de carne</li>
+            <li>1 tacos (frango ou pernil)</li>
+            <li>quesadilla</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="etapa etapa--3 rev">
+        <div class="etapa__foto"><img src="img/prato-miniburger.jpg" alt="mini burgers e mini lanche de pernil" loading="lazy"></div>
+        <div class="etapa__corpo">
+          <span class="etapa__n">etapa 2</span>
+          <h3>na mão</h3>
+          <ul>
+            <li>mini lanche de pernil suculento</li>
+            <li>mini burgers deliciosos</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="etapa etapa--4 rev">
+        <div class="etapa__foto"><img src="img/prato-tostada.jpg" alt="tostada de machacca" loading="lazy"></div>
+        <div class="etapa__corpo">
+          <span class="etapa__n">etapa 3</span>
+          <h3>o melhor pro fim</h3>
+          <ul>
+            <li>taco al pastor de pernil</li>
+            <li>enchillada de frango</li>
+            <li>tostada de machacca</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="etapa etapa--5 rev">
+        <div class="etapa__foto"><img src="img/prato-quesadilla.jpg" alt="sobremesa da casa" loading="lazy"></div>
+        <div class="etapa__corpo">
+          <span class="etapa__n">sobremesa</span>
+          <h3>adoçando a despedida</h3>
+          <ul>
+            <li>churritos com sorvete</li>
+            <li>ou tortilla doce</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== faixa textura ===================== -->
+<section class="faixa-tex" aria-hidden="false">
+  <img src="img/tex-guacamole.jpg" alt="" loading="lazy">
+  <div class="wrap" style="text-align:center">
+    <h2 style="font-size:clamp(30px,5vw,58px)">tudo feito na hora, do jeito que a vila faz</h2>
+    <p class="lead" style="margin:14px auto 0">guacamole batido no dia, pico de galo cortado na faca, tortilla na chapa. chef Alex Coelho na cozinha.</p>
+  </div>
+</section>
+
+<!-- ===================== cardápio ===================== -->
+<section class="secao" id="cardapio">
+  <div class="wrap">
+    <div class="cab rev">
+      <span class="olho">à la carte</span>
+      <h2>comida <em>mexicana</em></h2>
+      <p class="lead">o cardápio completo da casa. também está tudo no delivery — e todos os recheios podem virar versão vegetariana.</p>
+    </div>
+
+    <div class="filtros rev" role="group" aria-label="filtrar cardápio">
+      <button class="filtro" data-f="todos" aria-pressed="true">tudo</button>
+      <button class="filtro" data-f="entradas" aria-pressed="false">entradas</button>
+      <button class="filtro" data-f="quesadillas" aria-pressed="false">quesadillas</button>
+      <button class="filtro" data-f="originais" aria-pressed="false">originais</button>
+      <button class="filtro" data-f="combos" aria-pressed="false">combos</button>
+    </div>
+
+    <!-- entradas -->
+    <div class="grupo rev" data-g="entradas">
+      <div class="grupo__cab"><h3 style="color:var(--laranja)">entradas</h3><i></i></div>
+      <div class="itens">
+        <article class="item">
+          <div class="item__foto"><img src="img/prato-panelinha.jpg" alt="entremès tex mex" loading="lazy"></div>
+          <div class="item__txt">
+            <div class="item__topo"><h4>entremès tex mex</h4><span class="preco">R$ 40</span></div>
+            <p>totopos crocantes + carne com feijão e chilli (100g) + guacamole + batata frita com especiárias + onion rings + molho mex e sour cream.</p>
+          </div>
+        </article>
+        <article class="item">
+          <div class="item__foto"><img src="img/prato-nachos-chilli.jpg" alt="nachos con chilli" loading="lazy"></div>
+          <div class="item__txt">
+            <div class="item__topo"><h4>nachos con chilli</h4><span class="preco">R$ 38</span></div>
+            <p>totopos crocantes + carne com feijão e chilli — ou carne de soja com feijão e chilli.</p>
+          </div>
+        </article>
+        <article class="item">
+          <div class="item__foto"><img src="img/tex-guacamole.jpg" alt="nachos con guacamole" loading="lazy"></div>
+          <div class="item__txt">
+            <div class="item__topo"><h4>nachos con guacamole</h4><span class="preco">R$ 34</span></div>
+            <p>totopos crocantes + porção generosa de guacamole batido na hora.</p>
+          </div>
+        </article>
+        <article class="item">
+          <div class="item__foto"><img src="img/tex-nachos.jpg" alt="nachos muy lokos" loading="lazy"></div>
+          <div class="item__txt">
+            <div class="item__topo"><h4>nachos muy lokos</h4><span class="preco preco--vermelho">R$ 42</span></div>
+            <p>totopos cobertos com camada generosa de carne moída, frango, pernil e carne machaca, sour cream e queijo. acompanha guacamole.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- quesadillas -->
+    <div class="grupo rev" data-g="quesadillas">
+      <div class="grupo__cab"><h3 style="color:var(--ouro)">quesadillas</h3><i></i></div>
+      <div class="itens">
+        <article class="item">
+          <div class="item__foto"><img src="img/prato-quesadillas-hero.jpg" alt="queso que te quiero" loading="lazy"></div>
+          <div class="item__txt">
+            <div class="item__topo"><h4>queso que te quiero</h4><span class="preco preco--ouro">R$ 36</span></div>
+            <p>4 fatias de quesadilla com muçarela e cheddar + pico de galo.</p>
+          </div>
+        </article>
+        <article class="item">
+          <div class="item__foto"><img src="img/prato-quesadilla.jpg" alt="quesadilla corn bacon" loading="lazy"></div>
+          <div class="item__txt">
+            <div class="item__topo"><h4>quesadilla corn bacon</h4><span class="preco preco--ouro">R$ 38</span></div>
+            <p>4 fatias de quesadilla de muçarela + milho verde + farofa de bacon + pico de galo.</p>
+          </div>
+        </article>
+        <article class="item">
+          <div class="item__foto"><img src="img/tex-cheddar.jpg" alt="dobradilla" loading="lazy"></div>
+          <div class="item__txt">
+            <div class="item__topo"><h4>dobradilla</h4><span class="preco preco--ouro">R$ 44</span></div>
+            <p>quesadilla preparada com queijo e proteína à escolha (frango, carne mex, machaca ou pernil) + pico de galo.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- originais -->
+    <div class="grupo rev" data-g="originais">
+      <div class="grupo__cab"><h3 style="color:var(--teal)">originais</h3><i></i></div>
+      <div class="itens">
+        <article class="item">
+          <div class="item__foto"><img src="img/prato-taco-pastor.jpg" alt="el taco" loading="lazy"></div>
+          <div class="item__txt">
+            <div class="item__topo"><h4>el taco</h4><span class="preco">R$ 22</span></div>
+            <p>taco shell crocante com tomate + queijo + alface + sour cream.</p>
+          </div>
+        </article>
+        <article class="item">
+          <div class="item__foto"><img src="img/prato-burriton.jpg" alt="el burriton" loading="lazy"></div>
+          <div class="item__txt">
+            <div class="item__topo"><h4>el burriton</h4><span class="preco">R$ 34</span></div>
+            <p>tortilla de trigo com tomate + queijo + alface + sour cream.</p>
+          </div>
+        </article>
+        <article class="item">
+          <div class="item__foto"><img src="img/prato-alpastor.jpg" alt="al pastor" loading="lazy"></div>
+          <div class="item__txt">
+            <div class="item__topo"><h4>al pastor</h4><span class="preco">R$ 48</span></div>
+            <p>4 tortilhas de milho com guacamole, cebola ralada, coentro e pedacinhos de abacaxi.</p>
+          </div>
+        </article>
+        <article class="item">
+          <div class="item__foto"><img src="img/prato-tostada.jpg" alt="tostadas" loading="lazy"></div>
+          <div class="item__txt">
+            <div class="item__topo"><h4>tostadas</h4><span class="preco">R$ 46</span></div>
+            <p>4 tortilhas de milho fritas super crocantes, recheio à escolha, pico de galo e guacamole.</p>
+          </div>
+        </article>
+        <article class="item">
+          <div class="item__foto"><img src="img/prato-tacos-burrito.jpg" alt="enchilladas" loading="lazy"></div>
+          <div class="item__txt">
+            <div class="item__topo"><h4>enchilladas</h4><span class="preco">R$ 40</span></div>
+            <p>2 panquecas mexicanas com recheio à escolha, cobertas com molho de tomate delicioso.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- combos -->
+    <div class="grupo rev" data-g="combos">
+      <div class="grupo__cab"><h3 style="color:var(--magenta)">combos</h3><i></i></div>
+      <div class="combos">
+        <article class="combo combo--destaque">
+          <h4>ni la muerte nos separa</h4>
+          <em>taco + burrito + tostada</em>
+          <div class="combo__linhas">
+            <div class="combo__linha"><span>1 pessoa</span><span class="preco preco--ouro">R$ 68</span></div>
+            <div class="combo__linha"><span>2 pessoas</span><span class="preco preco--ouro">R$ 122</span></div>
+            <div class="combo__linha"><span>3 pessoas</span><span class="preco preco--ouro">R$ 178</span></div>
+          </div>
+        </article>
+        <article class="combo">
+          <h4>viva la vida</h4>
+          <em>quesadilla + taco</em>
+          <div class="combo__linhas"><div class="combo__linha"><span>combo pra um</span><span class="preco preco--vermelho">R$ 54</span></div></div>
+        </article>
+        <article class="combo">
+          <h4>los muertos</h4>
+          <em>taco + burrito</em>
+          <div class="combo__linhas"><div class="combo__linha"><span>combo pra um</span><span class="preco preco--vermelho">R$ 54</span></div></div>
+        </article>
+        <article class="combo">
+          <h4>fiesta no céu</h4>
+          <em>burrito + quesadilla</em>
+          <div class="combo__linhas"><div class="combo__linha"><span>combo pra um</span><span class="preco preco--vermelho">R$ 58</span></div></div>
+        </article>
+      </div>
+
+      <div class="recheios">
+        <h4>escolha o recheio</h4>
+        <p class="lead">vale pra tostadas, enchilladas, dobradilla e combos.</p>
+        <div class="chips">
+          <span class="chip">carne com chili e feijão</span>
+          <span class="chip">carne moída mex</span>
+          <span class="chip">frango mex</span>
+          <span class="chip">pulled pork pernil</span>
+          <span class="chip">carne machaca (à loka)</span>
+          <span class="chip chip--veg">antepasto de beringela</span>
+          <span class="chip chip--veg">abobrinha e cenoura</span>
+          <span class="chip chip--veg">ceviche de banana da terra</span>
+        </div>
+        <p class="nota">os três últimos são os <b style="color:var(--teal);font-weight:500">naturebas</b> — opções vegetarianas da casa. · <b style="font-weight:500;color:#fff">pico de galo</b>: especiaria mexicana feita com tomate, coentro, cebola roxa, pimentão, pimenta jalapeño e limão.</p>
+      </div>
+    </div>
+
+    <p class="nota rev">os preços podem mudar sem aviso — o valor do dia é sempre o do cardápio na mesa e no aplicativo. serviço de 10% opcional. de quinta a sábado tem couvert artístico nas noites com música ao vivo.</p>
+  </div>
+</section>
+
+<!-- ===================== nosso espaço ===================== -->
+<section class="secao secao--linha" id="espaco">
+  <div class="wrap">
+    <div class="cab rev">
+      <span class="olho">nosso espaço</span>
+      <h2>o lugar onde <em>ninguém tem pressa</em></h2>
+      <p class="lead">salão com cara de vila mexicana, mesa grande pra turma inteira, estacionamento no local e rampa de acesso. kids friendly e pet friendly — pode trazer a família toda.</p>
+    </div>
+    <div class="galeria rev" id="galeria"></div>
+  </div>
+</section>
+
+<!-- ===================== eventos ===================== -->
+<section class="secao secao--linha" id="eventos">
+  <div class="wrap">
+    <div class="eventos-grid">
+      <div class="rev">
+        <span class="olho">eventos e confraternizações</span>
+        <h2>faça seu evento <em>no vila</em></h2>
+        <p class="lead">às segundas-feiras a Vila fecha as portas pro público e abre só pra você. aniversário, confraternização de firma, formatura, encontro de amigos — o espaço inteiro, do jeito que você quiser.</p>
+        <ul class="eventos-lista">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F0B400" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg><span>espaço fechado só pro seu grupo, sem dividir salão</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F0B400" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg><span>cardápio fechado ou rodízio Tex Mex pra todo mundo</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F0B400" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg><span>estrutura de som e espaço pra música ao vivo</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F0B400" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg><span>estacionamento no local e acesso por rampa</span></li>
+        </ul>
+        <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn btn--azul" data-zap="evento">pedir orçamento no whats</a>
+          <a class="btn btn--fantasma" href="#visite">ver o endereço</a>
+        </div>
+      </div>
+      <figure class="eventos-foto rev" style="margin:0">
+        <img src="img/prato-combo.jpg" alt="mesa completa da Vila para grupos" loading="lazy">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== visite ===================== -->
+<section class="secao secao--linha" id="visite">
+  <div class="wrap">
+    <div class="cab rev">
+      <span class="olho">venha pra vila</span>
+      <h2>onde a gente <em>te espera</em></h2>
+    </div>
+    <div class="visite">
+      <div class="infos rev">
+        <div class="info">
+          <span class="info__ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F0B400" stroke-width="1.8"><path d="M12 21s-7-5.3-7-11a7 7 0 1114 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+          <div>
+            <h4>endereço</h4>
+            <p id="endereco">Rua Caldas Novas, 49 — Bethaville I, Barueri/SP</p>
+            <p style="margin-top:8px"><a data-link="maps" target="_blank" rel="noopener" style="color:var(--ouro)">abrir no Google Maps &#8594;</a></p>
+          </div>
+        </div>
+
+        <div class="info">
+          <span class="info__ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F0B400" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg></span>
+          <div>
+            <h4>horários</h4>
+            <ul class="horarios" id="horarios"></ul>
+          </div>
+        </div>
+
+        <div class="info">
+          <span class="info__ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F0B400" stroke-width="1.8"><path d="M4 7h16v12H4z"/><path d="M4 11h16M9 7V4h6v3"/></svg></span>
+          <div>
+            <h4>bom saber</h4>
+            <p>estacionamento no local · rampa de acesso · kids friendly (cardápio infantil e cadeirão) · pet friendly · aceitamos todas as formas de pagamento, inclusive cartão alimentação e refeição · serviço de 10% opcional · couvert artístico de quinta a sábado.</p>
+          </div>
+        </div>
+
+        <div class="info">
+          <span class="info__ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F0B400" stroke-width="1.8"><path d="M4 5h16v14H4z"/><path d="M4 7l8 6 8-6"/></svg></span>
+          <div>
+            <h4>reserva</h4>
+            <p>a gente confirma pelo WhatsApp — pra qualquer tamanho de grupo, sem mínimo.</p>
+            <p style="margin-top:12px"><a class="btn btn--zap btn--sm" data-zap="reserva">chamar no whats</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mapa rev"><iframe id="mapa" title="mapa da Vila Los Muertos de Fome" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== rodapé ===================== -->
+<div class="picado" aria-hidden="true" style="transform:scaleY(-1)"></div>
+<footer class="rodape">
+  <div class="wrap">
+    <div class="rodape__grid">
+      <div>
+        <div class="marca" style="margin-bottom:14px">
+          <svg class="marca__cranio" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M16 3c-5.6 0-10 4-10 9.3 0 3.1 1.6 5.2 3.4 6.4v2.8c0 1 .8 1.8 1.8 1.8h9.6c1 0 1.8-.8 1.8-1.8v-2.8c1.8-1.2 3.4-3.3 3.4-6.4C26 7 21.6 3 16 3z" fill="#F0B400"/>
+            <circle cx="12.1" cy="12.4" r="2.6" fill="#000"/><circle cx="19.9" cy="12.4" r="2.6" fill="#000"/>
+            <path d="M16 16.2l1.6 2.6h-3.2z" fill="#000"/>
+          </svg>
+          <span class="marca__txt"><b>los muertos</b><span>de fome · barueri</span></span>
+        </div>
+        <p>Tex Mex com alma brasileira em Bethaville. comida boa, som ao vivo e gente que volta. a marca não é produto, é pertencimento.</p>
+        <div class="social">
+          <a data-link="instagram" target="_blank" rel="noopener" aria-label="Instagram da Vila">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a data-zap="reserva" aria-label="WhatsApp da Vila">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.6 14.2c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.5-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9 1-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.2.1.3 0 .5s-.2.4-.3.5l-.4.5c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.5.3 0 .1 0 .5-.2 1z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h5>cardápio</h5>
+        <ul>
+          <li><a href="#rodizio">rodízio tex mex</a></li>
+          <li><a href="#cardapio">entradas</a></li>
+          <li><a href="#cardapio">quesadillas</a></li>
+          <li><a href="#cardapio">originais</a></li>
+          <li><a href="#cardapio">combos</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>a vila</h5>
+        <ul>
+          <li><a href="#espaco">nosso espaço</a></li>
+          <li><a href="#eventos">eventos privados</a></li>
+          <li><a href="#visite">horários e endereço</a></li>
+          <li><a data-link="instagram" target="_blank" rel="noopener">instagram</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>delivery</h5>
+        <ul>
+          <li><a data-link="ifood" target="_blank" rel="noopener">pedir no iFood</a></li>
+          <li><a data-link="food99" target="_blank" rel="noopener">pedir no 99Food</a></li>
+          <li><a data-zap="delivery">pedir pelo whats</a></li>
+        </ul>
+        <h5 style="margin-top:22px">reserva</h5>
+        <ul><li><a data-zap="reserva">chamar no whatsapp</a></li></ul>
+      </div>
+    </div>
+
+    <div class="rodape__fim">
+      <span>© <span id="ano"></span> Vila Los Muertos de Fome · Rua Caldas Novas, 49 — Bethaville I, Barueri/SP</span>
+      <span>imagens ilustrativas · preços sujeitos a alteração</span>
+    </div>
+  </div>
+</footer>
+
+<div class="flutua">
+  <a class="f-del" data-link="ifood" target="_blank" rel="noopener" aria-label="pedir delivery">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 11h14l-1.2 8H6.2z"/><path d="M9 11V7a3 3 0 016 0v4"/></svg><span>delivery</span>
+  </a>
+  <a class="f-zap" data-zap="reserva" aria-label="reservar no WhatsApp">
+    <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.6 14.2c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.5-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9 1-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.2.1.3 0 .5s-.2.4-.3.5l-.4.5c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.5.3 0 .1 0 .5-.2 1z"/></svg><span>reservar</span>
+  </a>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
