@@ -470,3 +470,92 @@ p{margin:0 0 1em}
   .slide__grid{grid-template-columns:1fr;gap:26px}
   .slide__foto{justify-self:start;max-width:min(320px,72%);transform:none}
 }
+
+/* =========================================================================
+   MOVIMENTO — inspirado no ritmo do gelatolaboca.com, mas com a paleta da Vila.
+   Header que se esconde, títulos com sombra offset de cartaz, palavras entrando
+   escalonadas, marquee de palavra rolando, parallax com tilt nas fotos.
+   ========================================================================= */
+
+/* header some ao rolar pra baixo, volta ao rolar pra cima */
+.nav{transition:transform .4s ease, background .4s ease}
+.nav--hide{transform:translateY(-100%)}
+.nav--solid{background:rgba(0,0,0,.94)}
+
+/* palavras do headline entrando escalonadas (JS envolve cada palavra) */
+.palavra-holder{display:block;line-height:.9}
+.palavra{display:inline-block;overflow:hidden;line-height:inherit;vertical-align:top}
+.palavra > *{
+  display:inline-block;transform:translateY(115%);
+  transition:transform 1s cubic-bezier(.19,1,.22,1);
+  will-change:transform;
+}
+.palavra.on > *{transform:translateY(0)}
+@media (prefers-reduced-motion:reduce){
+  .palavra > *{transform:none}
+}
+
+/* título em escala de cartaz com sombra offset (uso pontual em h2 de seção) */
+.cab h2{text-shadow:5px 6px 0 rgba(0,0,0,.85)}
+.slide h2{text-shadow:6px 8px 0 rgba(0,0,0,.9)}
+.delivery__topo h2{text-shadow:6px 8px 0 rgba(0,0,0,.9)}
+
+/* marquee — palavra rolando na horizontal em loop infinito */
+.marquee{
+  overflow:hidden;padding:34px 0;position:relative;
+  border-block:3px solid #000;
+}
+.marquee--ouro{background:var(--ouro);color:#150d00}
+.marquee--azul{background:var(--azul);color:#fff}
+.marquee--magenta{background:var(--magenta);color:#fff}
+.marquee--teal{background:var(--teal);color:#fff}
+.marquee__trilho{
+  display:flex;gap:56px;animation:corre 34s linear infinite;
+  white-space:nowrap;width:max-content;
+}
+.marquee__trilho span{
+  font-family:var(--display);font-size:clamp(56px,11vw,150px);
+  letter-spacing:.02em;line-height:1;display:inline-flex;align-items:center;gap:56px;
+  text-shadow:5px 6px 0 rgba(0,0,0,.55);
+}
+.marquee__trilho span::after{
+  content:"◆";font-family:var(--corpo);font-size:.42em;
+  color:currentColor;opacity:.55;text-shadow:none;
+}
+.marquee:hover .marquee__trilho{animation-play-state:paused}
+@keyframes corre{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .marquee__trilho{animation:none;transform:translateX(-8%)}
+}
+
+/* parallax + tilt em fotos (JS aplica --p em pixels e --r em graus) */
+.tilt{
+  will-change:transform;
+  transform:translate3d(0,var(--p,0px),0) rotate(var(--r,0deg));
+  transition:transform .08s linear;
+}
+@media (prefers-reduced-motion:reduce){
+  .tilt{transform:none}
+}
+
+/* selo carimbo flutuante (referência aos stickers do La Boca) */
+.selo{
+  position:absolute;font-family:var(--display);font-size:15px;letter-spacing:.14em;
+  width:110px;height:110px;border-radius:50%;background:var(--magenta);color:#fff;
+  display:grid;place-items:center;text-align:center;line-height:1;padding:12px;
+  transform:rotate(-12deg);z-index:4;box-shadow:0 10px 24px rgba(0,0,0,.55);
+  animation:bailar 4.5s ease-in-out infinite;
+}
+.selo--ouro{background:var(--ouro);color:#150d00}
+.selo--teal{background:var(--teal);color:#fff}
+.selo--azul{background:var(--azul);color:#fff}
+.selo b{display:block;font-weight:400;font-size:28px;line-height:.85;letter-spacing:.02em}
+.selo span{display:block;font-family:var(--corpo);font-weight:500;font-size:10px;
+  letter-spacing:.22em;text-transform:uppercase;margin-top:3px}
+@keyframes bailar{
+  0%,100%{transform:rotate(-12deg) translateY(0)}
+  50%{transform:rotate(-6deg) translateY(-8px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .selo{animation:none}
+}

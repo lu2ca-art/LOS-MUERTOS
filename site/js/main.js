@@ -222,4 +222,90 @@
   } else {
     alvos.forEach(function (a) { a.classList.add("on"); });
   }
+
+  /* ---------- movimento inspirado no La Boca ----------------------------- */
+  var reduzMov = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* header some ao rolar pra baixo, volta ao rolar pra cima */
+  var navEl = document.querySelector(".nav");
+  if (navEl && !reduzMov) {
+    var ultY = window.scrollY;
+    window.addEventListener("scroll", function () {
+      var y = window.scrollY;
+      navEl.classList.toggle("nav--solid", y > 20);
+      if (y > 240 && y > ultY + 5) { navEl.classList.add("nav--hide"); }
+      else if (y < ultY - 5) { navEl.classList.remove("nav--hide"); }
+      ultY = y;
+    }, { passive: true });
+  }
+
+  /* palavras entrando escalonadas em h2 marcados como .palavra-holder */
+  document.querySelectorAll(".palavra-holder").forEach(function (h) {
+    var out = document.createDocumentFragment();
+    Array.prototype.forEach.call(h.childNodes, function (n) {
+      if (n.nodeType === 3) {
+        n.textContent.split(/(\s+)/).forEach(function (w) {
+          if (w.trim()) {
+            var wrap = document.createElement("span");
+            wrap.className = "palavra";
+            var inner = document.createElement("span");
+            inner.textContent = w;
+            wrap.appendChild(inner);
+            out.appendChild(wrap);
+          } else if (w) {
+            out.appendChild(document.createTextNode(" "));
+          }
+        });
+      } else if (n.nodeType === 1) {
+        var wrap2 = document.createElement("span");
+        wrap2.className = "palavra";
+        wrap2.appendChild(n.cloneNode(true));
+        out.appendChild(wrap2);
+      }
+    });
+    h.innerHTML = "";
+    h.appendChild(out);
+  });
+
+  if ("IntersectionObserver" in window) {
+    var ioPal = new IntersectionObserver(function (ent) {
+      ent.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var palavras = e.target.querySelectorAll(".palavra");
+        Array.prototype.forEach.call(palavras, function (p, i) {
+          setTimeout(function () { p.classList.add("on"); }, i * 90);
+        });
+        ioPal.unobserve(e.target);
+      });
+    }, { threshold: .35 });
+    document.querySelectorAll(".palavra-holder").forEach(function (h) { ioPal.observe(h); });
+  } else {
+    document.querySelectorAll(".palavra").forEach(function (p) { p.classList.add("on"); });
+  }
+
+  /* parallax + tilt nas fotos marcadas .tilt */
+  if (!reduzMov) {
+    var tilts = document.querySelectorAll(".tilt");
+    if (tilts.length) {
+      var raf = null;
+      var anima = function () {
+        var vh = window.innerHeight;
+        Array.prototype.forEach.call(tilts, function (el) {
+          var r = el.getBoundingClientRect();
+          if (r.bottom < -200 || r.top > vh + 200) return;
+          var t = (r.top + r.height / 2 - vh / 2) / vh;
+          var forca = parseFloat(el.dataset.tilt || "1");
+          el.style.setProperty("--p", (t * 32 * forca).toFixed(1) + "px");
+          el.style.setProperty("--r", (t * 3.2 * forca).toFixed(2) + "deg");
+        });
+        raf = null;
+      };
+      window.addEventListener("scroll", function () {
+        if (raf) return;
+        raf = requestAnimationFrame(anima);
+      }, { passive: true });
+      window.addEventListener("resize", anima, { passive: true });
+      anima();
+    }
+  }
 })();
