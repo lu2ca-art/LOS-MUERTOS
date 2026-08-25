@@ -9,7 +9,7 @@ window.VILA = {
   /* --- contato -----------------------------------------------------------
      whatsapp: só números, com 55 (país) + 11 (DDD). Sem espaço, sem traço.
      >>> TROCAR PELO NÚMERO REAL DA VILA <<<                                */
-  whatsapp: "5511000000000",
+  whatsapp: "5511991961048",
 
   /* mensagens que já vão escritas quando a pessoa clica */
   msgReserva: "oi! quero reservar uma mesa na Vila. pode confirmar pra mim?",
