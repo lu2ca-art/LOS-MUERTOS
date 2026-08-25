@@ -206,8 +206,7 @@
       ];
       gal.innerHTML = padrao.map(function (f) {
         return "<figure><img src=\"" + f.src + "\" alt=\"" + f.alt + "\" loading=\"lazy\"></figure>";
-      }).join("") +
-      "<figure class=\"slot\"><b>fotos do salão aqui</b><span>coloque as imagens em <code>site/img/</code> e liste em <code>js/config.js</code> &rarr; galeria</span></figure>";
+      }).join("");
     }
   }
 
