@@ -197,10 +197,12 @@
       }).join("");
     } else {
       var padrao = [
-        { src: "img/prato-panelinha.jpg", alt: "mesa servida na Vila" },
-        { src: "img/prato-quesadillas-hero.jpg", alt: "quesadillas da casa" },
-        { src: "img/prato-miniburger.jpg", alt: "mini burgers" },
-        { src: "img/prato-tacos-burrito.jpg", alt: "tacos e burrito" }
+        { src: "img/29.jpg", alt: "salão da Vila" },
+        { src: "img/30.jpg", alt: "mesa servida" },
+        { src: "img/31.jpg", alt: "noite de música ao vivo" },
+        { src: "img/32.jpg", alt: "turma na Vila" },
+        { src: "img/33.jpg", alt: "fachada" },
+        { src: "img/34.jpg", alt: "detalhe da casa" }
       ];
       gal.innerHTML = padrao.map(function (f) {
         return "<figure><img src=\"" + f.src + "\" alt=\"" + f.alt + "\" loading=\"lazy\"></figure>";
