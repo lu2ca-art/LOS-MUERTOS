@@ -684,3 +684,65 @@ p{margin:0 0 1em}
   .item--hero__foto img{transition:none}
   .item--hero:hover .item--hero__foto img{transform:none}
 }
+
+/* =========================================================================
+   Mascotes — sugar skulls do Día de los Muertos
+   Uso cirúrgico: nav, seção eventos, rodapé. Nada mais.
+   ========================================================================= */
+
+/* mascote da nav — substitui o crânio SVG */
+.marca__mascote{
+  width:auto;height:38px;object-fit:contain;flex-shrink:0;
+  filter:drop-shadow(0 4px 10px rgba(0,0,0,.55));
+  transition:transform .35s ease;
+}
+.marca:hover .marca__mascote{transform:rotate(-6deg) scale(1.06)}
+
+/* mascote da seção eventos — chihuahua recepcionista */
+.eventos-copy{position:relative}
+.eventos__mascote{
+  position:absolute;top:-30px;right:-10px;
+  width:110px;height:auto;
+  filter:drop-shadow(0 12px 30px rgba(0,0,0,.6));
+  animation:mascoteFlutua 5.5s ease-in-out infinite;
+  pointer-events:none;z-index:2;
+}
+@keyframes mascoteFlutua{
+  0%,100%{transform:translateY(0) rotate(-3deg)}
+  50%{transform:translateY(-8px) rotate(3deg)}
+}
+
+/* marca do rodapé — mascotes emoldurando */
+.rodape__marca{
+  display:flex;align-items:center;gap:14px;margin-bottom:16px;
+}
+.rodape__mascote{
+  width:auto;height:64px;object-fit:contain;flex-shrink:0;
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,.55));
+}
+.rodape__mascote--esq{transform:rotate(-4deg)}
+.rodape__mascote--dir{transform:rotate(4deg) scaleX(-1)}
+.rodape__marca-txt{
+  font-family:var(--display);line-height:.82;
+}
+.rodape__marca-txt b{
+  display:block;font-weight:400;font-size:26px;letter-spacing:.03em;color:#fff;
+}
+.rodape__marca-txt span{
+  display:block;font-family:var(--corpo);font-weight:400;font-size:11px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--cinza-2);margin-top:5px;
+}
+
+@media (max-width:900px){
+  .eventos__mascote{width:80px;top:-20px;right:0}
+  .rodape__mascote{height:52px}
+  .rodape__marca-txt b{font-size:22px}
+}
+@media (max-width:520px){
+  .eventos__mascote{width:64px;top:-12px;right:-4px;opacity:.9}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .eventos__mascote{animation:none}
+  .marca:hover .marca__mascote{transform:none}
+}
