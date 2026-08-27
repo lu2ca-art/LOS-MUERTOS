@@ -308,4 +308,36 @@
       anima();
     }
   }
+
+  /* --- setas dos trilhos do cardápio ------------------------------------ */
+  document.querySelectorAll("[data-trilho]").forEach(function (bloco) {
+    var pista = bloco.querySelector(".trilho__pista");
+    var esq = bloco.querySelector(".trilho__seta--esq");
+    var dir = bloco.querySelector(".trilho__seta--dir");
+    if (!pista || !esq || !dir) return;
+    function passo() {
+      var card = pista.querySelector(".item--card");
+      if (!card) return 300;
+      var estilo = getComputedStyle(pista);
+      var gap = parseFloat(estilo.columnGap || estilo.gap || "16");
+      return card.getBoundingClientRect().width + gap;
+    }
+    esq.addEventListener("click", function () {
+      pista.scrollBy({ left: -passo(), behavior: "smooth" });
+    });
+    dir.addEventListener("click", function () {
+      pista.scrollBy({ left: passo(), behavior: "smooth" });
+    });
+    function ajusta() {
+      var no_inicio = pista.scrollLeft <= 4;
+      var no_fim = pista.scrollLeft + pista.clientWidth >= pista.scrollWidth - 4;
+      esq.style.opacity = no_inicio ? "0" : "1";
+      esq.style.pointerEvents = no_inicio ? "none" : "auto";
+      dir.style.opacity = no_fim ? "0" : "1";
+      dir.style.pointerEvents = no_fim ? "none" : "auto";
+    }
+    pista.addEventListener("scroll", ajusta, { passive: true });
+    window.addEventListener("resize", ajusta, { passive: true });
+    ajusta();
+  });
 })();

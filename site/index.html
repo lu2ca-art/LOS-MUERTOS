@@ -352,106 +352,130 @@
 
     <!-- entradas -->
     <div class="grupo rev" data-g="entradas">
-      <div class="grupo__cab"><h3 style="color:var(--laranja)">entradas</h3><i></i></div>
-      <div class="itens">
-        <article class="item">
-          <div class="item__foto"><img src="img/16.jpg" alt="entremès tex mex" loading="lazy"></div>
-          <div class="item__txt">
-            <div class="item__topo"><h4>entremès tex mex</h4><span class="preco">R$ 40</span></div>
-            <p>totopos crocantes + carne com feijão e chilli (100g) + guacamole + batata frita com especiárias + onion rings + molho mex e sour cream.</p>
-          </div>
-        </article>
-        <article class="item">
-          <div class="item__foto"><img src="img/17.jpg" alt="nachos con chilli" loading="lazy"></div>
-          <div class="item__txt">
-            <div class="item__topo"><h4>nachos con chilli</h4><span class="preco">R$ 38</span></div>
-            <p>totopos crocantes + carne com feijão e chilli — ou carne de soja com feijão e chilli.</p>
-          </div>
-        </article>
-        <article class="item">
-          <div class="item__foto"><img src="img/18.jpg" alt="nachos con guacamole" loading="lazy"></div>
-          <div class="item__txt">
-            <div class="item__topo"><h4>nachos con guacamole</h4><span class="preco">R$ 34</span></div>
-            <p>totopos crocantes + porção generosa de guacamole batido na hora.</p>
-          </div>
-        </article>
-        <article class="item">
-          <div class="item__foto"><img src="img/19.jpg" alt="nachos muy lokos" loading="lazy"></div>
-          <div class="item__txt">
-            <div class="item__topo"><h4>nachos muy lokos</h4><span class="preco preco--vermelho">R$ 42</span></div>
-            <p>totopos cobertos com camada generosa de carne moída, frango, pernil e carne machaca, sour cream e queijo. acompanha guacamole.</p>
-          </div>
-        </article>
+      <div class="grupo__cab grupo__cab--peso" data-cor="laranja"><h3>entradas</h3><i></i></div>
+
+      <article class="item item--hero" data-acento="laranja">
+        <div class="item--hero__foto"><img src="img/16.jpg" alt="entremès tex mex" loading="lazy"></div>
+        <div class="item--hero__txt">
+          <span class="item--hero__olho">a estrela das entradas</span>
+          <h4>entremès <em>tex mex</em></h4>
+          <p>totopos crocantes + carne com feijão e chilli (100g) + guacamole + batata frita com especiárias + onion rings + molho mex e sour cream.</p>
+          <span class="preco preco--grande">R$ 40</span>
+        </div>
+      </article>
+
+      <div class="trilho" data-trilho>
+        <div class="trilho__pista">
+          <article class="item item--card">
+            <div class="item--card__foto"><img src="img/17.jpg" alt="nachos con chilli" loading="lazy"></div>
+            <div class="item--card__txt">
+              <div class="item__topo"><h4>nachos con chilli</h4><span class="preco">R$ 38</span></div>
+              <p>totopos crocantes + carne com feijão e chilli — ou carne de soja com feijão e chilli.</p>
+            </div>
+          </article>
+          <article class="item item--card">
+            <div class="item--card__foto"><img src="img/18.jpg" alt="nachos con guacamole" loading="lazy"></div>
+            <div class="item--card__txt">
+              <div class="item__topo"><h4>nachos con guacamole</h4><span class="preco">R$ 34</span></div>
+              <p>totopos crocantes + porção generosa de guacamole batido na hora.</p>
+            </div>
+          </article>
+          <article class="item item--card">
+            <div class="item--card__foto"><img src="img/19.jpg" alt="nachos muy lokos" loading="lazy"></div>
+            <div class="item--card__txt">
+              <div class="item__topo"><h4>nachos muy lokos</h4><span class="preco preco--vermelho">R$ 42</span></div>
+              <p>totopos cobertos com camada generosa de carne moída, frango, pernil e carne machaca, sour cream e queijo. acompanha guacamole.</p>
+            </div>
+          </article>
+        </div>
+        <button class="trilho__seta trilho__seta--esq" aria-label="anterior" type="button">‹</button>
+        <button class="trilho__seta trilho__seta--dir" aria-label="próximo" type="button">›</button>
       </div>
     </div>
 
     <!-- quesadillas -->
     <div class="grupo rev" data-g="quesadillas">
-      <div class="grupo__cab"><h3 style="color:var(--ouro)">quesadillas</h3><i></i></div>
-      <div class="itens">
-        <article class="item">
-          <div class="item__foto"><img src="img/20.jpg" alt="queso que te quiero" loading="lazy"></div>
-          <div class="item__txt">
-            <div class="item__topo"><h4>queso que te quiero</h4><span class="preco preco--ouro">R$ 36</span></div>
-            <p>4 fatias de quesadilla com muçarela e cheddar + pico de galo.</p>
-          </div>
-        </article>
-        <article class="item">
-          <div class="item__foto"><img src="img/21.jpg" alt="quesadilla corn bacon" loading="lazy"></div>
-          <div class="item__txt">
-            <div class="item__topo"><h4>quesadilla corn bacon</h4><span class="preco preco--ouro">R$ 38</span></div>
-            <p>4 fatias de quesadilla de muçarela + milho verde + farofa de bacon + pico de galo.</p>
-          </div>
-        </article>
-        <article class="item">
-          <div class="item__foto"><img src="img/22.jpg" alt="dobradilla" loading="lazy"></div>
-          <div class="item__txt">
-            <div class="item__topo"><h4>dobradilla</h4><span class="preco preco--ouro">R$ 44</span></div>
-            <p>quesadilla preparada com queijo e proteína à escolha (frango, carne mex, machaca ou pernil) + pico de galo.</p>
-          </div>
-        </article>
+      <div class="grupo__cab grupo__cab--peso" data-cor="ouro"><h3>quesadillas</h3><i></i></div>
+
+      <article class="item item--hero item--hero--inv" data-acento="ouro">
+        <div class="item--hero__foto"><img src="img/20.jpg" alt="queso que te quiero" loading="lazy"></div>
+        <div class="item--hero__txt">
+          <span class="item--hero__olho">a clássica da casa</span>
+          <h4>queso que <em>te quiero</em></h4>
+          <p>4 fatias de quesadilla com muçarela e cheddar + pico de galo. o ponto de partida — queijo derretido no jeito certo.</p>
+          <span class="preco preco--grande preco--ouro">R$ 36</span>
+        </div>
+      </article>
+
+      <div class="trilho" data-trilho>
+        <div class="trilho__pista">
+          <article class="item item--card">
+            <div class="item--card__foto"><img src="img/21.jpg" alt="quesadilla corn bacon" loading="lazy"></div>
+            <div class="item--card__txt">
+              <div class="item__topo"><h4>quesadilla corn bacon</h4><span class="preco preco--ouro">R$ 38</span></div>
+              <p>4 fatias de quesadilla de muçarela + milho verde + farofa de bacon + pico de galo.</p>
+            </div>
+          </article>
+          <article class="item item--card">
+            <div class="item--card__foto"><img src="img/22.jpg" alt="dobradilla" loading="lazy"></div>
+            <div class="item--card__txt">
+              <div class="item__topo"><h4>dobradilla</h4><span class="preco preco--ouro">R$ 44</span></div>
+              <p>quesadilla preparada com queijo e proteína à escolha (frango, carne mex, machaca ou pernil) + pico de galo.</p>
+            </div>
+          </article>
+        </div>
+        <button class="trilho__seta trilho__seta--esq" aria-label="anterior" type="button">‹</button>
+        <button class="trilho__seta trilho__seta--dir" aria-label="próximo" type="button">›</button>
       </div>
     </div>
 
     <!-- originais -->
     <div class="grupo rev" data-g="originais">
-      <div class="grupo__cab"><h3 style="color:var(--teal)">originais</h3><i></i></div>
-      <div class="itens">
-        <article class="item">
-          <div class="item__foto"><img src="img/23.jpg" alt="el taco" loading="lazy"></div>
-          <div class="item__txt">
-            <div class="item__topo"><h4>el taco</h4><span class="preco">R$ 22</span></div>
-            <p>taco shell crocante com tomate + queijo + alface + sour cream.</p>
-          </div>
-        </article>
-        <article class="item">
-          <div class="item__foto"><img src="img/24.jpg" alt="el burriton" loading="lazy"></div>
-          <div class="item__txt">
-            <div class="item__topo"><h4>el burriton</h4><span class="preco">R$ 34</span></div>
-            <p>tortilla de trigo com tomate + queijo + alface + sour cream.</p>
-          </div>
-        </article>
-        <article class="item">
-          <div class="item__foto"><img src="img/25.jpg" alt="al pastor" loading="lazy"></div>
-          <div class="item__txt">
-            <div class="item__topo"><h4>al pastor</h4><span class="preco">R$ 48</span></div>
-            <p>4 tortilhas de milho com guacamole, cebola ralada, coentro e pedacinhos de abacaxi.</p>
-          </div>
-        </article>
-        <article class="item">
-          <div class="item__foto"><img src="img/26.jpg" alt="tostadas" loading="lazy"></div>
-          <div class="item__txt">
-            <div class="item__topo"><h4>tostadas</h4><span class="preco">R$ 46</span></div>
-            <p>4 tortilhas de milho fritas super crocantes, recheio à escolha, pico de galo e guacamole.</p>
-          </div>
-        </article>
-        <article class="item">
-          <div class="item__foto"><img src="img/27.jpg" alt="enchilladas" loading="lazy"></div>
-          <div class="item__txt">
-            <div class="item__topo"><h4>enchilladas</h4><span class="preco">R$ 40</span></div>
-            <p>2 panquecas mexicanas com recheio à escolha, cobertas com molho de tomate delicioso.</p>
-          </div>
-        </article>
+      <div class="grupo__cab grupo__cab--peso" data-cor="teal"><h3>originais</h3><i></i></div>
+
+      <article class="item item--hero" data-acento="teal">
+        <div class="item--hero__foto"><img src="img/25.jpg" alt="al pastor" loading="lazy"></div>
+        <div class="item--hero__txt">
+          <span class="item--hero__olho">o símbolo mexicano</span>
+          <h4>al <em>pastor</em></h4>
+          <p>4 tortilhas de milho com guacamole, cebola ralada, coentro e pedacinhos de abacaxi. o taco que virou lenda no méxico.</p>
+          <span class="preco preco--grande">R$ 48</span>
+        </div>
+      </article>
+
+      <div class="trilho" data-trilho>
+        <div class="trilho__pista">
+          <article class="item item--card">
+            <div class="item--card__foto"><img src="img/23.jpg" alt="el taco" loading="lazy"></div>
+            <div class="item--card__txt">
+              <div class="item__topo"><h4>el taco</h4><span class="preco">R$ 22</span></div>
+              <p>taco shell crocante com tomate + queijo + alface + sour cream.</p>
+            </div>
+          </article>
+          <article class="item item--card">
+            <div class="item--card__foto"><img src="img/24.jpg" alt="el burriton" loading="lazy"></div>
+            <div class="item--card__txt">
+              <div class="item__topo"><h4>el burriton</h4><span class="preco">R$ 34</span></div>
+              <p>tortilla de trigo com tomate + queijo + alface + sour cream.</p>
+            </div>
+          </article>
+          <article class="item item--card">
+            <div class="item--card__foto"><img src="img/26.jpg" alt="tostadas" loading="lazy"></div>
+            <div class="item--card__txt">
+              <div class="item__topo"><h4>tostadas</h4><span class="preco">R$ 46</span></div>
+              <p>4 tortilhas de milho fritas super crocantes, recheio à escolha, pico de galo e guacamole.</p>
+            </div>
+          </article>
+          <article class="item item--card">
+            <div class="item--card__foto"><img src="img/27.jpg" alt="enchilladas" loading="lazy"></div>
+            <div class="item--card__txt">
+              <div class="item__topo"><h4>enchilladas</h4><span class="preco">R$ 40</span></div>
+              <p>2 panquecas mexicanas com recheio à escolha, cobertas com molho de tomate delicioso.</p>
+            </div>
+          </article>
+        </div>
+        <button class="trilho__seta trilho__seta--esq" aria-label="anterior" type="button">‹</button>
+        <button class="trilho__seta trilho__seta--dir" aria-label="próximo" type="button">›</button>
       </div>
     </div>
 
