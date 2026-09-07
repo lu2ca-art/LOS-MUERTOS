@@ -1,0 +1,1514 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>Biblioteca de Respostas — Vila Los Muertos de Fome</title>
+<style>
+  :root{
+    --bg:#faf3e7;
+    --surface:#ffffff;
+    --surface-2:#f1e4ce;
+    --ink:#241a14;
+    --ink-muted:#7a6552;
+    --border:#e6d6bc;
+    --accent:#d9661f;
+    --accent-strong:#b14e10;
+    --accent-2:#a83a63;
+    --good:#2f7a52;
+    --good-bg:#e3f1e8;
+    --warn:#96700f;
+    --warn-bg:#f3e6c4;
+    --danger:#a23b2e;
+    --danger-bg:#f6e2de;
+    --ring: rgba(217,102,31,0.45);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#181210;
+      --surface:#221a15;
+      --surface-2:#2b2119;
+      --ink:#f3e9dd;
+      --ink-muted:#b7a392;
+      --border:#3a2c22;
+      --accent:#f1904c;
+      --accent-strong:#f7ac72;
+      --accent-2:#e1608a;
+      --good:#7fcf9e;
+      --good-bg:#1d3327;
+      --warn:#dcb24b;
+      --warn-bg:#3a2f16;
+      --danger:#e2685a;
+      --danger-bg:#3a2119;
+      --ring: rgba(241,144,76,0.45);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#181210; --surface:#221a15; --surface-2:#2b2119; --ink:#f3e9dd; --ink-muted:#b7a392;
+    --border:#3a2c22; --accent:#f1904c; --accent-strong:#f7ac72; --accent-2:#e1608a;
+    --good:#7fcf9e; --good-bg:#1d3327; --warn:#dcb24b; --warn-bg:#3a2f16;
+    --danger:#e2685a; --danger-bg:#3a2119; --ring: rgba(241,144,76,0.45); color-scheme: dark;
+  }
+  :root[data-theme="light"]{
+    --bg:#faf3e7; --surface:#ffffff; --surface-2:#f1e4ce; --ink:#241a14; --ink-muted:#7a6552;
+    --border:#e6d6bc; --accent:#d9661f; --accent-strong:#b14e10; --accent-2:#a83a63;
+    --good:#2f7a52; --good-bg:#e3f1e8; --warn:#96700f; --warn-bg:#f3e6c4;
+    --danger:#a23b2e; --danger-bg:#f6e2de; --ring: rgba(217,102,31,0.45); color-scheme: light;
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size:15.5px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{ font-family:ui-serif,"Iowan Old Style","Palatino Linotype",Georgia,serif; text-wrap:balance; margin:0; }
+  code, .mono{ font-family:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace; }
+  a{ color:inherit; }
+  ::selection{ background:var(--ring); }
+
+  .app{
+    display:grid;
+    grid-template-columns: 288px minmax(0,1fr);
+    min-height:100vh;
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar{
+    position:sticky; top:0; align-self:start;
+    height:100vh; overflow-y:auto;
+    border-right:1px solid var(--border);
+    padding:22px 18px 24px;
+    background:var(--surface);
+  }
+  .brand{ display:flex; align-items:baseline; gap:8px; margin-bottom:2px; }
+  .brand__mark{ font-size:20px; }
+  .brand h1{ font-size:19px; font-weight:600; }
+  .brand__sub{ color:var(--ink-muted); font-size:12.5px; margin:2px 0 16px; }
+
+  .progress{ margin-bottom:18px; }
+  .progress__row{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
+  .progress__label{ font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-muted); }
+  .progress__count{ font-family:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace; font-size:13px; font-variant-numeric:tabular-nums; }
+  .progress__bar{ height:6px; border-radius:99px; background:var(--surface-2); overflow:hidden; }
+  .progress__fill{ height:100%; background:linear-gradient(90deg,var(--accent),var(--accent-strong)); border-radius:99px; }
+
+  .search{ position:relative; margin-bottom:16px; }
+  .search input{
+    width:100%; padding:9px 12px 9px 32px; border-radius:9px;
+    border:1px solid var(--border); background:var(--bg); color:var(--ink);
+    font-size:14px; font-family:inherit;
+  }
+  .search input::placeholder{ color:var(--ink-muted); }
+  .search input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+  .search svg{ position:absolute; left:9px; top:50%; transform:translateY(-50%); width:15px; height:15px; color:var(--ink-muted); }
+  .search__hint{ font-size:11px; color:var(--ink-muted); margin-top:6px; }
+
+  .jump{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+  .jump a{
+    font-size:11.5px; text-decoration:none; padding:5px 9px; border-radius:99px;
+    border:1px solid var(--border); color:var(--ink-muted); white-space:nowrap;
+  }
+  .jump a:hover{ border-color:var(--accent); color:var(--accent-strong); }
+
+  .toc-title{ font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-muted); margin:4px 0 8px; }
+  .toc{ list-style:none; margin:0 0 4px; padding:0; }
+  .toc li{ margin:0; }
+  .toc a{
+    display:block; text-decoration:none; font-size:13px; color:var(--ink);
+    padding:5px 8px; border-radius:6px; border-left:2px solid transparent;
+  }
+  .toc a:hover{ background:var(--surface-2); }
+  .toc a.is-inst{ color:var(--ink-muted); }
+  .toc-group{ margin-top:10px; }
+  .no-results-nav{ font-size:12.5px; color:var(--ink-muted); padding:6px 8px; }
+
+  /* ---------- Main ---------- */
+  main{ padding:28px 32px 80px; max-width:900px; }
+  .page-head{ margin-bottom:22px; }
+  .page-head p{ color:var(--ink-muted); max-width:60ch; font-size:14.5px; }
+  .updated{ font-family:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace; font-size:12px; color:var(--ink-muted); }
+
+  section.group{ margin-bottom:36px; }
+  .group__head{ display:flex; align-items:baseline; gap:10px; margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+  .group__head h2{ font-size:20px; }
+  .group__head .count{ font-size:12px; color:var(--ink-muted); font-family:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace; }
+  .group__note{ color:var(--ink-muted); font-size:13.5px; margin:-6px 0 14px; max-width:64ch; }
+
+  .cards{ display:flex; flex-direction:column; gap:14px; }
+
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:16px 18px; scroll-margin-top:18px;
+  }
+  .card[data-section="institucional"]{ border-left:3px solid var(--accent-2); }
+  .card[data-section="publico"]{ border-left:3px solid var(--accent); }
+  .card.flash{ animation:flash 1.1s ease; }
+  @keyframes flash{ 0%{ box-shadow:0 0 0 3px var(--ring);} 100%{ box-shadow:0 0 0 0 transparent;} }
+  @media (prefers-reduced-motion: reduce){ .card.flash{ animation:none; } }
+
+  .card__head{ display:flex; align-items:baseline; gap:10px; margin-bottom:4px; }
+  .card__idx{ font-family:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace; font-size:11px; color:var(--ink-muted); }
+  .card__title{ font-size:16.5px; font-weight:600; }
+  .card__prompt{ color:var(--ink-muted); font-size:13px; margin:2px 0 10px; }
+  .card__prompt b{ font-weight:600; color:var(--ink); }
+
+  .copyable{ position:relative; }
+  .reply{
+    background:var(--surface-2); border-radius:9px; padding:12px 40px 12px 13px; margin:0;
+  }
+  .reply p.copy-src{ margin:0; }
+
+  .copy-btn{
+    position:absolute; top:8px; right:8px; width:28px; height:28px; border-radius:7px;
+    border:1px solid var(--border); background:var(--surface); color:var(--ink-muted);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0;
+  }
+  .copy-btn:hover{ color:var(--accent-strong); border-color:var(--accent); }
+  .copy-btn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  .copy-btn svg{ width:14px; height:14px; }
+  .copy-btn .icon-check{ display:none; color:var(--good); }
+  .copy-btn.is-copied .icon-copy{ display:none; }
+  .copy-btn.is-copied .icon-check{ display:block; }
+  .copy-btn.is-copied{ border-color:var(--good); }
+  .note .copy-btn{ width:24px; height:24px; top:6px; right:6px; }
+  .note .copy-btn svg{ width:12px; height:12px; }
+
+  details.notes{ margin-top:8px; }
+  details.notes > summary{
+    cursor:pointer; font-size:12px; color:var(--ink-muted); list-style:none;
+    display:flex; align-items:center; gap:5px; padding:2px 0;
+  }
+  details.notes > summary::-webkit-details-marker{ display:none; }
+  details.notes > summary::before{ content:"▸"; font-size:10px; }
+  details.notes[open] > summary::before{ content:"▾"; }
+  details.notes > summary:hover{ color:var(--ink); }
+
+  .note{ position:relative; margin-top:8px; padding:9px 34px 9px 11px; border-radius:8px; background:var(--surface); border:1px dashed var(--border); }
+  .note:first-of-type{ margin-top:10px; }
+  .note p{ margin:0; font-size:12.8px; color:var(--ink-muted); }
+  .note p.copy-src{ color:var(--ink-muted); }
+  .tag{
+    display:inline-block; font-size:10px; text-transform:uppercase; letter-spacing:.05em;
+    font-weight:700; padding:1px 6px; border-radius:5px; margin-right:6px; vertical-align:1px;
+  }
+  .tag--interna{ background:var(--surface-2); color:var(--ink-muted); }
+  .tag--pendencia{ background:var(--warn-bg); color:var(--warn); }
+  .tag--nunca{ background:var(--danger-bg); color:var(--danger); }
+  .tag--fonte{ background:var(--surface-2); color:var(--ink-muted); }
+
+  ul.plainlist{ margin:6px 0 0; padding-left:18px; }
+  ul.plainlist li{ margin:2px 0; font-size:12.8px; color:var(--ink-muted); }
+
+  .inst-intro{ font-size:13.5px; color:var(--ink-muted); margin:0 0 14px; max-width:66ch; }
+
+  .pend-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+  .pend-list li{
+    position:relative; display:flex; gap:10px; align-items:flex-start;
+    background:var(--surface); border:1px solid var(--border); border-radius:9px;
+    padding:10px 40px 10px 12px;
+  }
+  .pend-dot{ width:7px; height:7px; border-radius:50%; background:var(--warn); margin-top:6px; flex:none; }
+  .pend-list li.resolved .pend-dot{ background:var(--good); }
+  .pend-list li p{ margin:0; font-size:13.3px; }
+  .pend-list li.resolved p{ color:var(--ink-muted); text-decoration:line-through; text-decoration-color:var(--border); }
+
+  .jump a.jump--add{ border-style:dashed; color:var(--accent-strong); }
+  .jump a.jump--add:hover{ background:var(--surface-2); }
+
+  .add-form{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:18px 20px; margin-bottom:18px;
+  }
+  .add-form__grid{ display:grid; gap:12px; }
+  .add-form label{ display:block; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-muted); margin-bottom:5px; }
+  .add-form input[type="text"], .add-form textarea{
+    width:100%; font-family:inherit; font-size:14px; color:var(--ink);
+    background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:9px 11px;
+    resize:vertical;
+  }
+  .add-form input[type="text"]:focus-visible, .add-form textarea:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+  .add-form__row{ display:flex; gap:10px; align-items:center; margin-top:4px; }
+  .btn{
+    font-family:inherit; font-size:13.5px; font-weight:600; border-radius:8px; padding:9px 16px;
+    border:1px solid var(--border); background:var(--surface); color:var(--ink); cursor:pointer;
+  }
+  .btn:hover{ border-color:var(--accent); color:var(--accent-strong); }
+  .btn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  .btn--primary{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .btn--primary:hover{ background:var(--accent-strong); border-color:var(--accent-strong); color:#fff; }
+  .btn--ghost{ background:transparent; }
+  .add-form__hint{ font-size:12.5px; color:var(--ink-muted); margin:0 0 14px; max-width:66ch; }
+
+  .local-empty{ color:var(--ink-muted); font-size:13.5px; padding:10px 2px; }
+  .card[data-section="local"]{ border-left:3px solid var(--warn); border-style:dashed; }
+  .card[data-section="local"] .reply{ padding-right:76px; }
+  .local-toolbar{ display:flex; gap:8px; align-items:center; margin-bottom:12px; flex-wrap:wrap; }
+  .local-toolbar__count{ font-size:12.5px; color:var(--ink-muted); margin-right:auto; }
+  .del-btn{
+    position:absolute; top:8px; right:44px; width:28px; height:28px; border-radius:7px;
+    border:1px solid var(--border); background:var(--surface); color:var(--ink-muted);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0;
+  }
+  .del-btn:hover{ color:var(--danger); border-color:var(--danger); }
+  .del-btn svg{ width:14px; height:14px; }
+
+  footer{ color:var(--ink-muted); font-size:12px; margin-top:30px; padding-top:16px; border-top:1px solid var(--border); }
+
+  .sr-live{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+
+  .empty-state{ display:none; color:var(--ink-muted); font-size:14px; padding:24px 0; }
+  body.no-matches .empty-state{ display:block; }
+
+  /* mobile */
+  .mobile-bar{ display:none; }
+  @media (max-width: 860px){
+    .app{ grid-template-columns: 1fr; }
+    .sidebar{
+      position:sticky; top:0; height:auto; max-height:none; border-right:none; border-bottom:1px solid var(--border);
+      padding:14px 16px;
+    }
+    .sidebar .toc-wrap{ display:none; }
+    main{ padding:22px 16px 70px; }
+    .jump{ overflow-x:auto; flex-wrap:nowrap; padding-bottom:2px; }
+  }
+</style>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand__mark">🌮</span>
+      <h1>Biblioteca de Respostas</h1>
+    </div>
+    <p class="brand__sub">Vila Los Muertos de Fome · Instagram · <span class="updated">atualizado 2026-07-16</span></p>
+
+    <div class="progress">
+      <div class="progress__row">
+        <span class="progress__label">Público geral</span>
+        <span class="progress__count" id="progress-count">— / 50</span>
+      </div>
+      <div class="progress__bar"><div class="progress__fill" id="progress-fill" style="width:0%"></div></div>
+    </div>
+
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="search" placeholder="Buscar categoria ou pergunta…" autocomplete="off">
+      <div class="search__hint">Filtra título, pergunta e resposta</div>
+    </div>
+
+    <div class="jump">
+      <a href="#sec-publico">Público geral</a>
+      <a href="#sec-institucional">Institucional</a>
+      <a href="#sec-pendencias">Pendências</a>
+      <a href="#sec-adicionar" class="jump--add">+ Adicionar</a>
+    </div>
+
+    <div class="toc-wrap">
+      <div class="toc-title">Índice</div>
+      <ul class="toc" id="toc"></ul>
+    </div>
+  </aside>
+
+  <main>
+    <div class="page-head">
+      <p>Copiar e adaptar ao responder DM/comentário no Instagram. Uso: LU2CA + Lucas + equipe. Cada caixa de resposta tem um botão de copiar — clique no ícone no canto pra copiar o texto exato.</p>
+    </div>
+
+    <section class="group" id="sec-publico" data-group="publico">
+      <div class="group__head">
+        <h2>Público Geral</h2>
+        <span class="count" data-count-target="publico"></span>
+      </div>
+      <div class="cards">
+
+        <article class="card" data-section="publico" id="cat-reserva">
+          <div class="card__head"><span class="card__idx">01</span><h3 class="card__title">Reserva</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "vocês têm reserva?" / "como reservo?" / "dá pra reservar mesa?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">reserva a gente confirma pelo whats — pode mandar o pedido aqui pelo direct ou já ir direto pro nosso whatsapp que a gente confirma sua mesa certinho. Vale pra qualquer tamanho de grupo, não precisa ser grande.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-horario">
+          <div class="card__head"><span class="card__idx">02</span><h3 class="card__title">Horário</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "que horas vocês abrem?" / "funciona hoje?" / "até que horas fica aberto?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">funcionamos todo dia das 11h às 23h. segunda a gente fecha mais cedo, às 15h (só período diurno). sábado vai até meia-noite.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-estacionamento">
+          <div class="card__head"><span class="card__idx">03</span><h3 class="card__title">Estacionamento</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem estacionamento?" / "onde estaciono?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">tem sim, estacionamento no local pra você.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-cardapio-restricoes">
+          <div class="card__head"><span class="card__idx">04</span><h3 class="card__title">Cardápio / Restrições Alimentares</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem opção vegana?" / "tem algo pra quem tem alergia?" / "é tudo com carne?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos sim! temos o Burger Veggie, saladas, e no cardápio mexicano tem recheio de antepasto de berinjela, abobrinha e cenoura, e ceviche de banana da terra — são as opções "naturebas" da casa. me conta sua restrição específica (ou manda mensagem pro nosso whats) que a gente te indica certinho o que dá pra pedir.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>4 notas</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--fonte">Fonte</span>cardápio oficial 2026 (PDF), seção "Recheios" da Comida Mexicana — categoria "+ Naturebas": Antepasto Berinjela, Abobrinha e Cenoura, Ceviche de Banana da Terra. Confirma o Burger Veggie (R$42) na seção Burger do Bom.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--interna">Nota</span>Sobre glúten: confirmado pelo usuário — a maioria dos pratos é proteína (picanha na chapa, chilli com carne, etc.), no máximo com azeite/tempero, então tende a ser tranquilo. O pão, esse sim, com certeza tem glúten. Não afirmar "temos opção sem-glúten" como resposta padrão — a resposta certa é sempre perguntar o prato específico e confirmar na hora, caso a caso.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--nunca">Atenção</span>NÃO mencionar "Cone de Banana da Terra" como prato disponível — review de cliente + resposta do próprio perfil no Instagram confirmam que esse item saiu do cardápio (fornecedor original fechou). Ele ainda aparece listado como ativo em pelo menos um site de terceiro (abillion.com) — vale pedir correção/remoção lá. O cardápio oficial atual tem "Ceviche de Banana da Terra" como recheio de taco/quesadilla — é um prato diferente, não confundir os dois.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--pendencia">Nota</span>"hambúrguer de grão de bico", mencionado em reviews antigas do Google, não aparece no cardápio oficial 2026 — pode ter saído de linha. Não oferecer até confirmar com o usuário.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-localizacao">
+          <div class="card__head"><span class="card__idx">05</span><h3 class="card__title">Localização</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "onde vocês ficam?" / "como chego aí?" / "qual o endereço?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">Rua Caldas Novas 49, Bethaville, Barueri. Fácil de achar, e tem estacionamento no local.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-eventos-semana">
+          <div class="card__head"><span class="card__idx">06</span><h3 class="card__title">Eventos da Semana</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem show essa semana?" / "quem toca sexta?" / "tem alguma coisa hoje?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">[varia toda semana — checar a agenda atual antes de responder, ou direcionar:] essa semana tem [artista/evento] no [dia], dá uma olhada nos nossos stories que tá tudo lá!</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>2 notas</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--nunca">Nunca</span>mencionar cachê, valor de contrato ou qualquer dado financeiro do artista/evento.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--fonte">Confirmado</span>resposta pública do dono numa review: "samba de Segunda" é evento fixo semanal às segundas — pode entrar na agenda padrão de resposta, não é evento pontual.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-elogio">
+          <div class="card__head"><span class="card__idx">07</span><h3 class="card__title">Elogio</h3></div>
+          <p class="card__prompt"><b>Situação típica:</b> agradecimento, "adorei", "que night boa", marcação em posts</p>
+          <div class="reply copyable">
+            <p class="copy-src">que bom que você curtiu! vem mais vezes, a casa é sua 🫶</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--interna">Nota interna</span>não citar nome de colaborador na resposta pública — regra permanente. O elogio mais repetido nas 500 reviews do Google é, disparado, o atendimento de garçons específicos nomeados pelo próprio cliente. Vale um reconhecimento interno da equipe de salão, mas a resposta pública ao público continua genérica.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-reclamacao">
+          <div class="card__head"><span class="card__idx">08</span><h3 class="card__title">Reclamação</h3></div>
+          <p class="card__prompt"><b>Situação típica:</b> cliente insatisfeito com atendimento, comida, tempo de espera, etc.</p>
+          <div class="reply copyable">
+            <p class="copy-src">poxa, sentimos muito mesmo — conta pra gente o que aconteceu por aqui no direct?</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px">Levar a conversa pro privado. <b>Nunca</b> tentar resolver ou se justificar publicamente no comentário. Se for algo grave (intoxicação, acidente, etc.), escalar direto pro <b>Lucas</b> — ele é quem cuida desses casos, não responder sozinho nem escalar pra outra pessoa.</p>
+          <details class="notes">
+            <summary>1 nota (uso interno)</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--interna">Uso da equipe — nunca citar publicamente</span>Padrões reais mais recorrentes em 500 avaliações do Google, por frequência: (1) demora no atendimento/cozinha durante o rodízio — de longe o tema #1; (2) comida servida fria; (3) taxa de serviço/couvert cobrado sem avisar o cliente antes; (4) porções pequenas pro preço; (5) pedido errado ou item cobrado por engano na conta; (6) autenticidade "mexicana" questionada (tempero suave, pratos "abrasileirados"); (7) carne dura/mal preparada; (8) ambiente muito quente. Serve pra saber o que priorizar internamente, não pra resposta pública.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-grupo-grande">
+          <div class="card__head"><span class="card__idx">09</span><h3 class="card__title">Grupo Grande (mesa grande, não é evento privado)</h3></div>
+          <p class="card__prompt"><b>Situação típica:</b> "vocês atendem grupo de 15 pessoas?" / "dá pra levar a família toda, somos bastante gente"</p>
+          <div class="reply copyable">
+            <p class="copy-src">atendemos sim, seja 5 ou 50 pessoas, com a mesma excelência! só mandar a reserva pelo whats que a gente se organiza pra receber vocês bem.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--pendencia">Não mencionar ainda</span>programa de benefícios pra reservas de 10+ pessoas em desenvolvimento — aguardar detalhes do usuário antes de divulgar qualquer bônus específico.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-evento-privado">
+          <div class="card__head"><span class="card__idx">10</span><h3 class="card__title">Evento Privado</h3></div>
+          <p class="card__prompt"><b>Situação típica:</b> "vocês fazem evento privado?" / "dá pra fechar o espaço pra uma festa/empresa?" / "atende confraternização de empresa?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">amamos fazer evento privado! isso a gente faz só na segunda-feira — me chama no whats que a gente conversa os detalhes</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px">Nunca fechar valor/condições no Instagram.</p>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--interna">Nota</span>confraternização corporativa é um dos públicos-alvo que a casa quer atrair pras segundas-feiras — se for empresa perguntando, pode reforçar com mais entusiasmo ainda que é um ótimo lugar pra isso.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-pet">
+          <div class="card__head"><span class="card__idx">11</span><h3 class="card__title">Pet</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "posso levar meu cachorro?" / "vocês são pet friendly?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">pode levar sim! seu pet é bem-vindo por aqui.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-criancas">
+          <div class="card__head"><span class="card__idx">12</span><h3 class="card__title">Crianças</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem cardápio infantil?" / "vocês têm cadeirão?" / "criança paga o rodízio?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos sim, a Vila é kids friendly — cardápio infantil e cadeirão disponíveis. criança até 6 anos não paga o rodízio, desde que os responsáveis estejam consumindo o rodízio na mesa.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--interna">Espaço</span>não temos uma área kids separada, mas o ambiente tem toque temático pra todas as idades — chapéus mexicanos e livros/lápis de colorir na mesa, então as crianças se divertem no clima geral, não num espaço à parte.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-cardapio-infantil">
+          <div class="card__head"><span class="card__idx">13</span><h3 class="card__title">Cardápio Infantil</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "o que tem no cardápio infantil?" / "tem prato pra criança?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos sim! no cardápio tem o item Kids por R$35, e no almoço também sai filé de frango com batata frita ou mini hambúrgueres — porções pensadas em tamanho reduzido pra criançada.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--fonte">Fonte</span>cardápio oficial 2026 lista "KIDS — R$35" na seção Pratos do Vila.</p>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-pagamento">
+          <div class="card__head"><span class="card__idx">14</span><h3 class="card__title">Pagamento</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "vocês aceitam cartão?" / "tem PIX?" / "aceita vale-refeição?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">aceitamos todas as formas — cartão, PIX, dinheiro e cartão alimentação/refeição também.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--interna">Nota interna</span>aceitar VR é citado como ponto positivo em reviews. Houve ao menos um relato de bandeira Alelo não passando na maquininha numa visita específica — vale confirmar com o time se é caso isolado ou se há alguma bandeira com problema recorrente na máquina.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-delivery">
+          <div class="card__head"><span class="card__idx">15</span><h3 class="card__title">Delivery</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "vocês fazem delivery?" / "dá pra pedir pra casa?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">fazemos sim! hoje é pelo iFood ou direto pelo nosso whats.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--pendencia">Prazo interno</span>sistema de delivery completo previsto pra até o final de agosto/2026 — não prometer data específica pro público ainda, só direcionar pro whats se perguntarem prazo/área de entrega. Atualizar essa resposta assim que o novo sistema for pro ar.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-taxa-servico">
+          <div class="card__head"><span class="card__idx">16</span><h3 class="card__title">Taxa de Serviço / Couvert</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem taxa de serviço?" / "cobra couvert?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">cobramos os 10% de taxa de serviço de costume. de quinta a sábado, com música ao vivo, também tem couvert artístico.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-acessibilidade">
+          <div class="card__head"><span class="card__idx">17</span><h3 class="card__title">Acessibilidade</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "é acessível pra cadeira de rodas?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos rampa no estacionamento pra entrada. o espaço é parcialmente acessível — se puder me contar mais sobre a necessidade específica, a gente vê certinho como te receber bem.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--interna">Nota</span>nunca prometer acessibilidade total — o espaço é parcialmente acessível, ser honesto sobre isso.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-wifi">
+          <div class="card__head"><span class="card__idx">18</span><h3 class="card__title">Wifi</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem wifi?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos sim! é só pedir a senha pro nosso time quando chegar.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-bebidas">
+          <div class="card__head"><span class="card__idx">19</span><h3 class="card__title">Bebidas</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem drink?" / "tem cerveja artesanal?" / "tem carta de vinho?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos sim, carta completa — drinks autorais, cerveja artesanal e vinho. bora escolher o seu?</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--fonte">Fonte</span>drinks mais citados em avaliações reais: La Princesita, Mojito, Frozen Margarita, caipirinha defumada, Pink Lemonade (essa vem inclusa automaticamente no rodízio, 1 por pessoa). Também tem chopp de vinho — vale confirmar com o usuário os tamanhos disponíveis (reviews mencionam 300ml e 600ml, mas gerou confusão em pelo menos um relato) antes de citar tamanho específico.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-preco-rodizio">
+          <div class="card__head"><span class="card__idx">20</span><h3 class="card__title">Preço do Rodízio</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "quanto custa o rodízio?" / "qual o valor?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">o rodízio sai R$98 de terça a quinta, e R$108 de sexta a domingo.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--fonte">Confirmado</span>pelo usuário e pelo cardápio oficial 2026 (impresso: "Segunda a quinta - R$98 / sexta a domingo - R$108").</p>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-como-funciona-rodizio">
+          <div class="card__head"><span class="card__idx">21</span><h3 class="card__title">Como Funciona o Rodízio (sequência e trocas)</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "como funciona o rodízio?" / "dá pra trocar algum item?" / "e se eu não gostar de um prato?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">a gente segue uma sequência em etapas: entrada (panelinhas mexicanas com totopos, batata frita e onion rings), depois etapa 1 (burrito, taco e quesadilla), etapa 2 (mini lanche de pernil e mini burgers), etapa 3 (taco al pastor, enchillada de frango e tostada de machacca), e sobremesa no final (churros com sorvete ou tortilla doce). mas é super flexível — se não quiser algo ou quiser mais de algum prato específico, é só pedir que vem na hora, sem problema nenhum.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--fonte">Fonte</span>cardápio oficial 2026 (PDF), página do Rodízio Tex Mex.</p>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-espaco-ambiente">
+          <div class="card__head"><span class="card__idx">22</span><h3 class="card__title">Espaço / Ambiente</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "é um lugar aberto ou fechado?" / "tem área externa?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos os dois — área interna e uma área externa bem gostosa também.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-dress-code">
+          <div class="card__head"><span class="card__idx">23</span><h3 class="card__title">Dress Code</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem dress code?" / "posso ir de que jeito?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">não tem dress code nenhum, aqui é um lugar livre — vem como você se sentir bem!</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-area-fumante">
+          <div class="card__head"><span class="card__idx">24</span><h3 class="card__title">Área Fumante</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem área pra fumar?" / "posso fumar aí?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos uma área externa pra isso, mas fica fora do restaurante.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-consumo-minimo">
+          <div class="card__head"><span class="card__idx">25</span><h3 class="card__title">Consumo Mínimo</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem consumo mínimo pra reservar mesa?" / "preciso consumir um valor mínimo?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">não, não trabalhamos com consumo mínimo por aqui.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-transmissao-jogos">
+          <div class="card__head"><span class="card__idx">26</span><h3 class="card__title">Transmissão de Jogos</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "vocês passam o jogo?" / "tem transmissão de outros campeonatos, não só a Seleção?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">com certeza! além dos jogos da Seleção, transmitimos o Brasileirão e diversos outros campeonatos na nossa programação — telão grande pra curtir com a galera.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--nunca">Decisão do usuário</span>manter a resposta focada em esportes. Não mencionar exibição de filmes/vídeos de outras fontes. Esse assunto (licenciamento de transmissão) não vai ser tocado — se um cliente perguntar algo além de esporte, tratar como "Fora do Escopo" e encaminhar pro atendente, sem abrir a discussão.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-happy-hour">
+          <div class="card__head"><span class="card__idx">27</span><h3 class="card__title">Happy Hour</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem happy hour?" / "que horas é o happy hour?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos sim! terça a quinta, das 17h às 20h, com 50% de desconto em qualquer drink.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-fila-espera">
+          <div class="card__head"><span class="card__idx">28</span><h3 class="card__title">Fila de Espera</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem fila?" / "demora pra conseguir mesa?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">raramente pega fila por aqui, mas em dia de show a casa enche — se quiser garantir, chama a gente no whats antes.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-manobrista">
+          <div class="card__head"><span class="card__idx">29</span><h3 class="card__title">Manobrista / Segurança do Estacionamento</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem manobrista?" / "o estacionamento é seguro?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">não temos manobrista, é estacionamento livre no local.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-cancelamento">
+          <div class="card__head"><span class="card__idx">30</span><h3 class="card__title">Cancelamento / Atraso de Reserva</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "se eu atrasar perco a mesa?" / "posso cancelar a reserva?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">sem problema! a gente segura sua mesa por um tempo, só nos avisa se for atrasar ou não puder mais vir.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-fotos-filmagem">
+          <div class="card__head"><span class="card__idx">31</span><h3 class="card__title">Fotos / Filmagem no Espaço</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "posso gravar um vídeo aí?" / "dá pra fazer ensaio no espaço?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">pode sim, à vontade! adoramos quando registram um momento aqui.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-aniversario">
+          <div class="card__head"><span class="card__idx">32</span><h3 class="card__title">Aniversário</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "vocês dão algo pra aniversariante?" / "tem promoção de aniversário?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos sim! aniversariante ganha um drink ou sobremesa especial. temos condições especiais diferentes conforme o tamanho do grupo — são 3 situações diferentes, cada uma com sua condição. me chama no whats no dia que a gente te explica certinho qual se aplica pro seu caso.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>2 notas</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--nunca">Nunca</span>postar valor de voucher específico até confirmação final — a estrutura das 3 condições existe, mas os valores ainda não devem ser divulgados.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--interna">Nota</span>não existe vale-presente/cartão fidelidade à parte — o benefício de aniversário é o programa que temos hoje.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-produtos-proprios">
+          <div class="card__head"><span class="card__idx">33</span><h3 class="card__title">Produtos Próprios</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "vocês vendem alguma coisa pra levar?" / "tem produto da Vila?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos as pimentas exclusivas da casa pra levar!</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--pendencia">Ainda não lançado</span>usuário quer expandir a linha (mascotes, camisetas, adesivos) — ainda não confirmado/lançado, não divulgar como disponível até existir de verdade.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-criancas-noite">
+          <div class="card__head"><span class="card__idx">34</span><h3 class="card__title">Crianças à Noite / Ambiente Familiar</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "posso levar meu filho no dia de show?" / "é ambiente familiar à noite?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">com certeza! a Vila é família o dia inteiro, inclusive nas noites de show.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-cardapio-la-carte">
+          <div class="card__head"><span class="card__idx">35</span><h3 class="card__title">Cardápio À La Carte (além do rodízio)</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "vocês só fazem rodízio?" / "tem opção fora do rodízio?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos sim! além do rodízio, temos cardápio à la carte completo — pratos brasileiros, porções, hambúrgueres artesanais e comida mexicana avulsa. me conta o que você tá afim que eu te indico certinho, ou dá uma olhada no cardápio completo que te mando por aqui.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes" open>
+            <summary>Cardápio oficial 2026 — Pratos do Vila</summary>
+            <div class="note copyable">
+              <p class="copy-src"><b>Pratos do Vila</b> (acompanha arroz, feijão, farofa, batata frita): Contra Filet R$44, Filet de Frango R$38, Milanesa Carne R$44, Milanesa Frango R$40, Omelete R$38, Kids R$35.<br><b>Especiais:</b> Do Cheff R$48 (muda todo dia), Comerciais do Vila R$46, Parme Carne ou Frango R$46, Tilápia à Milanesa R$46, Picanha R$54.<br><b>Saladas:</b> Vila Green R$44, Caesar R$40, Chiluana R$42.<br><b>Adicionais:</b> ovo frito R$8, arroz/maionese/feijão/batata frita/vinagrete R$12, farofa R$6, purê de batatas R$10, salada básica R$12.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar lista"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-quanto-custa">
+          <div class="card__head"><span class="card__idx">36</span><h3 class="card__title">Quanto Custa Comer na Vila (ticket médio, fora do rodízio)</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "quanto custa em média?" / "é caro?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">o rodízio tem preço fixo (R$98 terça-quinta, R$108 sexta-domingo). fora do rodízio, pratos individuais vão de R$22 (taco avulso) a R$54 (picanha), hambúrgueres de R$34 a R$62, e porções pra compartilhar de R$40 a R$162 — se quiser algo específico me chama no whats que te ajudo a montar o pedido.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--fonte">Fonte</span>cardápio oficial 2026 (PDF) — faixas reais confirmadas, substituindo a estimativa anterior baseada só em reviews. Resposta oficial do dono (numa review antiga) ainda vale de contexto: "os itens que cobramos acima de R$100 servem no mínimo 3 pessoas".</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-autenticidade">
+          <div class="card__head"><span class="card__idx">37</span><h3 class="card__title">Autenticidade Tex-Mex / "Isso é mexicano de verdade?"</h3></div>
+          <p class="card__prompt"><b>Situação típica:</b> cliente questiona se o cardápio é realmente mexicano, estranha tempero suave, ou comenta que os pratos parecem "abrasileirados" (parmegiana, hambúrguer)</p>
+          <div class="reply copyable">
+            <p class="copy-src">somos Tex Mex com alma brasileira mesmo — a mistura é proposital! e sobre o tempero: usamos pimenta de forma equilibrada pra agradar todo mundo, mas se você curte mais picante é só pedir a jalapeño à parte que a gente traz na hora.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--fonte">Fonte</span>posição oficial já assumida publicamente pelo próprio chef numa review: "optamos a não trazer toda a picância que o méxico oferece (...) orientamos nossos clientes a pedir a pimenta jalapeno a parte (...) todos os nossos insumos são feitos diariamente, não usamos produtos industrializados".</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-datas-comemorativas">
+          <div class="card__head"><span class="card__idx">38</span><h3 class="card__title">Cardápio em Datas Comemorativas (Dia dos Namorados, Natal, etc.)</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "o cardápio muda em data especial?" / "é mais caro no Dia dos Namorados?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">em datas comemorativas a gente monta um cardápio especial pra ocasião, então pode ter diferença em relação ao cardápio do dia a dia — me chama no whats perto da data que te conto certinho o que vai ter.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--fonte">Fonte</span>reviews de clientes relatam cardápio "totalmente diferente do normal, com poucas opções e valores altos" em Dia dos Namorados — vale alinhar com o usuário se isso é intencional (cardápio fechado/degustação) pra comunicar de forma mais clara e evitar expectativa frustrada.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-volume-musica">
+          <div class="card__head"><span class="card__idx">39</span><h3 class="card__title">Volume da Música ao Vivo / Ambiente Barulhento</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "dá pra conversar com música ao vivo tocando?" / "é muito alto o som?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">nos dias de música ao vivo o som é parte da experiência, então fica mais animado — se você prefere um clima mais tranquilo pra conversar, me chama no whats que te indico o melhor dia/horário pra vir.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--fonte">Fonte</span>reclamação recorrente nas reviews sobre volume alto dificultando conversa à mesa; o próprio dono já respondeu publicamente que "trabalha para encontrar um equilíbrio que agrade a todos, sem comprometer a atmosfera do estabelecimento".</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-eventos-terceiros">
+          <div class="card__head"><span class="card__idx">40</span><h3 class="card__title">Espaço para Eventos de Terceiros (bazar, feira, venda de ingressos)</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "dá pra alugar o espaço pra um bazar/feira que não é festa particular?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">já recebemos esse tipo de evento por aqui! me chama no whats que a gente vê a disponibilidade e como funciona pro seu caso.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <details class="notes">
+            <summary>1 nota importante</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--nunca">Importante</span>parcerias com igrejas/organizações religiosas são acordos particulares da casa, tratados diretamente, e não devem ser citados ou oferecidos como template público. Se alguém desse perfil entrar em contato, direcionar normalmente pro whats sem confirmar/negar publicamente esse tipo de parceria específica.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-prato-recomendado">
+          <div class="card__head"><span class="card__idx">41</span><h3 class="card__title">Prato Recomendado / "O que vocês indicam?"</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "qual prato vocês recomendam?" / "o que é mais pedido aí?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">o queridinho da casa é o combo "Ni La Muerte Nos Separa" — dá uma boa amostra do que a gente faz de melhor! mas se quiser, me conta o que você mais curte (carne, vegetariano, picante) que eu te indico certinho.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-mexicana-avulsa">
+          <div class="card__head"><span class="card__idx">42</span><h3 class="card__title">Comida Mexicana Avulsa (tacos, burritos, quesadillas)</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem taco avulso?" / "quero só uma quesadilla, tem?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos sim! El Taco R$22, El Burriton R$34, Al Pastor R$48 (4 tortilhas de milho com guacamole, cebola ralada, coentro e abacaxi), Tostadas R$46, Enchilladas R$40. Nas quesadillas: Queso Que Te Quiero R$36, Quesadilla Corn Bacon R$38, Dobradilla R$44 (com proteína à escolha). E nas entradas: Entremès Tex Mex R$40, Nachos con Chilli R$38, Nachos con Guacamole R$34, Nachos Muy Lokos R$42. Me conta o que você prefere que eu te ajudo a montar o pedido!</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--fonte">Fonte</span>cardápio oficial 2026 (PDF), seção Comida Mexicana. Recheios: carne com chili e feijão, pulled pork pernil, carne moída mex, carne machaca, frango mex, e as naturebas (antepasto berinjela, abobrinha e cenoura, ceviche de banana da terra).</p>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-combos">
+          <div class="card__head"><span class="card__idx">43</span><h3 class="card__title">Combos</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem combo pra compartilhar?" / "dá pra pedir um combo em vez de item avulso?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos sim! o queridinho é o "Ni La Muerte Nos Separa" (taco, burrito e tostada) — R$68 pra 1 pessoa, R$122 pra 2, R$178 pra 3. Também tem Viva La Vida R$54 (quesadilla + taco), Los Muertos R$54 (taco + burrito) e Fiesta no Céu R$58 (burrito + quesadilla).</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--fonte">Fonte</span>cardápio oficial 2026 (PDF), seção Combos.</p>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-hamburgueres">
+          <div class="card__head"><span class="card__idx">44</span><h3 class="card__title">Hambúrgueres Artesanais</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem hambúrguer artesanal?" / "qual o melhor burger de vocês?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos vários! alguns queridinhos: Strong R$44, El Invocado R$62 (com jalapeño empanado), Picanha Real R$62, Rocky Balboa R$52, Yellow R$42, Duo Strong R$58 (double smash), e o Veggie R$42 pra quem não come carne. Me conta o que você curte que eu te indico o certo!</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--fonte">Fonte</span>cardápio oficial 2026 (PDF), seção Burger do Bom — lista completa tem também PCQ, WOD, Bianca, El Niño e El Pollo (frango).</p>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-lanches-rusticos">
+          <div class="card__head"><span class="card__idx">45</span><h3 class="card__title">Lanches Rústicos</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem lanche além de hambúrguer?" / "tem opção de baguete?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos sim! Lanche de Pernil R$42 (baguete parmesão, pernil desfiado, barbecue), Lanche de Costela R$44 (costela desfiada, molho defumado), Lanche de Toscana R$40 (burger de linguiça toscana) e Dog do Vila R$36.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--fonte">Fonte</span>cardápio oficial 2026 (PDF), seção Lanches Rústicos.</p>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-porcoes-compartilhar">
+          <div class="card__head"><span class="card__idx">46</span><h3 class="card__title">Porções para Compartilhar</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem porção grande pra dividir?" / "o que pedir pra um grupo?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos várias boas pra compartilhar! Porção Friends R$96 (6 mini burgers, batata frita e onion rings), Picanha Prime R$162, Churrasco BBQ R$140, Porção Brasileira R$152 (calabresa acebolada, contra filé acebolado, mandioca, batata frita). Também tem as brazucas menores: Batata do Vila R$40, Batata Loka R$60, Dadinho de Tapioca R$44, Bolinhos Deliciosos R$72 (12 unidades).</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--fonte">Fonte</span>cardápio oficial 2026 (PDF), seções "Porções Bem Brazucas" e "Boas Para Compartilhar".</p>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-sobremesas">
+          <div class="card__head"><span class="card__idx">47</span><h3 class="card__title">Sobremesas</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem sobremesa?" / "o que tem de doce aí?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos sim! Paletas (picolé) R$14 pequena / R$16 grande, Bomba do Vila R$28 (bolo com ganache de chocolate, sorvete e chantilly), Petit Gateau R$28, e Churros no Espeto R$24 (8 mini churros com doce de leite e nutella).</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--fonte">Fonte</span>cardápio oficial 2026 (PDF), seção Sobremesas.</p>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-bebidas-nao-alcoolicas">
+          <div class="card__head"><span class="card__idx">48</span><h3 class="card__title">Bebidas Não Alcoólicas</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem suco?" / "e pra quem não bebe, tem opção boa?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos bastante opção! Água R$6, refrigerante R$9, suco lata R$10, ice tea R$10, suco natural R$12, chá caseiro R$14, pink lemonade R$14, soda italiana e limonada suíça R$16. E tem os drinks sem álcool também: El Vivito, Piña Descolada, Cosmopolido, Lagoa Azul, La Princesita e Play on the Beach, todos R$28.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--fonte">Fonte</span>cardápio oficial 2026 (PDF), seção "Bebidas Não Alcoólicas".</p>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-drinks">
+          <div class="card__head"><span class="card__idx">49</span><h3 class="card__title">Drinks / Coquetéis</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "qual o melhor drink aí?" / "tem coquetel autoral?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos uma carta boa! Caipirinha Clássica R$32, Margarita R$36, Mojito R$34, Moscow Mule R$38, Piña Colada R$36, La Reina R$46, Caipirinha Assada R$42 (maçaricada com açúcar mascavo e canela). Toda semana também tem um Drink da Semana diferente, R$48 — pergunta pro garçom qual é o de agora!</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--fonte">Fonte</span>cardápio oficial 2026 (PDF), seção "Beverages &amp; Beers do Vila". Carta completa tem também Negroni, Fitzgerald, Sunflower, Sex on the Beach, La Tropicalia e Balenita.</p>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-chopp-cerveja">
+          <div class="card__head"><span class="card__idx">50</span><h3 class="card__title">Chopp e Cerveja</h3></div>
+          <p class="card__prompt"><b>Pergunta típica:</b> "tem chopp?" / "que cerveja vocês têm?"</p>
+          <div class="reply copyable">
+            <p class="copy-src">temos sim! Chopp Pilsen R$16 (300ml) / R$20 (500ml), Chopp Especial R$18 (300ml) / R$22 (500ml), Draft 600ml R$22. Em garrafa: long neck (Sol, Eisenbahn, Heineken R$14, Especial R$16) e 600ml (Amstel, Eisenbahn, Sol R$18, Heineken e Artesanal R$22).</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--fonte">Fonte</span>cardápio oficial 2026 (PDF), seção "Long Neck / 600ml / Chopps".</p>
+        </article>
+
+        <article class="card" data-section="publico" id="cat-fora-escopo">
+          <div class="card__head"><span class="card__idx">51</span><h3 class="card__title">Fora do Escopo / Encaminhar pro Atendente</h3></div>
+          <p class="card__prompt"><b>Situação típica:</b> qualquer pergunta que não se encaixa em nenhuma categoria acima, ou que toca assunto sensível/pendente (transmissão de conteúdo além de esporte, detalhes que a casa ainda não decidiu, reclamação grave, assunto jurídico/financeiro).</p>
+          <div class="reply copyable">
+            <p class="copy-src">boa pergunta! deixa eu encaminhar isso pro nosso time que te dá uma resposta certinha — só um instante.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px">Direcionamento: essa é a resposta padrão de fallback — usar sempre que a dúvida não tiver categoria própria, em vez de improvisar. Encaminhar pra pessoa responsável (hoje, Lucas). Nunca inventar resposta pra assunto fora do escopo.</p>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--interna">Nota</span>essa categoria também é a peça-chave pra qualquer automação futura — é o "fallback" que o bot usa quando não reconhece a pergunta, evitando resposta errada.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="group" id="sec-institucional" data-group="institucional">
+      <div class="group__head">
+        <h2>Institucional (B–E)</h2>
+        <span class="count" data-count-target="institucional"></span>
+      </div>
+      <p class="inst-intro">Diferente do público geral, esses assuntos <b>não são resolvidos no Instagram</b> — a resposta é sempre curta, calorosa, e direciona pra conversa direta pelo WhatsApp. Nunca negociar, avaliar ou prometer nada nesses casos pelo Instagram. <b>Nunca nomear uma pessoa específica na resposta pro público</b> — quem responde é "nossa equipe"/"nosso time", independente de quem trata internamente.</p>
+      <div class="cards">
+
+        <article class="card" data-section="institucional" id="cat-b-artista">
+          <div class="card__head"><span class="card__idx">B</span><h3 class="card__title">Artista querendo tocar na Vila</h3></div>
+          <p class="card__prompt"><b>Situação típica:</b> banda/artista mandando material, perguntando sobre se apresentar, book de shows</p>
+          <div class="reply copyable">
+            <p class="copy-src">que bom o interesse! manda seu material (vídeo/áudio) pro nosso whats que nossa equipe dá um retorno.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--interna">Contato interno</span>responsável: Lucas.</p>
+        </article>
+
+        <article class="card" data-section="institucional" id="cat-c-parceria">
+          <div class="card__head"><span class="card__idx">C</span><h3 class="card__title">Parceria, patrocínio, imprensa ou proposta de empresa</h3></div>
+          <p class="card__prompt"><b>Situação típica:</b> proposta de co-marketing, patrocínio, matéria de imprensa, influenciador propondo permuta</p>
+          <div class="reply copyable">
+            <p class="copy-src">que legal o interesse! manda os detalhes da proposta pro nosso whats que nossa equipe dá um retorno.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--interna">Contato interno</span>responsável: Lucas.</p>
+        </article>
+
+        <article class="card" data-section="institucional" id="cat-d-fornecedor">
+          <div class="card__head"><span class="card__idx">D</span><h3 class="card__title">Fornecedor / distribuidora oferecendo produto</h3></div>
+          <p class="card__prompt"><b>Situação típica:</b> fábrica ou distribuidora de bebida/insumo/equipamento se oferecendo como fornecedor</p>
+          <div class="reply copyable">
+            <p class="copy-src">obrigado pelo contato! manda a proposta/catálogo pro nosso whats que nossa equipe analisa.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--interna">Contato interno</span>responsável: Lucas.</p>
+        </article>
+
+        <article class="card" data-section="institucional" id="cat-e-vaga">
+          <div class="card__head"><span class="card__idx">E</span><h3 class="card__title">Vaga de emprego / currículo / colaborador</h3></div>
+          <p class="card__prompt"><b>Situação típica:</b> pessoa perguntando sobre vaga, mandando currículo, dúvida de ex/atual colaborador</p>
+          <div class="reply copyable">
+            <p class="copy-src">obrigado pelo interesse! manda mensagem pro nosso whats que nossa equipe te dá retorno sobre oportunidades.</p>
+            <button class="copy-btn" type="button" aria-label="Copiar resposta">
+              <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <p class="card__prompt" style="margin-top:8px"><span class="tag tag--interna">Contato interno</span>responsável: Lucas.</p>
+          <details class="notes">
+            <summary>1 nota</summary>
+            <div class="note copyable">
+              <p class="copy-src"><span class="tag tag--interna">Nota</span>hoje não há processo seletivo formal confirmado — resposta é sempre um direcionamento, nunca uma promessa de vaga ou prazo de retorno.</p>
+              <button class="copy-btn" type="button" aria-label="Copiar nota"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button>
+            </div>
+          </details>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="group" id="sec-pendencias" data-group="pendencias">
+      <div class="group__head">
+        <h2>Pendências &amp; Notas Operacionais</h2>
+        <span class="count" data-count-target="pendencias"></span>
+      </div>
+      <p class="group__note">Checklist do que ainda depende de confirmação — não são categorias de resposta. <b>Regra geral (2026-07-16):</b> essas pendências não bloqueiam mais o atendimento — se perguntarem diretamente, usar a resposta "Fora do Escopo" e encaminhar pra pessoa responsável.</p>
+      <ul class="pend-list">
+        <li class="copyable"><span class="pend-dot"></span><p class="copy-src">Detalhes do programa de benefícios pra reservas de 10+ pessoas (usuário vai passar mais pra frente) — não divulgar no Instagram até então.</p><button class="copy-btn" type="button" aria-label="Copiar"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button></li>
+        <li class="copyable"><span class="pend-dot"></span><p class="copy-src">Sistema de delivery completo previsto pra até o final de agosto/2026 — atualizar resposta de Delivery assim que estiver no ar.</p><button class="copy-btn" type="button" aria-label="Copiar"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button></li>
+        <li class="copyable"><span class="pend-dot"></span><p class="copy-src">Valores do voucher de aniversário (estrutura de 3 condições confirmada, mas valores em validação pelo gerente) — não divulgar valor até confirmação; encaminhar pra pessoa responsável se perguntarem o valor exato.</p><button class="copy-btn" type="button" aria-label="Copiar"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button></li>
+        <li class="copyable"><span class="pend-dot"></span><p class="copy-src">"Cone de Banana da Terra": prato descontinuado (fornecedor fechou) mas ainda aparece listado como disponível no site abillion.com — vale pedir correção lá.</p><button class="copy-btn" type="button" aria-label="Copiar"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button></li>
+        <li class="copyable"><span class="pend-dot"></span><p class="copy-src">"Hambúrguer de grão de bico": mencionado em reviews antigas, não aparece no cardápio oficial 2026 — confirmar com o usuário se ainda existe antes de oferecer.</p><button class="copy-btn" type="button" aria-label="Copiar"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button></li>
+        <li class="copyable"><span class="pend-dot"></span><p class="copy-src">Espaço usado por eventos de terceiros (bazar/feira comercial): tratado como oferta genérica; parcerias com igrejas são particulares e não devem ser citadas publicamente.</p><button class="copy-btn" type="button" aria-label="Copiar"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button></li>
+        <li class="copyable"><span class="pend-dot"></span><p class="copy-src">Transmissão de programação (jogos e outros conteúdos): decisão do usuário — assunto não será tocado/discutido. Resposta pública fica restrita a esportes; qualquer pergunta além disso vira "Fora do Escopo".</p><button class="copy-btn" type="button" aria-label="Copiar"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button></li>
+        <li class="copyable resolved"><span class="pend-dot"></span><p class="copy-src">Unidade/conceito "Beach" — resolvido: confirmado pelo usuário que fechou há 2 meses. Não mencionar em nenhuma resposta pública, nem se perguntarem diretamente.</p><button class="copy-btn" type="button" aria-label="Copiar"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button></li>
+        <li class="copyable resolved"><span class="pend-dot"></span><p class="copy-src">Cardápio à la carte completo — resolvido em 2026-07-16: usuário mandou o cardápio oficial 2026 em PDF (4 páginas). Todas as seções de cardápio foram atualizadas com dados confirmados, substituindo estimativas de reviews.</p><button class="copy-btn" type="button" aria-label="Copiar"><svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg></button></li>
+      </ul>
+    </section>
+
+    <section class="group" id="sec-adicionar" data-group="adicionar">
+      <div class="group__head">
+        <h2>+ Adicionar Categoria</h2>
+        <span class="count" data-count-target="local"></span>
+      </div>
+      <p class="add-form__hint">Adicione um tópico novo direto por aqui, sem precisar mexer no arquivo-fonte. <b>Importante:</b> isso fica salvo só neste navegador (não é visto pelo resto da equipe nem sobrevive se você limpar os dados do site). Quando quiser tornar oficial, clique em "Exportar" e cole o texto numa conversa com quem mantém a biblioteca — assim ela entra de vez no documento pra todo mundo.</p>
+
+      <form class="add-form" id="add-form">
+        <div class="add-form__grid">
+          <div>
+            <label for="f-titulo">Categoria / Título</label>
+            <input type="text" id="f-titulo" placeholder="Ex: Estacionamento pra Moto" required>
+          </div>
+          <div>
+            <label for="f-pergunta">Pergunta típica</label>
+            <input type="text" id="f-pergunta" placeholder='Ex: "tem vaga pra moto?"'>
+          </div>
+          <div>
+            <label for="f-resposta">Resposta</label>
+            <textarea id="f-resposta" rows="3" placeholder="O texto que vai pro cliente..." required></textarea>
+          </div>
+          <div>
+            <label for="f-nota">Nota interna (opcional)</label>
+            <textarea id="f-nota" rows="2" placeholder="Fonte, ressalva, ou algo pra equipe saber..."></textarea>
+          </div>
+        </div>
+        <div class="add-form__row">
+          <button type="submit" class="btn btn--primary">Adicionar categoria</button>
+          <span id="add-form-msg" class="local-toolbar__count" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+
+      <div class="local-toolbar">
+        <span class="local-toolbar__count" id="local-count-label">0 categorias adicionadas localmente</span>
+        <button type="button" class="btn" id="btn-export-local">Exportar tudo (Markdown)</button>
+        <button type="button" class="btn btn--ghost" id="btn-clear-local">Limpar tudo</button>
+      </div>
+
+      <div class="cards" id="local-cards"></div>
+      <p class="local-empty" id="local-empty-msg">Nenhuma categoria adicionada ainda neste navegador.</p>
+    </section>
+
+    <footer>
+      Gerado a partir de <code class="mono">pipeline/data/biblioteca-respostas-atual.md</code> — squad Gestor Vila (Opensquad). Fonte dos dados: 500 avaliações do Google Maps, Instagram, Facebook, Restaurant Guru, abillion.com + brainstorm direto com o usuário (2026-07-15/16).
+    </footer>
+  </main>
+</div>
+
+<div class="sr-live" aria-live="polite" id="live-region"></div>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var LOCAL_KEY = 'vila-biblioteca-local-additions-v1';
+
+  function normalize(s){
+    return (s||"").toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  }
+  function escapeHtml(s){
+    return (s||"").replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function copyText(text, btn){
+    var done = function(){
+      if(btn){
+        btn.classList.add('is-copied');
+        setTimeout(function(){ btn.classList.remove('is-copied'); }, 1600);
+      }
+      var live = document.getElementById('live-region');
+      if(live) live.textContent = 'Texto copiado';
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+  function fallbackCopy(text, done){
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){}
+    document.body.removeChild(ta);
+  }
+
+  /* ---------- Copy buttons (event delegation — works for cards added later too) ---------- */
+  function wireCopyButtons(){
+    document.addEventListener('click', function(e){
+      var btn = e.target.closest('.copy-btn');
+      if(!btn) return;
+      var wrap = btn.closest('.copyable');
+      var src = wrap && wrap.querySelector('.copy-src');
+      if(!src) return;
+      copyText(src.innerText.trim(), btn);
+    });
+  }
+
+  /* ---------- Local additions (localStorage) ---------- */
+  function loadLocal(){
+    try{ return JSON.parse(localStorage.getItem(LOCAL_KEY) || '[]'); }catch(e){ return []; }
+  }
+  function saveLocal(items){
+    try{ localStorage.setItem(LOCAL_KEY, JSON.stringify(items)); }catch(e){}
+  }
+  function renderLocalCard(item){
+    var article = document.createElement('article');
+    article.className = 'card';
+    article.dataset.section = 'local';
+    article.id = 'local-' + item.id;
+    var notaHtml = item.nota ? (
+      '<details class="notes" open><summary>1 nota</summary><div class="note copyable">' +
+      '<p class="copy-src"><span class="tag tag--interna">Nota</span>' + escapeHtml(item.nota) + '</p>' +
+      '<button class="copy-btn" type="button" aria-label="Copiar nota">' + copyIconSvg() + '</button>' +
+      '</div></details>'
+    ) : '';
+    article.innerHTML =
+      '<div class="card__head"><span class="card__idx">✎</span><h3 class="card__title">' + escapeHtml(item.titulo) + '</h3></div>' +
+      (item.pergunta ? '<p class="card__prompt"><b>Pergunta típica:</b> ' + escapeHtml(item.pergunta) + '</p>' : '') +
+      '<div class="reply copyable"><p class="copy-src">' + escapeHtml(item.resposta) + '</p>' +
+      '<button class="copy-btn" type="button" aria-label="Copiar resposta">' + copyIconSvg() + '</button>' +
+      '<button class="del-btn" type="button" aria-label="Excluir categoria" data-del-id="' + item.id + '">' + trashIconSvg() + '</button>' +
+      '</div>' + notaHtml +
+      '<p class="card__prompt" style="margin-top:8px"><span class="tag tag--pendencia">Rascunho local</span>salvo só neste navegador — exporte pra tornar oficial.</p>';
+    return article;
+  }
+  function copyIconSvg(){
+    return '<svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
+      '<svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>';
+  }
+  function trashIconSvg(){
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
+  }
+  function renderAllLocal(){
+    var items = loadLocal();
+    var container = document.getElementById('local-cards');
+    var emptyMsg = document.getElementById('local-empty-msg');
+    container.innerHTML = '';
+    items.forEach(function(item){ container.appendChild(renderLocalCard(item)); });
+    emptyMsg.style.display = items.length ? 'none' : '';
+    document.getElementById('local-count-label').textContent = items.length + (items.length === 1 ? ' categoria adicionada localmente' : ' categorias adicionadas localmente');
+    updateCounts();
+  }
+  function toMarkdown(item){
+    var out = '## ' + item.titulo + '\n';
+    if(item.pergunta) out += '**Pergunta típica:** ' + item.pergunta + '\n';
+    out += '**Resposta:** ' + item.resposta + '\n';
+    if(item.nota) out += '*Nota: ' + item.nota + '*\n';
+    return out;
+  }
+  function wireAddForm(){
+    var form = document.getElementById('add-form');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var titulo = document.getElementById('f-titulo').value.trim();
+      var pergunta = document.getElementById('f-pergunta').value.trim();
+      var resposta = document.getElementById('f-resposta').value.trim();
+      var nota = document.getElementById('f-nota').value.trim();
+      if(!titulo || !resposta){ return; }
+      var items = loadLocal();
+      items.push({ id: Date.now().toString(36), titulo: titulo, pergunta: pergunta, resposta: resposta, nota: nota });
+      saveLocal(items);
+      renderAllLocal();
+      form.reset();
+      var msg = document.getElementById('add-form-msg');
+      msg.textContent = 'Categoria "' + titulo + '" adicionada!';
+      setTimeout(function(){ msg.textContent = ''; }, 3000);
+      document.getElementById('f-titulo').focus();
+    });
+
+    document.getElementById('local-cards').addEventListener('click', function(e){
+      var del = e.target.closest('.del-btn');
+      if(!del) return;
+      var id = del.dataset.delId;
+      var items = loadLocal().filter(function(it){ return it.id !== id; });
+      saveLocal(items);
+      renderAllLocal();
+    });
+
+    document.getElementById('btn-export-local').addEventListener('click', function(e){
+      var items = loadLocal();
+      if(!items.length){ copyText('Nenhuma categoria local pra exportar ainda.', e.currentTarget); return; }
+      var md = items.map(toMarkdown).join('\n---\n\n');
+      copyText(md, e.currentTarget);
+      var msg = document.getElementById('add-form-msg');
+      msg.textContent = 'Markdown de ' + items.length + ' categoria(s) copiado — cole numa conversa pra tornar oficial.';
+      setTimeout(function(){ msg.textContent = ''; }, 4000);
+    });
+
+    var clearBtn = document.getElementById('btn-clear-local');
+    var clearArmed = false;
+    var clearTimer = null;
+    clearBtn.addEventListener('click', function(){
+      if(!loadLocal().length) return;
+      if(!clearArmed){
+        clearArmed = true;
+        clearBtn.textContent = 'Clique de novo pra confirmar';
+        clearTimer = setTimeout(function(){ clearArmed = false; clearBtn.textContent = 'Limpar tudo'; }, 3000);
+        return;
+      }
+      clearTimeout(clearTimer);
+      clearArmed = false;
+      clearBtn.textContent = 'Limpar tudo';
+      saveLocal([]);
+      renderAllLocal();
+    });
+  }
+
+  /* ---------- Build TOC + counts ---------- */
+  function buildToc(){
+    var toc = document.getElementById('toc');
+    var groups = [
+      {sel:'#sec-publico .card', label:'Público Geral', cls:''},
+      {sel:'#sec-institucional .card', label:'Institucional', cls:'is-inst'}
+    ];
+    groups.forEach(function(g){
+      var cards = document.querySelectorAll(g.sel);
+      if(!cards.length) return;
+      var wrap = document.createElement('div');
+      wrap.className = 'toc-group';
+      var h = document.createElement('div');
+      h.className = 'toc-title'; h.textContent = g.label;
+      wrap.appendChild(h);
+      var ul = document.createElement('ul'); ul.className = 'toc';
+      cards.forEach(function(card){
+        var title = card.querySelector('.card__title').textContent;
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = '#' + card.id;
+        a.className = g.cls;
+        a.textContent = title;
+        a.addEventListener('click', function(e){
+          e.preventDefault();
+          card.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'center'});
+          card.classList.remove('flash'); void card.offsetWidth; card.classList.add('flash');
+          history.replaceState(null,'','#'+card.id);
+        });
+        li.appendChild(a); ul.appendChild(li);
+      });
+      wrap.appendChild(ul);
+      toc.appendChild(wrap);
+    });
+  }
+
+  function updateCounts(){
+    var pub = document.querySelectorAll('#sec-publico .card').length;
+    var inst = document.querySelectorAll('#sec-institucional .card').length;
+    var pend = document.querySelectorAll('#sec-pendencias .pend-list > li').length;
+    var local = document.querySelectorAll('#sec-adicionar .card').length;
+    document.querySelector('[data-count-target="publico"]').textContent = pub + ' categorias';
+    document.querySelector('[data-count-target="institucional"]').textContent = inst + ' categorias';
+    document.querySelector('[data-count-target="pendencias"]').textContent = pend + ' itens';
+    document.querySelector('[data-count-target="local"]').textContent = local ? (local + ' locais') : '';
+    document.getElementById('progress-count').textContent = pub + ' / 50';
+    var pct = Math.min(100, Math.round((pub/50)*100));
+    document.getElementById('progress-fill').style.width = pct + '%';
+  }
+
+  /* ---------- Search (re-queries live, so local additions are included) ---------- */
+  function wireSearch(){
+    var input = document.getElementById('search');
+    input.addEventListener('input', function(){
+      var q = normalize(input.value.trim());
+      var cards = document.querySelectorAll('.card');
+      cards.forEach(function(card){
+        if(!q){
+          card.style.display = '';
+          var det = card.querySelector('details.notes');
+          if(det) det.open = false;
+          return;
+        }
+        var haystack = normalize(card.textContent);
+        var match = haystack.indexOf(q) !== -1;
+        card.style.display = match ? '' : 'none';
+        var det = card.querySelector('details.notes');
+        if(det){
+          var titleAndPrompt = normalize(card.querySelector('.card__title').textContent + ' ' + (card.querySelector('.card__prompt') ? card.querySelector('.card__prompt').textContent : '') + ' ' + (card.querySelector('.copy-src') ? card.querySelector('.copy-src').textContent : ''));
+          det.open = match && titleAndPrompt.indexOf(q) === -1;
+        }
+      });
+      // toggle empty state per group
+      ['sec-publico','sec-institucional','sec-adicionar'].forEach(function(id){
+        var sec = document.getElementById(id);
+        var groupCards = sec.querySelectorAll('.card');
+        if(!groupCards.length) return;
+        var visible = Array.prototype.some.call(groupCards, function(c){ return c.style.display !== 'none'; });
+        sec.style.display = (q && !visible) ? 'none' : '';
+      });
+    });
+  }
+
+  buildToc();
+  updateCounts();
+  wireCopyButtons();
+  wireSearch();
+  renderAllLocal();
+  wireAddForm();
+})();
+</script>
+
+</body></html>
