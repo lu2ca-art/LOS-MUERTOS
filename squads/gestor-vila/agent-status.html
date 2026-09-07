@@ -1,0 +1,1045 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestor Vila — Painel de Agentes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#111111; --bg2:#1a1a1a; --card:#1c1c1c; --border:#2c2c2c;
+    --terracota:#F03C14; --ouro:#F0B400; --amarelo:#F0F000; --azul:#0014C8;
+    --vermelho:#DC2828; --magenta:#DC008C; --teal:#148CA0;
+    --text:#f2f2f0; --muted:#9a9a95;
+    --idle:#4a4a48; --running:#22c55e; --done:#148CA0; --blocked:#F0B400; --error:#DC2828;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Oswald',sans-serif; padding:28px 32px 60px;
+  }
+  h1{
+    font-family:'Bebas Neue',sans-serif; font-size:42px; letter-spacing:1px;
+    margin:0 0 2px; color:var(--amarelo);
+  }
+  .subtitle{color:var(--muted); font-size:14px; margin-bottom:18px;}
+  .note{
+    background:var(--card); border:1px solid var(--border); border-left:3px solid var(--teal);
+    border-radius:8px; padding:10px 14px; font-size:12.5px; color:var(--muted); margin-bottom:22px;
+    max-width:820px; line-height:1.6;
+  }
+  .meta-row{display:flex; gap:18px; flex-wrap:wrap; align-items:center; margin-bottom:24px;}
+  .meta-pill{
+    background:var(--card); border:1px solid var(--border); border-radius:999px;
+    padding:8px 16px; font-size:13px; color:var(--muted); display:flex; align-items:center; gap:8px;
+  }
+  .meta-pill b{color:var(--text); font-weight:600;}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
+
+  /* tabs */
+  .tabs{display:flex; gap:6px; border-bottom:1px solid var(--border); margin-bottom:26px;}
+  .tab{
+    padding:10px 18px; cursor:pointer; font-size:14px; font-weight:600; color:var(--muted);
+    border-bottom:2px solid transparent; user-select:none;
+  }
+  .tab.on{color:var(--amarelo); border-bottom-color:var(--amarelo);}
+  .view{display:none;}
+  .view.on{display:block;}
+
+  .section-title{
+    font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.5px;
+    color:var(--text); margin:0 0 12px; display:flex; align-items:center; gap:10px; justify-content:space-between;
+  }
+  .section-title .badge{
+    font-family:'Oswald',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.5px;
+    background:var(--bg2); border:1px solid var(--border); color:var(--muted);
+    padding:3px 10px; border-radius:999px; text-transform:uppercase;
+  }
+  .btn{
+    background:var(--bg2); border:1px solid var(--border); color:var(--text); font-family:'Oswald',sans-serif;
+    font-size:13px; font-weight:600; padding:8px 14px; border-radius:8px; cursor:pointer;
+  }
+  .btn:hover{border-color:var(--teal);}
+  .btn.primary{background:var(--teal); border-color:var(--teal); color:#fff;}
+
+  /* pipeline flow */
+  .flow{display:flex; gap:6px; overflow-x:auto; padding-bottom:6px;}
+  .flow-step{
+    flex:1 0 130px; min-width:130px; background:var(--card); border:1px solid var(--border);
+    border-radius:10px; padding:10px 12px; position:relative; cursor:pointer;
+  }
+  .flow-step:hover{border-color:var(--teal);}
+  .flow-step.done{border-color:var(--done); background:linear-gradient(180deg, rgba(20,140,160,.15), var(--card));}
+  .flow-step.running{border-color:var(--running); background:linear-gradient(180deg, rgba(34,197,94,.15), var(--card)); animation:pulse 2s infinite;}
+  .flow-step.blocked{border-color:var(--blocked); background:linear-gradient(180deg, rgba(240,180,0,.15), var(--card));}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.35);}50%{box-shadow:0 0 0 5px rgba(34,197,94,0);}}
+  .flow-num{font-size:10px; color:var(--muted); font-weight:600;}
+  .flow-name{font-size:12.5px; margin-top:3px; line-height:1.25;}
+  .flow-agent{font-size:11px; color:var(--muted); margin-top:5px;}
+  .flow-indep{font-size:10px; color:var(--teal); margin-top:6px;}
+
+  /* agent cards */
+  .agents-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:16px;}
+  .agent-card{
+    background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:18px; position:relative; overflow:hidden; cursor:pointer; transition:border-color .15s;
+  }
+  .agent-card:hover{border-color:var(--teal);}
+  .agent-card::before{content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--status-color, var(--idle));}
+  .agent-top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
+  .agent-id{display:flex; gap:10px; align-items:center;}
+  .agent-icon{font-size:26px; line-height:1;}
+  .agent-name{font-weight:700; font-size:16px;}
+  .agent-role{color:var(--muted); font-size:12px; margin-top:1px;}
+  .status-badge{
+    display:flex; align-items:center; gap:6px; font-size:11px; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.4px; padding:4px 10px; border-radius:999px;
+    background:var(--bg2); white-space:nowrap;
+  }
+  .status-badge .dot{background:var(--status-color, var(--idle));}
+  .status-badge.running{color:var(--running);} .status-badge.done{color:var(--done);}
+  .status-badge.blocked{color:var(--blocked);} .status-badge.idle{color:var(--muted);} .status-badge.error{color:var(--error);}
+
+  .agent-step{margin-top:14px; font-size:13px; color:var(--text); background:var(--bg2); border-radius:8px; padding:8px 10px;}
+  .agent-step .label{color:var(--muted); font-size:10.5px; text-transform:uppercase; letter-spacing:0.4px; display:block; margin-bottom:2px;}
+  .agent-output{margin-top:10px; font-size:13px; color:var(--muted); line-height:1.5;}
+  .agent-output .label{color:var(--muted); font-size:10.5px; text-transform:uppercase; letter-spacing:0.4px; display:block; margin-bottom:2px;}
+  .agent-output a{color:var(--teal); text-decoration:none;}
+  .agent-output a:hover{text-decoration:underline;}
+  .agent-time{margin-top:10px; font-size:11px; color:var(--muted); display:flex; justify-content:space-between;}
+  .click-hint{margin-top:12px; font-size:11px; color:var(--teal);}
+
+  /* projects */
+  .projects-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(320px,1fr)); gap:16px;}
+  .project-card{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:18px;}
+  .project-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+  .project-name{font-weight:700; font-size:16px;}
+  .project-type{font-size:11px; color:var(--muted); margin-top:2px; text-transform:uppercase; letter-spacing:0.4px;}
+  .project-steps{margin-top:14px; display:flex; flex-direction:column; gap:6px;}
+  .project-step{
+    display:flex; align-items:center; gap:8px; font-size:12.5px; background:var(--bg2);
+    border-radius:6px; padding:6px 10px; cursor:pointer;
+  }
+  .project-step:hover{outline:1px solid var(--teal);}
+  .project-step .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .project-date{font-size:11px; color:var(--muted); margin-top:12px;}
+
+  /* modal */
+  .overlay{
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:50;
+    align-items:center; justify-content:center; padding:24px;
+  }
+  .overlay.on{display:flex;}
+  .modal{
+    background:var(--bg2); border:1px solid var(--border); border-radius:16px;
+    max-width:560px; width:100%; max-height:85vh; overflow-y:auto; padding:26px;
+  }
+  .modal-top{display:flex; align-items:flex-start; justify-content:space-between; gap:12px;}
+  .modal-close{cursor:pointer; color:var(--muted); font-size:20px; line-height:1; background:none; border:none;}
+  .modal-icon{font-size:32px;}
+  .modal-name{font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--amarelo); letter-spacing:0.5px;}
+  .modal-role{color:var(--muted); font-size:13px;}
+  .modal-section{margin-top:18px;}
+  .modal-section .label{color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:6px; display:block;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:6px;}
+  .chip{background:var(--bg); border:1px solid var(--border); border-radius:999px; padding:4px 12px; font-size:12px;}
+  .modal-list{margin:0; padding-left:18px; font-size:13px; line-height:1.7; color:var(--text);}
+  .prompt-box{
+    background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:10px 12px;
+    font-size:13px; color:var(--amarelo); margin-top:6px; display:flex; justify-content:space-between; gap:10px; align-items:center;
+  }
+  .prompt-box .txt{flex:1;}
+  .toast{
+    position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--done); color:#fff; padding:10px 18px; border-radius:8px; font-size:13px;
+    opacity:0; transition:all .25s; pointer-events:none; z-index:60;
+  }
+  .toast.on{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  /* live run banner + progress bar */
+  .run-banner{display:none; flex-direction:column; gap:8px; margin-bottom:18px;}
+  .run-banner.on{display:flex;}
+  .run-banner-row{
+    display:flex; align-items:center; gap:14px; background:var(--card); border:1px solid var(--running);
+    border-radius:10px; padding:10px 16px; font-size:13px; flex-wrap:wrap;
+  }
+  .run-banner-row .run-dot{
+    width:9px; height:9px; border-radius:50%; background:var(--running); flex-shrink:0;
+    animation:pulse-dot 1.4s infinite;
+  }
+  @keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:.35;}}
+  .progress-track{flex:1; height:6px; background:var(--bg2); border-radius:999px; overflow:hidden; min-width:120px;}
+  .progress-fill{height:100%; background:var(--running); border-radius:999px; transition:width .5s ease; width:0%;}
+  .run-banner .pct{font-weight:700; color:var(--running); min-width:38px; text-align:right;}
+  .run-banner .elapsed{color:var(--muted); white-space:nowrap;}
+  .btn[disabled]{opacity:.4; cursor:not-allowed;}
+  .btn[disabled]:hover{border-color:var(--border);}
+  .live-progress-note{font-size:11px; color:var(--muted); margin-top:6px;}
+
+  .output-links{
+    margin-top:10px; padding:10px 12px; background:var(--bg2); border-radius:8px;
+    display:flex; flex-direction:column; gap:5px;
+  }
+  .output-links .label{color:var(--muted); font-size:10.5px; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:2px;}
+  .output-links a{color:var(--teal); text-decoration:none; font-size:12.5px; font-family:monospace; word-break:break-all;}
+  .output-links a:hover{text-decoration:underline;}
+
+  footer{margin-top:44px; padding-top:18px; border-top:1px solid var(--border); color:var(--muted); font-size:12.5px; line-height:1.7;}
+  footer code{background:var(--bg2); padding:1px 6px; border-radius:4px;}
+</style>
+</head>
+<body>
+
+<h1>🌮 Gestor Vila — Painel de Agentes</h1>
+<div class="subtitle">Squad <b>gestor-vila</b> — 10 agentes</div>
+<div class="note">
+  <b>Execução real via control-server.py</b> — abra este painel em <code>http://127.0.0.1:8787/agent-status.html</code>
+  (com <code>python3 squads/gestor-vila/control-server.py</code> rodando). Vini Vídeo executa direto
+  (FFmpeg). Briefing do Dia, Hugo, Cris, Vito, Renata e Rodrigo rodam via sessão real do Claude Code
+  em dois passos — "Gerar Plano" (só lê) e "Aprovar e Executar" (escreve de verdade). Briefing/Cris/Vito/
+  Renata/Rodrigo fazem parte do <b>checklist de um projeto</b> (aba Projetos) — cada projeto tem sua
+  própria pasta de output, então dois projetos (ou duas etapas independentes do mesmo projeto) podem
+  rodar ao mesmo tempo. A mesma etapa do mesmo projeto não roda duas vezes ao mesmo tempo, e uma etapa
+  não libera até a anterior daquele projeto terminar.
+</div>
+
+<div class="meta-row" id="meta-row"></div>
+<div class="run-banner" id="run-banner"></div>
+
+<div class="tabs">
+  <div class="tab on" onclick="showTab('painel',this)">Painel</div>
+  <div class="tab" onclick="showTab('agentes',this)">Agentes</div>
+  <div class="tab" onclick="showTab('projetos',this); loadProjects();">Projetos</div>
+  <div class="tab" onclick="showTab('outputs',this); loadOutputs();">Outputs</div>
+</div>
+
+<div id="view-painel" class="view on">
+  <div class="section-title">Pipeline Diário <span class="badge">9 steps · gera post do dia</span></div>
+  <div class="flow" id="flow"></div>
+  <div style="font-size:12px;color:var(--muted);margin-top:10px;">
+    Clique numa etapa pra ver o pedido exato de como rodar <b>só ela</b>, sem acionar o pipeline inteiro.
+  </div>
+</div>
+
+<div id="view-agentes" class="view">
+  <div class="section-title">Todos os Agentes <span class="badge">clique pra ver skills e detalhes</span></div>
+  <div class="agents-grid" id="agents-grid"></div>
+</div>
+
+<div id="view-projetos" class="view">
+  <div class="section-title">
+    Projetos
+    <button class="btn primary" onclick="openNewProjectModal()">+ Novo Projeto</button>
+  </div>
+  <div class="projects-grid" id="projects-grid"></div>
+</div>
+
+<div id="view-outputs" class="view">
+  <div class="section-title">
+    Outputs
+    <button class="btn" onclick="loadOutputs()">↻ Atualizar</button>
+  </div>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:16px;max-width:700px;">
+    Histórico real de execuções via <code>control-server.py</code>. Planos aparecem aqui
+    primeiro (nada escrito ainda) — clique em "Aprovar e Executar" pra rodar de verdade.
+  </div>
+  <div id="outputs-list"></div>
+</div>
+
+<footer id="footer"></footer>
+
+<div class="overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ─────────────────────────────────────────────────────────────
+// ESTADO — bloco editado a cada atualização do painel.
+// status possíveis: 'idle' | 'running' | 'done' | 'blocked' | 'error'
+// ─────────────────────────────────────────────────────────────
+const DASHBOARD_UPDATED_AT = "2026-07-10 13:34 — Briefing do Dia rodado isoladamente (Step 01)";
+
+const PIPELINE_STEPS = [
+  {n:1, name:"Briefing do Dia", agent:"inline", status:"done"},
+  {n:2, name:"Criar Conteúdo", agent:"Cris Criativa", status:"done"},
+  {n:3, name:"Criar Visual", agent:"Vito Visual", status:"idle"},
+  {n:4, name:"Aprovação de Conteúdo", agent:"checkpoint", status:"idle"},
+  {n:5, name:"Publicar", agent:"Paulo Postador", status:"idle"},
+  {n:6, name:"Criar Campanha", agent:"Ana Anúncio", status:"idle"},
+  {n:7, name:"Revisão de Qualidade", agent:"Renata Revisão", status:"idle"},
+  {n:8, name:"Relatório", agent:"Rodrigo Resultados", status:"idle"},
+  {n:9, name:"Aprovação Final", agent:"checkpoint", status:"idle"},
+];
+const PIPELINE_RUN_TODAY = false;
+
+const AGENTS = [
+  {
+    id:"briefing", icon:"🗓️", name:"Briefing do Dia", role:"Coleta de Dados (Step 01)",
+    status:"done", step:"Rodou em 10/07 às 13:34 — output/briefing.md pronto (Sexta, Experiência Cultural, show DEVAN 20h)",
+    routine:"Diária — antes do resto do pipeline", output:{ text:"output/briefing.md", path:"output/briefing.md" },
+    lastRun:"2026-07-10",
+    live:{type:"claude"},
+    skills:["google_calendar"],
+    principles:[
+      "Calendário principal define o conteúdo — calendário Música e Eventos é só contexto",
+      "Nunca expõe valor de cachê no briefing (decisão de divulgação não depende de quanto o músico ganha)",
+      "Copa do Mundo tem prioridade máxima na classificação do tipo de dia",
+      "Salva sempre em dois formatos no mesmo arquivo: YAML (agentes) + Markdown (leitura humana)",
+    ],
+    integration:"Lê: Google Agenda (principal + Música e Eventos) · Escreve: output/briefing.md",
+  },
+  {
+    id:"cris", icon:"✍️", name:"Cris Criativa", role:"Copywriter",
+    status:"done", step:"Rodou em 10/07 — conteúdo do dia pronto (Sexta, Experiência Cultural, show DEVAN 20h + anúncio pago)",
+    routine:"Diária — 08:15", output:{ text:"output/conteudo.md", path:"output/conteudo.md" }, lastRun:"2026-07-10",
+    live:{type:"claude"},
+    skills:["web_search","web_fetch"],
+    principles:[
+      "Nunca usa \"link na bio\" — O Vila não tem e-commerce",
+      "Todo post de evento tem artista + horário + endereço",
+      "Zero formalidade — \"vem com a galera\", não \"venha desfrutar\"",
+      "É sempre \"O Vila\", nunca \"a Vila\" (hard cap H0)",
+    ],
+    integration:"Lê: briefing.md, vila-identity.md, tone-of-voice.md · Escreve: output/conteudo.md",
+  },
+  {
+    id:"vito", icon:"🎨", name:"Vito Visual", role:"Designer",
+    status:"idle", step:"Aguardando conteúdo do Cris (Step 03)",
+    routine:"Diária — 08:45", output:null, lastRun:null,
+    live:{type:"claude"},
+    skills:["canva_mcp"],
+    principles:[
+      "Fundo escuro sempre — identidade noturna do Vila é inegociável",
+      "Máx. 4 cores por arte (paleta terracota/ouro/amarelo/preto)",
+      "Mascotes do brand kit oficial (kAHGNC-y7zM) obrigatórios",
+      "Bebas Neue / Oswald — nunca tipografia fina ou serifada",
+    ],
+    integration:"Lê: output/conteudo.md, vila-identity.md · Escreve: output/visual-01.jpg, arte-evento.jpg",
+  },
+  {
+    id:"paulo", icon:"📲", name:"Paulo Postador", role:"Publicador Multiplataforma",
+    status:"blocked", step:"Sem sessão Meta Business conectada em @vilalosmuertosdefome",
+    routine:"Diária — 18h-21h IG / 12h-20h TikTok", output:null, lastRun:null,
+    skills:["instagram-publisher","blotato"],
+    principles:[
+      "Nunca publica sem aprovação explícita do usuário",
+      "Nunca publica pela conta errada (@lu2ca.art é proibida)",
+      "Dry-run sempre antes de publicar de verdade",
+      "Toda publicação bem-sucedida retorna URL — sem URL não houve confirmação",
+    ],
+    integration:"Lê: output/conteudo.md, visual-01.jpg · Escreve: output/publicacoes.md",
+  },
+  {
+    id:"ana", icon:"📣", name:"Ana Anúncio", role:"Gestora de Tráfego Pago",
+    status:"idle", step:"Aguardando evento pago no briefing do dia (Step 06)",
+    routine:"Condicional — 24-72h antes do evento", output:null, lastRun:null,
+    skills:[],
+    principles:[
+      "Geolocalização é o primeiro filtro — raio máx. 15km de Barueri",
+      "Anúncio sem evento âncora é ruído",
+      "CTA físico (\"Obter Trajeto\"/\"Reservar\"), nunca \"Saiba Mais\"",
+      "Nunca expõe cachê ou custo de artista no briefing",
+    ],
+    integration:"Lê: briefing.md, arte-evento.jpg · Escreve: output/campanha.md",
+  },
+  {
+    id:"renata", icon:"🔍", name:"Renata Revisão", role:"QA de Conteúdo",
+    status:"idle", step:"Aguardando publicação para revisar (Step 07)",
+    routine:"Diária — após publicação", output:null, lastRun:null,
+    live:{type:"claude"},
+    skills:[],
+    principles:[
+      "Verifica todos os hard caps antes/depois de publicar",
+      "H0: \"O Vila\", nunca \"a Vila\" — rejeita se violado",
+      "H4: nenhum valor de cachê/contrato pode vazar",
+      "Reprovação manda de volta pro Step 02 (Cris reescreve)",
+    ],
+    integration:"Lê: conteudo.md, visual-01.jpg, publicacoes.md, campanha.md · Escreve: output/review.md",
+  },
+  {
+    id:"rodrigo", icon:"📊", name:"Rodrigo Resultados", role:"Relatórios de Marketing",
+    status:"idle", step:"Relatório roda toda segunda ou sob pedido (Step 08)",
+    routine:"Semanal — segunda 09:00", output:null, lastRun:null,
+    live:{type:"claude"},
+    skills:[],
+    principles:[
+      "Nunca usa \"ROI\" sem estimativa concreta de receita",
+      "Relatório semanal, não diário — evita ruído de métrica",
+      "Compara métrica com o pilar de conteúdo do dia",
+    ],
+    integration:"Lê: publicacoes.md, campanha.md · Escreve: output/relatorio.md",
+  },
+  {
+    id:"hugo", icon:"🔭", name:"Hugo Caçador", role:"Caçador de Referências",
+    status:"idle", step:"Nunca executado ainda — pronto pra primeira caçada",
+    routine:"Semanal — segunda 07:00", output:null, lastRun:null,
+    live:{type:"claude"},
+    skills:["web_search","web_fetch"],
+    principles:[
+      "Raio crescente: Barueri → SP → Brasil → mundo, prioridade decrescente",
+      "Mecanismo, não cópia — nunca sugere replicar um post literalmente",
+      "Fonte sempre rastreável, máx. 8 referências por rodada",
+      "Fora do pipeline diário — roda sob demanda ou semanal",
+    ],
+    integration:"Lê: vila-identity.md, tone-of-voice.md · Escreve: output/referencias/YYYY-MM-DD-referencias.md",
+  },
+  {
+    id:"vini", icon:"🎬", name:"Vini Vídeo", role:"Editor de Vídeo",
+    status:"done", step:"Renderizou 7 reels de almoço (um por dia da semana)",
+    routine:"Rotativa — terça/quinta/sábado",
+    output:{ text:"7 vídeos — output/2026-07-09-reels-almoco-semana/", path:"output/2026-07-09-reels-almoco-semana/" },
+    lastRun:"2026-07-09",
+    live:{type:"vini", endpoint:"/api/vini/edit", themes:["almoço"," drinks","copa","música","mexicano","porções","lanches e  burgers","dancinhaholic","edits"]},
+    skills:["video-editor"],
+    principles:[
+      "Nunca inventa material — só edita o que já foi filmado",
+      "9:16 pra Reels/Stories/TikTok, sempre a proporção certa",
+      "FFmpeg local, grátis — sem CapCut, sem assinatura",
+      "Corrige rotação de vídeo de iPhone automaticamente (bug real já corrigido)",
+    ],
+    integration:"Lê: biblioteca-midia.md (pasta iCloud real) · Escreve: output/YYYY-MM-DD-HHmmss/video-final.mp4",
+  },
+  {
+    id:"carmen", icon:"💬", name:"Carmen Atendimento", role:"Chatbot de Relacionamento",
+    status:"blocked", step:"Sem canal conectado (WhatsApp Business / Instagram Direct)",
+    routine:"Contínua — 24/7 quando conectada", output:null, lastRun:null,
+    skills:[],
+    principles:[
+      "Fonte única de verdade: base-conhecimento.md — nunca inventa resposta",
+      "Admite o que não sabe e direciona pra humano",
+      "Hard caps valem em conversa também (nunca revela cachê)",
+      "Escalação automática pra reclamação, reembolso, evento privado grande",
+    ],
+    integration:"Lê: base-conhecimento.md, vila-identity.md · Canal: WhatsApp Business + Instagram Direct (pendente conexão)",
+  },
+];
+
+// ─────────────────────────────────────────────────────────────
+// RENDER
+// ─────────────────────────────────────────────────────────────
+const STATUS_LABEL = {idle:"Ocioso", running:"Ativo agora", done:"Concluído", blocked:"Bloqueado", error:"Erro"};
+const STATUS_COLOR_VAR = {idle:"var(--idle)", running:"var(--running)", done:"var(--done)", blocked:"var(--blocked)", error:"var(--error)"};
+const agentById = id => AGENTS.find(a=>a.id===id);
+
+// ─── live run tracking (polls control-server; drives per-step locks + banner) ───
+// Runs are keyed by "<projectId>:<agentId>" ("_standalone:<agentId>" for
+// Hugo/Vini). Multiple runs can be active at once — different keys run in
+// parallel; the SAME key can't run twice concurrently.
+let ACTIVE_RUNS = []; // [] when idle, else /api/status "runs" list
+const PROJECT_TIED_AGENTS = ["briefing", "cris", "vito", "renata", "rodrigo"];
+
+function runKeyFor(agentId, projectId){
+  return projectId ? `${projectId}:${agentId}` : `_standalone:${agentId}`;
+}
+function findRun(runKey){
+  return ACTIVE_RUNS.find(r=>r.runKey===runKey) || null;
+}
+function findRunByEntryId(entryId){
+  return ACTIVE_RUNS.find(r=>r.entryId===entryId) || null;
+}
+
+function progressBarHtml(pct, note){
+  return `<div class="progress-track"><div class="progress-fill" style="width:${pct}%;"></div></div>
+    <div class="live-progress-note">${note}</div>`;
+}
+
+function fmtElapsed(sec){
+  const m = Math.floor(sec/60), s = Math.round(sec%60);
+  return `${m}:${String(s).padStart(2,'0')}`;
+}
+
+async function pollStatus(){
+  // Every DOM write below can nudge scroll position (shrinking/growing a
+  // container makes the browser clamp scrollY). Pin it back at the end of
+  // each 2s tick so the user can scroll freely while something runs.
+  const scrollY = window.scrollY;
+  try{
+    const res = await fetch("/api/status", {cache:"no-store"});
+    const data = await res.json();
+    ACTIVE_RUNS = data.runs || [];
+  } catch(e){
+    // control-server not reachable right now — leave last known state alone
+  }
+  renderRunBanner();
+  updateLockedButtons();
+  if(ACTIVE_RUNS.length && document.getElementById("view-outputs").classList.contains("on")){
+    await loadOutputs(true);
+    updateLockedButtons();
+  }
+  if(ACTIVE_RUNS.length && document.getElementById("view-projetos").classList.contains("on")){
+    await loadProjects(true);
+    updateLockedButtons();
+  }
+  window.scrollTo(window.scrollX, scrollY);
+}
+
+function initRunWatcher(){
+  pollStatus();
+  setInterval(pollStatus, 2000);
+}
+
+function renderRunBanner(){
+  const el = document.getElementById("run-banner");
+  if(!ACTIVE_RUNS.length){ el.classList.remove("on"); el.innerHTML = ""; return; }
+  el.classList.add("on");
+  el.innerHTML = ACTIVE_RUNS.map(r=>{
+    const modeLabel = r.mode === "execute" ? "executando" : r.mode === "plan" ? "planejando" : "rodando";
+    const projLabel = r.projectName ? ` <span style="color:var(--muted);">— ${r.projectName}</span>` : "";
+    return `<div class="run-banner-row">
+      <span class="run-dot"></span>
+      <span><b>${r.agentName}</b>${projLabel} — ${modeLabel}…</span>
+      <div class="progress-track" style="flex:1;"><div class="progress-fill" style="width:${r.progressPct}%;"></div></div>
+      <span class="pct">${r.progressPct}%</span>
+      <span class="elapsed">${fmtElapsed(r.elapsedSec)}</span>
+    </div>`;
+  }).join("");
+}
+
+function updateLockedButtons(){
+  const activeKeys = new Set(ACTIVE_RUNS.map(r=>r.runKey));
+  document.querySelectorAll(".js-run-btn").forEach(b=>{
+    // Don't stomp a button that's actively tracking its own run — trackRun()
+    // already owns its disabled/text state until completion.
+    if(b.dataset.tracking === "1") return;
+    const key = b.dataset.runKey;
+    const locked = !!(key && activeKeys.has(key));
+    b.disabled = locked;
+    b.title = locked ? "Esta etapa já está rodando — aguarde terminar." : "";
+  });
+}
+
+// Polls /api/log for `entryId` every 2s and updates `resultEl` with live
+// progress (looked up from ACTIVE_RUNS by entryId) until the entry leaves
+// mode:"running".
+function trackRun(entryId, resultEl, btn, idleLabel, onDone){
+  if(btn){ btn.dataset.tracking = "1"; btn.disabled = true; btn.textContent = "Rodando…"; }
+  const tick = async ()=>{
+    let entry;
+    try{
+      const res = await fetch("/api/log", {cache:"no-store"});
+      const data = await res.json();
+      entry = (data.log||[]).find(e=>e.id===entryId);
+    } catch(e){
+      setTimeout(tick, 3000);
+      return;
+    }
+    if(!entry || entry.mode === "running"){
+      const tracked = findRunByEntryId(entryId);
+      const pct = tracked ? tracked.progressPct : 0;
+      const elapsed = tracked ? tracked.elapsedSec : 0;
+      if(resultEl){
+        const scrollY = window.scrollY;
+        resultEl.innerHTML = `<div style="color:var(--running);margin-bottom:6px;">⏳ Rodando…</div>${progressBarHtml(pct, `${pct}% (estimativa) · ${fmtElapsed(elapsed)}`)}`;
+        window.scrollTo(window.scrollX, scrollY);
+      }
+      setTimeout(tick, 2000);
+      return;
+    }
+    if(btn){ btn.dataset.tracking = "0"; btn.disabled = false; btn.textContent = idleLabel; }
+    onDone(entry);
+  };
+  tick();
+}
+
+function showTab(id, el){
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("on"));
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("on"));
+  el.classList.add("on");
+  document.getElementById("view-"+id).classList.add("on");
+}
+
+function renderMeta(){
+  const counts = AGENTS.reduce((acc,a)=>{acc[a.status]=(acc[a.status]||0)+1; return acc;}, {});
+  const pills = [
+    `<div class="meta-pill">🕒 Atualizado: <b>${DASHBOARD_UPDATED_AT}</b></div>`,
+    `<div class="meta-pill"><span class="dot" style="background:var(--running)"></span> Ativos: <b>${counts.running||0}</b></div>`,
+    `<div class="meta-pill"><span class="dot" style="background:var(--done)"></span> Concluídos: <b>${counts.done||0}</b></div>`,
+    `<div class="meta-pill"><span class="dot" style="background:var(--blocked)"></span> Bloqueados: <b>${counts.blocked||0}</b></div>`,
+    `<div class="meta-pill"><span class="dot" style="background:var(--idle)"></span> Ociosos: <b>${counts.idle||0}</b></div>`,
+  ];
+  document.getElementById("meta-row").innerHTML = pills.join("");
+}
+
+function renderFlow(){
+  const el = document.getElementById("flow");
+  el.innerHTML = PIPELINE_STEPS.map(s=>{
+    const cls = PIPELINE_RUN_TODAY ? s.status : "idle";
+    return `<div class="flow-step ${cls}" onclick='openStepModal(${JSON.stringify(s)})'>
+      <div class="flow-num">STEP ${String(s.n).padStart(2,'0')}</div>
+      <div class="flow-name">${s.name}</div>
+      <div class="flow-agent">${s.agent}</div>
+      <div class="flow-indep">▶ roda independente</div>
+    </div>`;
+  }).join("");
+}
+
+function renderAgents(){
+  const el = document.getElementById("agents-grid");
+  el.innerHTML = AGENTS.map(a=>{
+    const color = STATUS_COLOR_VAR[a.status] || "var(--idle)";
+    const label = STATUS_LABEL[a.status] || a.status;
+    const outputHtml = a.output
+      ? `<div class="agent-output"><span class="label">Última saída</span>${a.output.path ? `<a href="${a.output.path}" title="${a.output.path}" onclick="event.stopPropagation()">${a.output.text}</a>` : a.output.text}</div>`
+      : `<div class="agent-output"><span class="label">Última saída</span>— nenhuma ainda —</div>`;
+    return `<div class="agent-card" style="--status-color:${color}" onclick="openAgentModal('${a.id}')">
+      <div class="agent-top">
+        <div class="agent-id">
+          <div class="agent-icon">${a.icon}</div>
+          <div><div class="agent-name">${a.name}</div><div class="agent-role">${a.role}</div></div>
+        </div>
+        <div class="status-badge ${a.status}"><span class="dot"></span>${label}</div>
+      </div>
+      <div class="agent-step"><span class="label">Passo atual</span>${a.step}</div>
+      ${outputHtml}
+      <div class="agent-time"><span>${a.lastRun ? "Última execução: "+a.lastRun : "Nunca executado"}</span><span>${a.routine||""}</span></div>
+      <div class="click-hint">clique pra ver skills e detalhes →</div>
+    </div>`;
+  }).join("");
+}
+
+// ─── projects (live checklist, fetched from control-server) ───
+let PROJECTS_CACHE = [];
+const STEP_STATUS_LABEL = {ready:"Pronto pra rodar", blocked:"Aguardando etapa anterior", running:"Rodando…", done:"Concluído"};
+
+async function loadProjects(silent=false){
+  const el = document.getElementById("projects-grid");
+  if(!silent) el.innerHTML = `<div style="color:var(--muted);font-size:13px;">Carregando…</div>`;
+  try{
+    const res = await fetch("/api/projects", {cache:"no-store"});
+    const data = await res.json();
+    PROJECTS_CACHE = data.projects || [];
+    el.innerHTML = renderProjectCards(PROJECTS_CACHE);
+  } catch(e){
+    if(!silent) el.innerHTML = `<div style="color:var(--error);font-size:13px;">Não consegui falar com o control-server (127.0.0.1:8787). Ele está rodando?</div>`;
+  }
+}
+
+function renderProjectCards(projects){
+  if(!projects.length){
+    return `<div style="color:var(--muted);font-size:13px;">Nenhum projeto ainda. Clique em "+ Novo Projeto" pra começar um.</div>`;
+  }
+  return projects.map(p=>{
+    if(p.type !== "pipeline"){
+      return `<div class="project-card">
+        <div class="project-top"><div><div class="project-name">${p.name}</div><div class="project-type">Sob demanda</div></div></div>
+        <div style="font-size:12.5px;color:var(--muted);margin-top:10px;">${p.note||""}</div>
+        <div class="project-date">Criado em ${p.createdAt}</div>
+      </div>`;
+    }
+    const checklist = p.checklist || [];
+    const doneCount = checklist.filter(c=>c.status==="done").length;
+    const chipsHtml = checklist.map(c=>{
+      const cls = c.status === "ready" ? "" : c.status; // reuse .flow-step.done/.running/.blocked
+      const a = agentById(c.agentId);
+      return `<div class="flow-step ${cls}" style="min-width:110px;flex:1 0 110px;" onclick='openProjectStepModal(${JSON.stringify(p.id)}, ${JSON.stringify(c.agentId)})'>
+        <div class="flow-name">${a?a.icon+' ':''}${c.agentName}</div>
+        <div class="flow-agent">${STEP_STATUS_LABEL[c.status]||c.status}</div>
+      </div>`;
+    }).join("");
+    return `<div class="project-card">
+      <div class="project-top">
+        <div><div class="project-name">${p.name}</div><div class="project-type">Pipeline · ${doneCount}/${checklist.length} concluídos</div></div>
+      </div>
+      <div class="flow" style="margin-top:12px;">${chipsHtml}</div>
+      <div class="project-date">Criado em ${p.createdAt}${p.id==='principal'?' · projeto padrão (output/ raiz)':''}</div>
+    </div>`;
+  }).join("");
+}
+
+function openProjectStepModal(projectId, agentId){
+  const project = PROJECTS_CACHE.find(p=>p.id===projectId);
+  const a = agentById(agentId);
+  if(!project || !a) return;
+  const item = (project.checklist||[]).find(c=>c.agentId===agentId);
+  if(item && item.status === "blocked"){
+    openModalRaw(`
+      <div class="modal-top">
+        <div style="display:flex;gap:12px;align-items:center;">
+          <div class="modal-icon">${a.icon}</div>
+          <div><div class="modal-name">${a.name}</div><div class="modal-role">${project.name}</div></div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-section">
+        <div class="live-progress-note" style="color:var(--blocked);font-size:13px;">⏳ Aguardando a etapa anterior deste projeto terminar — o output que esta etapa precisa ainda não existe.</div>
+      </div>
+    `);
+    return;
+  }
+  openAgentModal(agentId, project);
+}
+
+function renderFooter(){
+  document.getElementById("footer").innerHTML = `
+    <code>PIPELINE_STEPS / AGENTS</code> (skills, princípios) ficam embutidos no topo do &lt;script&gt;
+    — pra atualizar, peça "atualiza o agent-status.html". Projetos e execuções são dados reais, vindos
+    do <code>control-server.py</code> (<code>output/projects.json</code> / <code>execution-log.json</code>),
+    não deste arquivo. A página não recarrega mais sozinha (isso derrubava execuções em andamento) —
+    em vez disso, ela faz polling em <code>/api/status</code> a cada 2s pra manter o banner de execução
+    e as travas de botão atualizados.
+  `;
+}
+
+// ─── modal ───
+function openModalRaw(html){
+  document.getElementById("modal").innerHTML = html;
+  document.getElementById("modal-overlay").classList.add("on");
+}
+function closeModal(e){
+  if(e && e.target.id !== "modal-overlay") return;
+  document.getElementById("modal-overlay").classList.remove("on");
+}
+function showToast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("on");
+  setTimeout(()=>t.classList.remove("on"), 2200);
+}
+function copyText(txt){
+  navigator.clipboard.writeText(txt).then(()=>showToast("Copiado — cole numa conversa comigo"));
+}
+
+function openAgentModal(id, project=null){
+  const a = agentById(id);
+  if(!a) return;
+  const skillsHtml = a.skills.length
+    ? `<div class="chip-row">${a.skills.map(s=>`<span class="chip">${s}</span>`).join("")}</div>`
+    : `<div style="color:var(--muted);font-size:13px;">Nenhuma skill externa — usa raciocínio + arquivos do squad.</div>`;
+  const principlesHtml = `<ul class="modal-list">${a.principles.map(p=>`<li>${p}</li>`).join("")}</ul>`;
+  const runPrompt = `Roda o agente ${a.name} agora${project?` no projeto "${project.name}"`:""}.`;
+  const actionHtml = a.live ? renderLiveAction(a, project) : `
+    <div class="modal-section"><span class="label">Rodar este agente agora</span>
+      <div class="prompt-box"><span class="txt">${runPrompt}</span><button class="btn" onclick="copyText('${runPrompt}')">Copiar</button></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px;">
+        Este agente precisa de raciocínio do Claude (não é um script fixo) — por segurança/custo,
+        ele roda a partir de uma conversa, não de um botão direto no painel.
+      </div>
+    </div>
+  `;
+  openModalRaw(`
+    <div class="modal-top">
+      <div style="display:flex;gap:12px;align-items:center;">
+        <div class="modal-icon">${a.icon}</div>
+        <div><div class="modal-name">${a.name}</div><div class="modal-role">${a.role}${project?` · Projeto: ${project.name}`:""}</div></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-section"><span class="label">Status</span>
+      <div class="status-badge ${a.status}"><span class="dot" style="background:${STATUS_COLOR_VAR[a.status]}"></span>${STATUS_LABEL[a.status]}</div>
+    </div>
+    <div class="modal-section"><span class="label">Skills / Tools</span>${skillsHtml}</div>
+    <div class="modal-section"><span class="label">Princípios</span>${principlesHtml}</div>
+    <div class="modal-section"><span class="label">Integração</span><div style="font-size:12.5px;color:var(--muted);">${a.integration}</div></div>
+    <div class="modal-section"><span class="label">Rotina</span><div style="font-size:12.5px;color:var(--muted);">${a.routine}</div></div>
+    ${actionHtml}
+  `);
+}
+
+function renderLiveAction(a, project){
+  if(a.live.type === "vini") return renderViniAction(a);
+  if(a.live.type === "claude") return renderClaudeAction(a, project);
+  return "";
+}
+
+function renderViniAction(a){
+  const themeOptions = a.live.themes.map(t=>`<option value="${t}">${t.trim()}</option>`).join("");
+  const runKey = runKeyFor(a.id, null);
+  const running = findRun(runKey);
+  return `
+    <div class="modal-section"><span class="label">⚡ Executar agora — script determinístico, roda até o fim</span>
+      <div style="font-size:11.5px;color:var(--muted);margin-bottom:8px;">
+        Precisa do <code>control-server.py</code> rodando e desta página aberta via
+        <code>http://127.0.0.1:8787/agent-status.html</code> — não funciona abrindo o arquivo direto.
+      </div>
+      <div style="display:flex; gap:8px; margin-bottom:8px;">
+        <select id="live-theme" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-family:'Oswald',sans-serif;">
+          ${themeOptions}
+        </select>
+      </div>
+      <input id="live-caption" type="text" placeholder="Legenda do vídeo (ex: quinta, prato caprichado)"
+        style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-family:'Oswald',sans-serif;font-size:13px;margin-bottom:10px;">
+      <button class="btn primary js-run-btn" id="live-run-btn" data-run-key="${runKey}" onclick="runLiveVini()" ${running?"disabled":""}>▶ Executar Agora</button>
+      <div id="live-result" style="margin-top:12px;font-size:12.5px;">${running ? `⏳ Rodando… ${progressBarHtml(running.progressPct, `${running.progressPct}% · ${fmtElapsed(running.elapsedSec)}`)}` : ""}</div>
+    </div>
+  `;
+}
+
+function renderClaudeAction(a, project){
+  const tied = PROJECT_TIED_AGENTS.includes(a.id);
+  if(tied && !project){
+    return `<div class="modal-section"><span class="label">⚡ Gerar plano</span>
+      <div class="live-progress-note" style="font-size:12.5px;">Esse agente faz parte do checklist de um projeto — abra pela aba <b>Projetos</b> pra rodar dentro de um projeto específico.</div>
+    </div>`;
+  }
+  const runKey = runKeyFor(a.id, project ? project.id : null);
+  const running = findRun(runKey);
+  return `
+    <div class="modal-section"><span class="label">⚡ Gerar plano — dois passos, com aprovação no meio</span>
+      <div style="font-size:11.5px;color:var(--muted);margin-bottom:8px;">
+        Passo 1 só lê e propõe um plano (nada é escrito). Você revisa na aba <b>Outputs</b> e
+        aprova de lá pra executar de verdade. Precisa do <code>control-server.py</code> rodando.
+        Pode levar 1-3 minutos — é uma sessão real do Claude Code.${project?` Escreve em <code>${project.outputDir}/</code>.`:""}
+        Essa etapa específica não roda duas vezes ao mesmo tempo, mas outros projetos/etapas podem
+        rodar em paralelo.
+      </div>
+      <input id="live-extra" type="text" placeholder="Instrução extra (opcional) — ex: foco em shows desta semana"
+        style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-family:'Oswald',sans-serif;font-size:13px;margin-bottom:10px;" ${running?"disabled":""}>
+      <button class="btn primary js-run-btn" id="live-run-btn" data-run-key="${runKey}" onclick="runLiveClaude('${a.id}', ${project?`'${project.id}'`:'null'})" ${running?"disabled":""}>▶ Gerar Plano</button>
+      <div id="live-result" style="margin-top:12px;font-size:12.5px;">${running ? `⏳ Rodando… ${progressBarHtml(running.progressPct, `${running.progressPct}% (estimativa) · ${fmtElapsed(running.elapsedSec)}`)}` : ""}</div>
+    </div>
+  `;
+}
+
+async function runLiveClaude(agentId, projectId){
+  const btn = document.getElementById("live-run-btn");
+  const resultEl = document.getElementById("live-result");
+  const extra = document.getElementById("live-extra").value;
+  btn.disabled = true; btn.textContent = "Iniciando…";
+  resultEl.innerHTML = `<span style="color:var(--muted);">Chamando o control-server em 127.0.0.1:8787…</span>`;
+  let data;
+  try{
+    const res = await fetch("/api/run-agent/plan", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({agentId, extra, projectId: projectId || undefined}),
+    });
+    data = await res.json();
+    if(res.status === 409){
+      resultEl.innerHTML = `<div style="color:var(--blocked);">⏳ ${escapeHtml(data.error||"Já existe uma execução em andamento.")}</div>`;
+      btn.disabled = false; btn.textContent = "▶ Gerar Plano";
+      return;
+    }
+    if(!res.ok){
+      resultEl.innerHTML = `<div style="color:var(--error);">✕ Erro: ${escapeHtml(data.summary||data.error||"falha desconhecida")}</div>`;
+      btn.disabled = false; btn.textContent = "▶ Gerar Plano";
+      return;
+    }
+  } catch(e){
+    resultEl.innerHTML = `<div style="color:var(--error);">✕ Não consegui falar com o control-server. Ele está rodando?</div>`;
+    btn.disabled = false; btn.textContent = "▶ Gerar Plano";
+    return;
+  }
+  pollStatus(); // refresh banner immediately instead of waiting up to 2s
+  trackRun(data.id, resultEl, btn, "▶ Gerar Plano", (finalEntry)=>{
+    if(finalEntry.mode === "plan"){
+      resultEl.innerHTML = `<div style="color:var(--blocked);">✓ Plano pronto — veja e aprove na aba <b>Outputs</b>.</div>`;
+      closeModal(); showTab("outputs", document.querySelectorAll(".tab")[3]); loadOutputs();
+    } else {
+      resultEl.innerHTML = `<div style="color:var(--error);">✕ Erro: ${escapeHtml(finalEntry.summary||"")}</div>`;
+    }
+  });
+}
+
+async function runLiveVini(){
+  const btn = document.getElementById("live-run-btn");
+  const resultEl = document.getElementById("live-result");
+  const theme = document.getElementById("live-theme").value;
+  const caption = document.getElementById("live-caption").value;
+  btn.disabled = true; btn.textContent = "Rodando…";
+  resultEl.innerHTML = `<span style="color:var(--muted);">Chamando o control-server em 127.0.0.1:8787…</span>`;
+  try{
+    const res = await fetch("/api/vini/edit", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({theme, caption}),
+    });
+    const data = await res.json();
+    if(res.status === 409){
+      resultEl.innerHTML = `<div style="color:var(--blocked);">⏳ ${escapeHtml(data.error||"Já existe uma execução em andamento.")}</div>`;
+    } else if(data.ok){
+      resultEl.innerHTML = `
+        <div style="color:var(--running);">✓ Renderizado com sucesso</div>
+        <div style="color:var(--muted);margin-top:4px;">Clipes: ${data.clips_used.join(", ")}</div>
+        <div style="margin-top:4px;"><a href="${data.output_path}" target="_blank" rel="noopener" style="color:var(--teal);">${data.output_path}</a></div>
+      `;
+    } else {
+      resultEl.innerHTML = `<div style="color:var(--error);">✕ Erro: ${escapeHtml(data.error||"")}</div>`;
+    }
+  } catch(e){
+    resultEl.innerHTML = `<div style="color:var(--error);">✕ Não consegui falar com o control-server. Ele está rodando? (<code>python3 squads/gestor-vila/control-server.py</code>)</div>`;
+  }
+  pollStatus();
+  btn.disabled = false; btn.textContent = "▶ Executar Agora";
+}
+
+function openStepModal(step){
+  const runPrompt = `Roda só o step "${step.name}" (agente: ${step.agent}), sem acionar o resto do pipeline.`;
+  openModalRaw(`
+    <div class="modal-top">
+      <div><div class="modal-name">${step.name}</div><div class="modal-role">Agente: ${step.agent}</div></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-section">
+      <span class="label">Rodar só esta etapa</span>
+      <div style="font-size:12.5px;color:var(--muted);margin-bottom:8px;">
+        Cada etapa do pipeline é independente — não precisa rodar o pipeline inteiro pra usar uma só.
+      </div>
+      <div class="prompt-box"><span class="txt">${runPrompt}</span><button class="btn" onclick="copyText('${runPrompt}')">Copiar</button></div>
+    </div>
+  `);
+}
+
+function openNewProjectModal(){
+  openModalRaw(`
+    <div class="modal-top">
+      <div class="modal-name">+ Novo Projeto</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-section">
+      <span class="label">Nome do projeto</span>
+      <input id="np-name" type="text" placeholder="ex: Campanha Copa do Mundo"
+        style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-family:'Oswald',sans-serif;font-size:14px;"
+        onkeydown="if(event.key==='Enter') createProjectNow();">
+    </div>
+    <div class="modal-section">
+      <span class="label">Como isso funciona</span>
+      <div style="font-size:12.5px;color:var(--muted);margin-bottom:8px;">
+        Cria uma pasta de output isolada (<code>output/&lt;slug&gt;/</code>) e um checklist próprio
+        (Briefing → Cris → Vito → Renata → Rodrigo). Fica separado dos outros projetos — pode rodar
+        etapas dele em paralelo com qualquer outro projeto.
+      </div>
+      <button class="btn primary" id="np-create-btn" onclick="createProjectNow()">Criar Projeto</button>
+      <div id="np-result" style="margin-top:10px;font-size:12.5px;"></div>
+    </div>
+  `);
+  document.getElementById("np-name").focus();
+}
+
+async function createProjectNow(){
+  const nameInput = document.getElementById("np-name");
+  const name = nameInput.value.trim();
+  const btn = document.getElementById("np-create-btn");
+  const resultEl = document.getElementById("np-result");
+  if(!name){
+    resultEl.innerHTML = `<div style="color:var(--error);">Dá um nome pro projeto.</div>`;
+    return;
+  }
+  btn.disabled = true; btn.textContent = "Criando…";
+  try{
+    const res = await fetch("/api/projects", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({name}),
+    });
+    const data = await res.json();
+    if(!res.ok || !data.ok){
+      resultEl.innerHTML = `<div style="color:var(--error);">✕ ${escapeHtml(data.error||"falha ao criar projeto")}</div>`;
+      btn.disabled = false; btn.textContent = "Criar Projeto";
+      return;
+    }
+    closeModal();
+    showToast(`Projeto "${data.project.name}" criado`);
+    loadProjects();
+  } catch(e){
+    resultEl.innerHTML = `<div style="color:var(--error);">✕ Não consegui falar com o control-server. Ele está rodando?</div>`;
+    btn.disabled = false; btn.textContent = "Criar Projeto";
+  }
+}
+
+// ─── outputs ───
+// Real artifact links for a finished execution — outputPaths (files that
+// actually changed on disk, diffed server-side) takes priority; output_path
+// is Vini's single-file legacy field. Never parsed out of prose — either the
+// server measured it or nothing is shown.
+function outputLinksHtml(e){
+  const paths = (e.outputPaths && e.outputPaths.length) ? e.outputPaths : (e.output_path ? [e.output_path] : []);
+  if(!paths.length) return "";
+  const links = paths.map(p=>`<a href="${p}" target="_blank" rel="noopener">${p}</a>`).join("");
+  return `<div class="output-links">
+    <span class="label">Arquivos gerados</span>
+    ${links}
+  </div>`;
+}
+
+function outputCardHtml(e){
+  const a = agentById(e.agentId);
+  const icon = a ? a.icon : "🤖";
+  const name = e.agentName || (a ? a.name : e.agentId);
+  const runKey = runKeyFor(e.agentId, e.projectId || null);
+  let bodyHtml, actionsHtml = "";
+
+  if(e.mode === "running"){
+    const tracked = findRunByEntryId(e.id);
+    const pct = tracked ? tracked.progressPct : 0;
+    const elapsed = tracked ? tracked.elapsedSec : 0;
+    const label = e.step === "execute" ? "executando" : "planejando";
+    bodyHtml = `<div style="color:var(--running);font-size:11px;font-weight:600;text-transform:uppercase;margin-bottom:6px;">⏳ Rodando (${label})</div>
+      ${progressBarHtml(pct, `${pct}% (estimativa) · ${fmtElapsed(elapsed)}`)}`;
+  } else if(e.mode === "plan"){
+    bodyHtml = `<div style="color:var(--blocked);font-size:11px;font-weight:600;text-transform:uppercase;margin-bottom:6px;">⏳ Plano — aguardando aprovação</div>
+      <div style="white-space:pre-wrap;font-size:13px;line-height:1.6;">${escapeHtml(e.planText||"")}</div>`;
+    actionsHtml = `<button class="btn primary js-run-btn" data-run-key="${runKey}" onclick="approveOutput('${e.id}', this)">✓ Aprovar e Executar</button>`;
+  } else if(e.mode === "error" || e.ok === false){
+    bodyHtml = `<div style="color:var(--error);font-size:11px;font-weight:600;text-transform:uppercase;margin-bottom:6px;">✕ Erro</div>
+      <div style="white-space:pre-wrap;font-size:13px;color:var(--muted);">${escapeHtml(e.summary||"")}</div>`;
+  } else {
+    bodyHtml = `<div style="color:var(--done);font-size:11px;font-weight:600;text-transform:uppercase;margin-bottom:6px;">✓ Concluído${e.elapsedSec?` · ${e.elapsedSec}s`:""}</div>
+      <div style="white-space:pre-wrap;font-size:13px;line-height:1.6;">${escapeHtml(e.summary||"")}</div>
+      ${outputLinksHtml(e)}`;
+  }
+
+  const projectLabel = e.projectName ? ` · ${e.projectName}` : "";
+  return `<div class="project-card" style="margin-bottom:14px;max-width:820px;">
+    <div class="project-top">
+      <div style="display:flex;gap:10px;align-items:center;">
+        <span style="font-size:20px;">${icon}</span>
+        <div><div class="project-name" style="font-size:14px;">${name}${projectLabel}</div><div class="project-type">${e.timestamp||""}</div></div>
+      </div>
+    </div>
+    <div style="margin-top:10px;">${bodyHtml}</div>
+    ${actionsHtml?`<div style="margin-top:12px;">${actionsHtml}</div>`:""}
+  </div>`;
+}
+
+function escapeHtml(s){
+  const d = document.createElement("div");
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+async function loadOutputs(silent=false){
+  const el = document.getElementById("outputs-list");
+  // Silent mode (used by the background poller) skips the "Carregando…" flash
+  // — swapping a full card list for a one-line placeholder and back every 2s
+  // is what caused the visible flicker/scroll-jump the user reported.
+  if(!silent) el.innerHTML = `<div style="color:var(--muted);font-size:13px;">Carregando…</div>`;
+  try{
+    const res = await fetch("/api/log", {cache:"no-store"});
+    const data = await res.json();
+    if(!data.log || !data.log.length){
+      el.innerHTML = `<div style="color:var(--muted);font-size:13px;">Nenhuma execução ainda. Vá na aba Agentes e clique em "Executar Agora" ou "Gerar Plano" em algum agente.</div>`;
+      return;
+    }
+    el.innerHTML = data.log.map(outputCardHtml).join("");
+  } catch(e){
+    if(!silent) el.innerHTML = `<div style="color:var(--error);font-size:13px;">Não consegui falar com o control-server (127.0.0.1:8787). Ele está rodando?</div>`;
+  }
+}
+
+async function approveOutput(id, btn){
+  btn.disabled = true; btn.textContent = "Iniciando…";
+  try{
+    const res = await fetch("/api/run-agent/approve", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({id}),
+    });
+    if(res.status === 409){
+      const data = await res.json();
+      showToast(`⏳ ${data.error||"Já existe uma execução em andamento."}`);
+      btn.disabled = false; btn.textContent = "✓ Aprovar e Executar";
+      return;
+    }
+  } catch(e){
+    // control-server pode estar fora do ar — o próximo loadOutputs() reflete isso
+  }
+  pollStatus(); // refresh banner immediately; the entry now shows mode:"running"
+  loadOutputs();
+}
+
+renderMeta();
+renderFlow();
+renderAgents();
+renderFooter();
+initRunWatcher();
+</script>
+</body>
+</html>

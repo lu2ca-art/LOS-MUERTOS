@@ -1,0 +1,7 @@
+name = "vila-instagram-bot"
+main = "src/worker.js"
+compatibility_date = "2024-11-01"
+
+# Segredos (VERIFY_TOKEN, PAGE_ACCESS_TOKEN, APP_SECRET) NÃO ficam aqui —
+# são configurados com `wrangler secret put NOME` (ver README.md), pra
+# nunca ficarem em texto puro num arquivo versionado.

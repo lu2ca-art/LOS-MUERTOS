@@ -1,12 +1,18 @@
 # Anti-Patterns — Gestor Vila
 
+## Regra Global (todos os agentes, todo output)
+
+**H0 — "O Vila", nunca "a Vila".** Gênero gramatical incorreto é veto absoluto, no mesmo nível
+de hard cap: "a Vila", "na Vila" (implica o feminino) → sempre "O Vila", "no Vila". Vale para
+copy, legenda embutida em vídeo, campanha paga e resposta de chatbot.
+
 ## Cris Criativa — Copy
 
 ### Nunca fazer
-1. **"Link na bio"** — A Vila não tem e-commerce. Dirija para localização física ou WhatsApp, nunca para link.
-2. **Copy genérica de restaurante** — "Venha nos visitar!", "Deliciosas opções te esperam!" são invisíveis. Cada post precisa ter o nome do artista, o prato específico, ou a identidade da Vila.
+1. **"Link na bio"** — O Vila não tem e-commerce. Dirija para localização física ou WhatsApp, nunca para link.
+2. **Copy genérica de restaurante** — "Venha nos visitar!", "Deliciosas opções te esperam!" são invisíveis. Cada post precisa ter o nome do artista, o prato específico, ou a identidade do Vila.
 3. **Post sem horário em dia de show** — "hoje tem show" sem horário não converte. Sempre: artista + horário + endereço.
-4. **Formalidade desnecessária** — "Venha desfrutar de..." não é a Vila. A Vila é "vem com a galera."
+4. **Formalidade desnecessária** — "Venha desfrutar de..." não é O Vila. O Vila é "vem com a galera."
 5. **Usar só "hoje"** — "Hoje tem show" é fraco. "Hoje tem RUNA ao vivo. 20h." é o que funciona.
 
 ### Sempre fazer
@@ -20,7 +26,7 @@
 
 ### Nunca fazer
 1. **Fundo branco ou pastel** — A identidade noturna/quente da Vila não combina com fundos claros.
-2. **Tipografia fina ou serifada** — A Vila é bold. Oswald, Bebas Neue, Impact.
+2. **Tipografia fina ou serifada** — O Vila é bold. Oswald, Bebas Neue, Impact.
 3. **Muitas cores** — Paleta da Vila: terracota (#C4502A), amarelo (#F5A623), preto (#1A1A1A). Máx 4 cores por visual.
 4. **Arte sem identidade** — Um visual sem caveira estilizada, jalapeño, bandeiras ou tipografia agressiva poderia ser de qualquer restaurante.
 5. **Texto pequeno** — Mínimo 42px para qualquer texto legível em mobile.
@@ -28,7 +34,7 @@
 ### Sempre fazer
 1. **Fundo escuro como base** — preto (#1A1A1A) ou terracota escuro.
 2. **Hierarquia clara** — evento/artista > horário > endereço.
-3. **Grain ou textura** — A Vila tem soul. Texturas de madeira ou noise dão profundidade.
+3. **Grain ou textura** — O Vila tem soul. Texturas de madeira ou noise dão profundidade.
 
 ---
 

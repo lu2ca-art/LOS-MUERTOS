@@ -11,14 +11,15 @@
 
 ## Hard Caps (H) — Rejeição Imediata
 
+- **H0:** Uso de "a Vila" / "na Vila" (gênero errado — é sempre "O Vila" / "no Vila") → REJEITADO
 - **H1:** Conteúdo com marketing language ("confira", "link na bio", "não perca", "disponível para reservas") → REJEITADO
 - **H2:** Post sem informação concreta quando há evento (artista sem horário, show sem dia) → REJEITADO
-- **H3:** Visual com fundo claro (a Vila tem identidade noturna/quente — branco ou pastel rompe a identidade) → REJEITADO
+- **H3:** Visual com fundo claro (O Vila tem identidade noturna/quente — branco ou pastel rompe a identidade) → REJEITADO
 - **H4:** Publicação executada sem aprovação explícita do usuário → REJEITADO imediato
 
 ## Critérios Soft (S) — Scoring 1-10
 
-- **S1 — Identidade da Vila (peso 2x):** O conteúdo soa como a Vila Los Muertos de Fome? Tem a personalidade, o humor, a fusão Tex Mex BR?
+- **S1 — Identidade do Vila (peso 2x):** O conteúdo soa como O Vila Los Muertos de Fome? Tem a personalidade, o humor, a fusão Tex Mex BR?
 - **S2 — Informação concreta:** Há dia, horário e artista/evento quando relevante?
 - **S3 — Hook efetivo:** A primeira linha para o scroll? Funciona sozinha?
 - **S4 — Tom correto para o dia:** O tom aplicado é adequado ao tipo de dia (show → animado; domingo → acolhedor)?

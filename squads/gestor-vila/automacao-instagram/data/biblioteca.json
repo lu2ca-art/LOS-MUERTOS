@@ -1,0 +1,771 @@
+[
+  {
+    "id": "reserva",
+    "titulo": "Reserva",
+    "perguntas": [
+      "vocês têm reserva?",
+      "como reservo?",
+      "dá pra reservar mesa?"
+    ],
+    "resposta": "reserva a gente confirma pelo whats — pode mandar o pedido aqui pelo direct ou já ir direto pro nosso whatsapp que a gente confirma sua mesa certinho. Vale pra qualquer tamanho de grupo, não precisa ser grande.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "horario",
+    "titulo": "Horário",
+    "perguntas": [
+      "que horas vocês abrem?",
+      "funciona hoje?",
+      "até que horas fica aberto?"
+    ],
+    "resposta": "funcionamos todo dia das 11h às 23h. segunda a gente fecha mais cedo, às 15h (só período diurno). sábado vai até meia-noite.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "estacionamento",
+    "titulo": "Estacionamento",
+    "perguntas": [
+      "tem estacionamento?",
+      "onde estaciono?"
+    ],
+    "resposta": "tem sim, estacionamento no local pra você.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "cardapio-restricoes-alimentares",
+    "titulo": "Cardápio / Restrições Alimentares",
+    "perguntas": [
+      "tem opção vegana?",
+      "tem algo pra quem tem alergia?",
+      "é tudo com carne?"
+    ],
+    "resposta": "temos sim! temos o Burger Veggie, saladas, e no cardápio mexicano tem recheio de antepasto de berinjela, abobrinha e cenoura, e ceviche de banana da terra — são as opções \"naturebas\" da casa. me conta sua restrição específica (ou manda mensagem pro nosso whats) que a gente te indica certinho o que dá pra pedir.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "localizacao",
+    "titulo": "Localização",
+    "perguntas": [
+      "onde vocês ficam?",
+      "como chego aí?",
+      "qual o endereço?"
+    ],
+    "resposta": "Rua Caldas Novas 49, Bethaville, Barueri. Fácil de achar, e tem estacionamento no local.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "eventos-da-semana",
+    "titulo": "Eventos da Semana",
+    "perguntas": [
+      "tem show essa semana?",
+      "quem toca sexta?",
+      "tem alguma coisa hoje?"
+    ],
+    "resposta": "boa pergunta! deixa eu confirmar isso certinho com o time e já te falo por aqui.",
+    "notaInterna": "[varia toda semana — checar a agenda atual antes de responder, ou direcionar: \"essa semana tem [artista/evento] no [dia], dá uma olhada nos nossos stories que tá tudo lá!\"]",
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": true
+  },
+  {
+    "id": "elogio",
+    "titulo": "Elogio",
+    "perguntas": [
+      "agradecimento, \"adorei\", \"que night boa\", marcação em posts"
+    ],
+    "resposta": "que bom que você curtiu! vem mais vezes, a casa é sua 🫶",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "reclamacao",
+    "titulo": "Reclamação",
+    "perguntas": [
+      "cliente insatisfeito com atendimento, comida, tempo de espera, etc."
+    ],
+    "resposta": "poxa, sentimos muito mesmo — conta pra gente o que aconteceu por aqui no direct?",
+    "notaInterna": "responder com acolhimento inicial — \"poxa, sentimos muito mesmo — conta pra gente o que aconteceu por aqui no direct?\" — e levar a conversa pro privado. Nunca tentar resolver ou se justificar publicamente no comentário. Se for algo grave (intoxicação, acidente, etc.), escalar direto pro Lucas — ele é quem cuida desses casos, não responder sozinho nem escalar pra outra pessoa.",
+    "isInstitucional": false,
+    "isReclamacao": true,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "grupo-grande-mesa-grande-nao-e-evento-privado",
+    "titulo": "Grupo Grande (mesa grande, não é evento privado)",
+    "perguntas": [
+      "vocês atendem grupo de 15 pessoas?",
+      "dá pra levar a família toda, somos bastante gente"
+    ],
+    "resposta": "atendemos sim, seja 5 ou 50 pessoas, com a mesma excelência! só mandar a reserva pelo whats que a gente se organiza pra receber vocês bem.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "evento-privado",
+    "titulo": "Evento Privado",
+    "perguntas": [
+      "vocês fazem evento privado?",
+      "dá pra fechar o espaço pra uma festa/empresa?",
+      "atende confraternização de empresa?"
+    ],
+    "resposta": "amamos fazer evento privado! isso a gente faz só na segunda-feira — me chama no whats que a gente conversa os detalhes",
+    "notaInterna": "evento privado só acontece às segundas-feiras. Responder com entusiasmo — \"amamos fazer evento privado! isso a gente faz só na segunda-feira — me chama no whats que a gente conversa os detalhes\" — e levar pra conversa direta. Nunca fechar valor/condições no Instagram.",
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "pet",
+    "titulo": "Pet",
+    "perguntas": [
+      "posso levar meu cachorro?",
+      "vocês são pet friendly?"
+    ],
+    "resposta": "pode levar sim! seu pet é bem-vindo por aqui.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "criancas",
+    "titulo": "Crianças",
+    "perguntas": [
+      "tem cardápio infantil?",
+      "vocês têm cadeirão?",
+      "criança paga o rodízio?"
+    ],
+    "resposta": "temos sim, a Vila é kids friendly — cardápio infantil e cadeirão disponíveis. criança até 6 anos não paga o rodízio, desde que os responsáveis estejam consumindo o rodízio na mesa.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "cardapio-infantil",
+    "titulo": "Cardápio Infantil",
+    "perguntas": [
+      "o que tem no cardápio infantil?",
+      "tem prato pra criança?"
+    ],
+    "resposta": "temos sim! no cardápio tem o item Kids por R$35, e no almoço também sai filé de frango com batata frita ou mini hambúrgueres — porções pensadas em tamanho reduzido pra criançada.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "pagamento",
+    "titulo": "Pagamento",
+    "perguntas": [
+      "vocês aceitam cartão?",
+      "tem PIX?",
+      "aceita vale-refeição?"
+    ],
+    "resposta": "aceitamos todas as formas — cartão, PIX, dinheiro e cartão alimentação/refeição também.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "delivery",
+    "titulo": "Delivery",
+    "perguntas": [
+      "vocês fazem delivery?",
+      "dá pra pedir pra casa?"
+    ],
+    "resposta": "fazemos sim! hoje é pelo iFood ou direto pelo nosso whats.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "taxa-de-servico-couvert",
+    "titulo": "Taxa de Serviço / Couvert",
+    "perguntas": [
+      "tem taxa de serviço?",
+      "cobra couvert?"
+    ],
+    "resposta": "cobramos os 10% de taxa de serviço de costume. de quinta a sábado, com música ao vivo, também tem couvert artístico.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "acessibilidade",
+    "titulo": "Acessibilidade",
+    "perguntas": [
+      "é acessível pra cadeira de rodas?"
+    ],
+    "resposta": "temos rampa no estacionamento pra entrada. o espaço é parcialmente acessível — se puder me contar mais sobre a necessidade específica, a gente vê certinho como te receber bem.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "wifi",
+    "titulo": "Wifi",
+    "perguntas": [
+      "tem wifi?"
+    ],
+    "resposta": "temos sim! é só pedir a senha pro nosso time quando chegar.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "bebidas",
+    "titulo": "Bebidas",
+    "perguntas": [
+      "tem drink?",
+      "tem cerveja artesanal?",
+      "tem carta de vinho?"
+    ],
+    "resposta": "temos sim, carta completa — drinks autorais, cerveja artesanal e vinho. bora escolher o seu?",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "preco-do-rodizio",
+    "titulo": "Preço do Rodízio",
+    "perguntas": [
+      "quanto custa o rodízio?",
+      "qual o valor?"
+    ],
+    "resposta": "o rodízio sai R$98 de terça a quinta, e R$108 de sexta a domingo.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "como-funciona-o-rodizio-sequencia-e-trocas",
+    "titulo": "Como Funciona o Rodízio (sequência e trocas)",
+    "perguntas": [
+      "como funciona o rodízio?",
+      "dá pra trocar algum item?",
+      "e se eu não gostar de um prato?"
+    ],
+    "resposta": "a gente segue uma sequência em etapas: entrada (panelinhas mexicanas com totopos, batata frita e onion rings), depois etapa 1 (burrito, taco e quesadilla), etapa 2 (mini lanche de pernil e mini burgers), etapa 3 (taco al pastor, enchillada de frango e tostada de machacca), e sobremesa no final (churros com sorvete ou tortilla doce). mas é super flexível — se não quiser algo ou quiser mais de algum prato específico, é só pedir que vem na hora, sem problema nenhum.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "espaco-ambiente",
+    "titulo": "Espaço / Ambiente",
+    "perguntas": [
+      "é um lugar aberto ou fechado?",
+      "tem área externa?"
+    ],
+    "resposta": "temos os dois — área interna e uma área externa bem gostosa também.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "dress-code",
+    "titulo": "Dress Code",
+    "perguntas": [
+      "tem dress code?",
+      "posso ir de que jeito?"
+    ],
+    "resposta": "não tem dress code nenhum, aqui é um lugar livre — vem como você se sentir bem!",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "area-fumante",
+    "titulo": "Área Fumante",
+    "perguntas": [
+      "tem área pra fumar?",
+      "posso fumar aí?"
+    ],
+    "resposta": "temos uma área externa pra isso, mas fica fora do restaurante.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "consumo-minimo",
+    "titulo": "Consumo Mínimo",
+    "perguntas": [
+      "tem consumo mínimo pra reservar mesa?",
+      "preciso consumir um valor mínimo?"
+    ],
+    "resposta": "não, não trabalhamos com consumo mínimo por aqui.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "transmissao-de-jogos",
+    "titulo": "Transmissão de Jogos",
+    "perguntas": [
+      "vocês passam o jogo?",
+      "tem transmissão de outros campeonatos, não só a Seleção?"
+    ],
+    "resposta": "com certeza! além dos jogos da Seleção, transmitimos o Brasileirão e diversos outros campeonatos na nossa programação — telão grande pra curtir com a galera.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "happy-hour",
+    "titulo": "Happy Hour",
+    "perguntas": [
+      "tem happy hour?",
+      "que horas é o happy hour?"
+    ],
+    "resposta": "temos sim! terça a quinta, das 17h às 20h, com 50% de desconto em qualquer drink.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "fila-de-espera",
+    "titulo": "Fila de Espera",
+    "perguntas": [
+      "tem fila?",
+      "demora pra conseguir mesa?"
+    ],
+    "resposta": "raramente pega fila por aqui, mas em dia de show a casa enche — se quiser garantir, chama a gente no whats antes.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "manobrista-seguranca-do-estacionamento",
+    "titulo": "Manobrista / Segurança do Estacionamento",
+    "perguntas": [
+      "tem manobrista?",
+      "o estacionamento é seguro?"
+    ],
+    "resposta": "não temos manobrista, é estacionamento livre no local.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "cancelamento-atraso-de-reserva",
+    "titulo": "Cancelamento / Atraso de Reserva",
+    "perguntas": [
+      "se eu atrasar perco a mesa?",
+      "posso cancelar a reserva?"
+    ],
+    "resposta": "sem problema! a gente segura sua mesa por um tempo, só nos avisa se for atrasar ou não puder mais vir.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "fotos-filmagem-no-espaco",
+    "titulo": "Fotos / Filmagem no Espaço",
+    "perguntas": [
+      "posso gravar um vídeo aí?",
+      "dá pra fazer ensaio no espaço?"
+    ],
+    "resposta": "pode sim, à vontade! adoramos quando registram um momento aqui.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "aniversario",
+    "titulo": "Aniversário",
+    "perguntas": [
+      "vocês dão algo pra aniversariante?",
+      "tem promoção de aniversário?"
+    ],
+    "resposta": "temos sim! aniversariante ganha um drink ou sobremesa especial. temos condições especiais diferentes conforme o tamanho do grupo — são 3 situações diferentes, cada uma com sua condição. me chama no whats no dia que a gente te explica certinho qual se aplica pro seu caso.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "produtos-proprios",
+    "titulo": "Produtos Próprios",
+    "perguntas": [
+      "vocês vendem alguma coisa pra levar?",
+      "tem produto da Vila?"
+    ],
+    "resposta": "temos as pimentas exclusivas da casa pra levar!",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "criancas-a-noite-ambiente-familiar",
+    "titulo": "Crianças à Noite / Ambiente Familiar",
+    "perguntas": [
+      "posso levar meu filho no dia de show?",
+      "é ambiente familiar à noite?"
+    ],
+    "resposta": "com certeza! a Vila é família o dia inteiro, inclusive nas noites de show.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "cardapio-a-la-carte-alem-do-rodizio",
+    "titulo": "Cardápio À La Carte (além do rodízio)",
+    "perguntas": [
+      "vocês só fazem rodízio?",
+      "tem opção fora do rodízio?"
+    ],
+    "resposta": "temos sim! além do rodízio, temos cardápio à la carte completo — pratos brasileiros, porções, hambúrgueres artesanais e comida mexicana avulsa. me conta o que você tá afim que eu te indico certinho, ou dá uma olhada no cardápio completo que te mando por aqui.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "quanto-custa-comer-na-vila-ticket-medio-fora-do-rodizio",
+    "titulo": "Quanto Custa Comer na Vila (ticket médio, fora do rodízio)",
+    "perguntas": [
+      "quanto custa em média?",
+      "é caro?"
+    ],
+    "resposta": "o rodízio tem preço fixo (R$98 terça-quinta, R$108 sexta-domingo). fora do rodízio, pratos individuais vão de R$22 (taco avulso) a R$54 (picanha), hambúrgueres de R$34 a R$62, e porções pra compartilhar de R$40 a R$162 — se quiser algo específico me chama no whats que te ajudo a montar o pedido.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "autenticidade-tex-mex-isso-e-mexicano-de-verdade",
+    "titulo": "Autenticidade Tex-Mex / \"Isso é mexicano de verdade?\"",
+    "perguntas": [
+      "cliente questiona se o cardápio é realmente mexicano, estranha tempero suave, ou comenta que os pratos parecem \"abrasileirados\" (parmegiana, hambúrguer)"
+    ],
+    "resposta": "somos Tex Mex com alma brasileira mesmo — a mistura é proposital! e sobre o tempero: usamos pimenta de forma equilibrada pra agradar todo mundo, mas se você curte mais picante é só pedir a jalapeño à parte que a gente traz na hora.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "cardapio-em-datas-comemorativas-dia-dos-namorados-natal-etc",
+    "titulo": "Cardápio em Datas Comemorativas (Dia dos Namorados, Natal, etc.)",
+    "perguntas": [
+      "o cardápio muda em data especial?",
+      "é mais caro no Dia dos Namorados?"
+    ],
+    "resposta": "em datas comemorativas a gente monta um cardápio especial pra ocasião, então pode ter diferença em relação ao cardápio do dia a dia — me chama no whats perto da data que te conto certinho o que vai ter.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "volume-da-musica-ao-vivo-ambiente-barulhento",
+    "titulo": "Volume da Música ao Vivo / Ambiente Barulhento",
+    "perguntas": [
+      "dá pra conversar com música ao vivo tocando?",
+      "é muito alto o som?"
+    ],
+    "resposta": "nos dias de música ao vivo o som é parte da experiência, então fica mais animado — se você prefere um clima mais tranquilo pra conversar, me chama no whats que te indico o melhor dia/horário pra vir.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "espaco-para-eventos-de-terceiros-bazar-feira-venda-de-ingressos",
+    "titulo": "Espaço para Eventos de Terceiros (bazar, feira, venda de ingressos)",
+    "perguntas": [
+      "dá pra alugar o espaço pra um bazar/feira que não é festa particular?"
+    ],
+    "resposta": "já recebemos esse tipo de evento por aqui! me chama no whats que a gente vê a disponibilidade e como funciona pro seu caso.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "prato-recomendado-o-que-voces-indicam",
+    "titulo": "Prato Recomendado / \"O que vocês indicam?\"",
+    "perguntas": [
+      "qual prato vocês recomendam?",
+      "o que é mais pedido aí?"
+    ],
+    "resposta": "o queridinho da casa é o combo \"Ni La Muerte Nos Separa\" — dá uma boa amostra do que a gente faz de melhor! mas se quiser, me conta o que você mais curte (carne, vegetariano, picante) que eu te indico certinho.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "comida-mexicana-avulsa-tacos-burritos-quesadillas",
+    "titulo": "Comida Mexicana Avulsa (tacos, burritos, quesadillas)",
+    "perguntas": [
+      "tem taco avulso?",
+      "quero só uma quesadilla, tem?"
+    ],
+    "resposta": "temos sim! El Taco R$22, El Burriton R$34, Al Pastor R$48 (4 tortilhas de milho com guacamole, cebola ralada, coentro e abacaxi), Tostadas R$46, Enchilladas R$40. Nas quesadillas: Queso Que Te Quiero R$36, Quesadilla Corn Bacon R$38, Dobradilla R$44 (com proteína à escolha). E nas entradas: Entremès Tex Mex R$40, Nachos con Chilli R$38, Nachos con Guacamole R$34, Nachos Muy Lokos R$42. Me conta o que você prefere que eu te ajudo a montar o pedido!",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "combos",
+    "titulo": "Combos",
+    "perguntas": [
+      "tem combo pra compartilhar?",
+      "dá pra pedir um combo em vez de item avulso?"
+    ],
+    "resposta": "temos sim! o queridinho é o \"Ni La Muerte Nos Separa\" (taco, burrito e tostada) — R$68 pra 1 pessoa, R$122 pra 2, R$178 pra 3. Também tem Viva La Vida R$54 (quesadilla + taco), Los Muertos R$54 (taco + burrito) e Fiesta no Céu R$58 (burrito + quesadilla).",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "hamburgueres-artesanais",
+    "titulo": "Hambúrgueres Artesanais",
+    "perguntas": [
+      "tem hambúrguer artesanal?",
+      "qual o melhor burger de vocês?"
+    ],
+    "resposta": "temos vários! alguns queridinhos: Strong R$44, El Invocado R$62 (com jalapeño empanado), Picanha Real R$62, Rocky Balboa R$52, Yellow R$42, Duo Strong R$58 (double smash), e o Veggie R$42 pra quem não come carne. Me conta o que você curte que eu te indico o certo!",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "lanches-rusticos",
+    "titulo": "Lanches Rústicos",
+    "perguntas": [
+      "tem lanche além de hambúrguer?",
+      "tem opção de baguete?"
+    ],
+    "resposta": "temos sim! Lanche de Pernil R$42 (baguete parmesão, pernil desfiado, barbecue), Lanche de Costela R$44 (costela desfiada, molho defumado), Lanche de Toscana R$40 (burger de linguiça toscana) e Dog do Vila R$36.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "porcoes-para-compartilhar",
+    "titulo": "Porções para Compartilhar",
+    "perguntas": [
+      "tem porção grande pra dividir?",
+      "o que pedir pra um grupo?"
+    ],
+    "resposta": "temos várias boas pra compartilhar! Porção Friends R$96 (6 mini burgers, batata frita e onion rings), Picanha Prime R$162, Churrasco BBQ R$140, Porção Brasileira R$152 (calabresa acebolada, contra filé acebolado, mandioca, batata frita). Também tem as brazucas menores: Batata do Vila R$40, Batata Loka R$60, Dadinho de Tapioca R$44, Bolinhos Deliciosos R$72 (12 unidades).",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "sobremesas",
+    "titulo": "Sobremesas",
+    "perguntas": [
+      "tem sobremesa?",
+      "o que tem de doce aí?"
+    ],
+    "resposta": "temos sim! Paletas (picolé) R$14 pequena / R$16 grande, Bomba do Vila R$28 (bolo com ganache de chocolate, sorvete e chantilly), Petit Gateau R$28, e Churros no Espeto R$24 (8 mini churros com doce de leite e nutella).",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "bebidas-nao-alcoolicas",
+    "titulo": "Bebidas Não Alcoólicas",
+    "perguntas": [
+      "tem suco?",
+      "e pra quem não bebe, tem opção boa?"
+    ],
+    "resposta": "temos bastante opção! Água R$6, refrigerante R$9, suco lata R$10, ice tea R$10, suco natural R$12, chá caseiro R$14, pink lemonade R$14, soda italiana e limonada suíça R$16. E tem os drinks sem álcool também: El Vivito, Piña Descolada, Cosmopolido, Lagoa Azul, La Princesita e Play on the Beach, todos R$28.",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "drinks-coqueteis",
+    "titulo": "Drinks / Coquetéis",
+    "perguntas": [
+      "qual o melhor drink aí?",
+      "tem coquetel autoral?"
+    ],
+    "resposta": "temos uma carta boa! Caipirinha Clássica R$32, Margarita R$36, Mojito R$34, Moscow Mule R$38, Piña Colada R$36, La Reina R$46, Caipirinha Assada R$42 (maçaricada com açúcar mascavo e canela). Toda semana também tem um Drink da Semana diferente, R$48 — pergunta pro garçom qual é o de agora!",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "chopp-e-cerveja",
+    "titulo": "Chopp e Cerveja",
+    "perguntas": [
+      "tem chopp?",
+      "que cerveja vocês têm?"
+    ],
+    "resposta": "temos sim! Chopp Pilsen R$16 (300ml) / R$20 (500ml), Chopp Especial R$18 (300ml) / R$22 (500ml), Draft 600ml R$22. Em garrafa: long neck (Sol, Eisenbahn, Heineken R$14, Especial R$16) e 600ml (Amstel, Eisenbahn, Sol R$18, Heineken e Artesanal R$22).",
+    "notaInterna": null,
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "fora-do-escopo-encaminhar-pro-atendente",
+    "titulo": "Fora do Escopo / Encaminhar pro Atendente",
+    "perguntas": [
+      "qualquer pergunta que não se encaixa em nenhuma categoria acima, ou que toca assunto sensível/pendente (ex: transmissão de conteúdo além de esporte, detalhes que a casa ainda não decidiu, reclamação grave, assunto jurídico/financeiro)."
+    ],
+    "resposta": "boa pergunta! deixa eu encaminhar isso pro nosso time que te dá uma resposta certinha — só um instante.",
+    "notaInterna": "boa pergunta! deixa eu encaminhar isso pro nosso time que te dá uma resposta certinha — só um instante.",
+    "isInstitucional": false,
+    "isReclamacao": false,
+    "isForaEscopo": true,
+    "requiresManualData": false
+  },
+  {
+    "id": "artista-querendo-tocar-na-vila",
+    "titulo": "Artista querendo tocar na Vila",
+    "perguntas": [
+      "banda/artista mandando material, perguntando sobre se apresentar, book de shows"
+    ],
+    "resposta": "que bom o interesse! manda seu material (vídeo/áudio) pro nosso whats que nossa equipe dá um retorno.",
+    "notaInterna": null,
+    "isInstitucional": true,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "parceria-patrocinio-imprensa-ou-proposta-de-empresa",
+    "titulo": "Parceria, patrocínio, imprensa ou proposta de empresa",
+    "perguntas": [
+      "proposta de co-marketing, patrocínio, matéria de imprensa, influenciador propondo permuta"
+    ],
+    "resposta": "que legal o interesse! manda os detalhes da proposta pro nosso whats que nossa equipe dá um retorno.",
+    "notaInterna": null,
+    "isInstitucional": true,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "fornecedor-distribuidora-oferecendo-produto",
+    "titulo": "Fornecedor / distribuidora oferecendo produto",
+    "perguntas": [
+      "fábrica ou distribuidora de bebida/insumo/equipamento se oferecendo como fornecedor"
+    ],
+    "resposta": "obrigado pelo contato! manda a proposta/catálogo pro nosso whats que nossa equipe analisa.",
+    "notaInterna": null,
+    "isInstitucional": true,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  },
+  {
+    "id": "vaga-de-emprego-curriculo-colaborador",
+    "titulo": "Vaga de emprego / currículo / colaborador",
+    "perguntas": [
+      "pessoa perguntando sobre vaga, mandando currículo, dúvida de ex/atual colaborador"
+    ],
+    "resposta": "obrigado pelo interesse! manda mensagem pro nosso whats que nossa equipe te dá retorno sobre oportunidades.",
+    "notaInterna": null,
+    "isInstitucional": true,
+    "isReclamacao": false,
+    "isForaEscopo": false,
+    "requiresManualData": false
+  }
+]

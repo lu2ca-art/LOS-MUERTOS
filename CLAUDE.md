@@ -33,6 +33,12 @@ Type `/opensquad` to open the main menu, or use any of these commands:
 - Do not manually edit files in `_opensquad/core/` unless you know what you're doing
 - Squad YAML files can be edited manually if needed, but prefer using `/opensquad edit`
 - Company context in `_opensquad/_memory/company.md` is loaded for every squad run
+- Whenever an agent in `squads/gestor-vila/` produces output, completes a step, gets blocked,
+  or changes status, update `squads/gestor-vila/agent-status.html` (the `AGENTS` and
+  `PIPELINE_STEPS` data block near the top of the `<script>`) before ending the turn — do this
+  automatically, without being asked. This is the user's real-time dashboard for the squad.
+- In all Vila Los Muertos de Fome content and copy: it is always **"O Vila"**, never "a Vila"
+  (see hard cap `H0` in `squads/gestor-vila/pipeline/data/anti-patterns.md`).
 
 ## Browser Sessions
 

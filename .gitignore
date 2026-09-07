@@ -18,6 +18,7 @@ __pycache__/
 *.pyc
 .env
 .env.local
+.venv/
 
 # Referências de sites para estudo (não fazem parte do projeto)
 referencias/
@@ -27,3 +28,6 @@ package-lock.json
 # Playwright MCP cache
 .playwright-mcp/
 analisa-site.mjs
+
+# Credenciais locais de MCP (tokens de API)
+.claude/settings.local.json

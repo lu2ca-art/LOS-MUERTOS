@@ -4,6 +4,8 @@
 
 A marca não é produto, é pertencimento. O Vila fala com as pessoas como quem está do mesmo lado da mesa, não como quem quer vender algo. A voz é de família — quente, direta, sem performar.
 
+**Regra de gênero (hard cap):** é sempre **O Vila** — nunca "a Vila". Isso vale para todo texto publicado: copy, legenda embutida em vídeo, campanha paga, resposta de chatbot. "Na Vila" (que implica o feminino "a Vila") também é vetado — usar "no Vila".
+
 **Regra absoluta:** o restaurante, a comida e a experiência são sempre protagonistas. Shows e entretenimento são pilar de suporte, nunca tema central.
 
 ## Essência
@@ -12,15 +14,10 @@ A marca não é produto, é pertencimento. O Vila fala com as pessoas como quem 
 
 ## O Restaurante
 
-- **Culinária:** Tex Mex com alma brasileira. Chef Alex Coelho na cozinha. Opções vegetarianas/veganas disponíveis (lista específica de pratos pendente).
-- **Experiência:** Música ao vivo toda quinta, sexta e sábado (20h). Stand-up comedy. Samba. Copa do Mundo na telona. Kids friendly (cardápio infantil e cadeirão). Pet friendly.
-- **Horário:** 11h às 23h todos os dias, exceto segunda (11h às 15h, só período diurno) e sábado (até meia-noite).
-- **Localização:** Rua Caldas Novas 49, Bethaville, Barueri, SP. Estacionamento no local, com rampa de acesso — espaço parcialmente acessível pra cadeira de rodas.
-- **Reserva:** confirmada via WhatsApp (pedidos podem chegar por Instagram ou WhatsApp), qualquer tamanho de grupo, sem mínimo.
-- **Evento privado:** só às segundas-feiras.
-- **Delivery:** iFood e WhatsApp (sistema em repaginação).
-- **Pagamento:** todas as formas, incluindo cartão alimentação/refeição.
-- **Taxa de serviço:** 10% + couvert artístico de quinta a sábado (dias com música ao vivo).
+- **Culinária:** Tex Mex com alma brasileira. Chef Alex Coelho na cozinha.
+- **Experiência:** Música ao vivo toda quinta, sexta e sábado (20h). Stand-up comedy. Samba. Copa do Mundo na telona. Eventos privados.
+- **Horário:** Aberto 7 dias por semana, de domingo a domingo.
+- **Localização:** Rua Caldas Novas 49, Bethaville, Barueri, SP.
 - **Instagram:** @vilalosmuertosdefome
 
 ## Tipos de Evento
@@ -49,7 +46,7 @@ Moradores de Barueri, Bethaville, Alphaville e região (raio 12-15km):
 
 ## Tom de Voz
 
-A Vila fala como um amigo que te chama para um bom programa. Calorosa, animada, sem formalidade. Usa humor quando cabe. Valoriza a experiência, a comunidade, a comida boa.
+O Vila fala como um amigo que te chama para um bom programa. Calorosa, animada, sem formalidade. Usa humor quando cabe. Valoriza a experiência, a comunidade, a comida boa.
 
 **Nunca:** corporativo, genérico, "confira nossas opções", "link na bio"  
 **Sempre:** direto, caloroso, específico, com personalidade
