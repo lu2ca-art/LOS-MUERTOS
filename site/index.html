@@ -91,15 +91,15 @@
         <div class="slide__grid">
           <div>
             <span class="slide__tag" style="background:var(--laranja)">todos os dias</span>
-            <h2 class="palavra-holder">rodízio <em>tex mex</em></h2>
-            <p class="slide__sub">quatro etapas de comida quente saindo sem parar da cozinha do chef Alex — entradas, burrito, tacos, mini burgers, al pastor e sobremesa.</p>
+            <h2 class="palavra-holder">rodízio mexicano</h2>
+            <p class="slide__sub">5 etapas das melhores pedidas da culinária mexicana à vontade pra você, sua família e amigos!</p>
             <div class="slide__preco">
               <div class="preco-bloco"><b>R$ 98</b><span>segunda a quinta</span></div>
               <div class="preco-bloco"><b>R$ 108</b><span>sexta a domingo</span></div>
             </div>
             <div class="slide__acoes">
               <a class="btn btn--zap" data-zap="rodizio">garantir minha mesa</a>
-              <a class="btn btn--fantasma" href="#rodizio">ver as 4 etapas</a>
+              <a class="btn btn--fantasma" href="#rodizio">ver as 5 etapas</a>
             </div>
           </div>
           <figure class="slide__foto"><img class="tilt" data-tilt=".5" src="img/2.jpg" alt="panelinhas mexicanas com totopos, batata frita e onion rings" width="756" height="766" loading="eager"></figure>
@@ -114,7 +114,7 @@
         <div class="slide__grid">
           <div>
             <span class="slide__tag" style="background:var(--ifood)">chega quentinho aí</span>
-            <h2 class="palavra-holder">a vila <em>vai até você</em></h2>
+            <h2 class="palavra-holder">o vila vai até você</h2>
             <p class="slide__sub">nachos, burrito, quesadilla e combo completo no iFood e no 99Food. sem sair do sofá, sem perder o sabor.</p>
             <div class="slide__acoes">
               <a class="btn" style="background:var(--ifood);color:#fff" data-link="ifood" target="_blank" rel="noopener">pedir no iFood</a>
@@ -133,8 +133,8 @@
         <div class="slide__grid">
           <div>
             <span class="slide__tag" style="background:var(--magenta)">quinta, sexta e sábado · 20h</span>
-            <h2 class="palavra-holder">música <em>ao vivo</em></h2>
-            <p class="slide__sub">a semana termina com som na Vila — banda, samba e stand-up em noites selecionadas. mesa boa acaba cedo, então chega cedo.</p>
+            <h2 class="palavra-holder">PROGRAMAÇÃO ao vivo</h2>
+            <p class="slide__sub">O fim de semana começa agitado no Vila — rock, samba, mpb, karaoke, stand up. Tudo pra deixar sua noite muito mais VIVA!</p>
             <div class="slide__acoes">
               <a class="btn btn--zap" data-zap="reserva">reservar pra noite do show</a>
               <a class="btn btn--fantasma" data-link="instagram" target="_blank" rel="noopener">ver a programação</a>
@@ -153,9 +153,9 @@
           <div>
             <span class="slide__tag" style="background:var(--azul)">segundas-feiras</span>
             <h2 class="palavra-holder">faça seu evento <em>no vila</em></h2>
-            <p class="slide__sub">aniversário, confraternização da firma, encontro de amigos: a Vila fecha só pra você às segundas. cardápio fechado, som e o espaço inteiro na sua mão.</p>
+            <p class="slide__sub">Aniversário, confraternização da firma, encontro de amigos: a Vila fecha só pra você às segundas. cardápio fechado, som e o espaço inteiro na sua mão.</p>
             <div class="slide__acoes">
-              <a class="btn btn--azul" data-zap="evento">pedir orçamento</a>
+              <a class="btn btn--azul" data-zap="evento">Entrar em contato</a>
               <a class="btn btn--fantasma" href="#eventos">como funciona</a>
             </div>
           </div>
@@ -236,7 +236,7 @@
     <div class="cab rev">
       <span class="olho">o carro-chefe da casa</span>
       <h2 class="palavra-holder">rodízio <em>tex mex</em></h2>
-      <p class="lead">é assim: você senta, a gente traz. entrada, três etapas de prato quente e sobremesa, na mesa, sem pressa e sem contar quantas vezes você repetiu.</p>
+      <p class="lead">é assim: você senta, a gente traz. entrada, três etapas de prato quente + sobremesa, na mesa, sem pressa e sem contar quantas vezes você repetiu.</p>
       <div class="rodizio__preco">
         <div class="tag-preco"><b>R$ 98</b><span>segunda a quinta · por pessoa</span></div>
         <div class="tag-preco"><b>R$ 108</b><span>sexta a domingo · por pessoa</span></div>
@@ -339,14 +339,17 @@
 
     <div class="filtros rev" role="group" aria-label="filtrar cardápio">
       <button class="filtro" data-f="todos" aria-pressed="true">tudo</button>
-      <button class="filtro" data-f="entradas" aria-pressed="false">entradas</button>
-      <button class="filtro" data-f="quesadillas" aria-pressed="false">quesadillas</button>
-      <button class="filtro" data-f="originais" aria-pressed="false">originais</button>
-      <button class="filtro" data-f="combos" aria-pressed="false">combos</button>
+      <button class="filtro" data-f="mexicano" aria-pressed="false">🌮 mexicano</button>
+      <button class="filtro" data-f="pratos" aria-pressed="false">🍽️ pratos</button>
+      <button class="filtro" data-f="porcoes" aria-pressed="false">🍟 porções</button>
+      <button class="filtro" data-f="burgers" aria-pressed="false">🍔 burgers</button>
+      <button class="filtro" data-f="bebidas" aria-pressed="false">🍹 bebidas</button>
+      <button class="filtro" data-f="sobremesas" aria-pressed="false">🍮 sobremesas</button>
+      <button class="filtro" data-f="rodizio" aria-pressed="false">🎉 rodízio</button>
     </div>
 
     <!-- entradas -->
-    <div class="grupo rev" data-g="entradas">
+    <div class="grupo rev" data-g="entradas" data-cat="mexicano">
       <div class="grupo__cab grupo__cab--peso" data-cor="laranja"><h3>entradas</h3><i></i></div>
 
       <article class="item item--hero" data-acento="laranja">
@@ -389,7 +392,7 @@
     </div>
 
     <!-- quesadillas -->
-    <div class="grupo rev" data-g="quesadillas">
+    <div class="grupo rev" data-g="quesadillas" data-cat="mexicano">
       <div class="grupo__cab grupo__cab--peso" data-cor="ouro"><h3>quesadillas</h3><i></i></div>
 
       <article class="item item--hero item--hero--inv" data-acento="ouro">
@@ -425,7 +428,7 @@
     </div>
 
     <!-- originais -->
-    <div class="grupo rev" data-g="originais">
+    <div class="grupo rev" data-g="originais" data-cat="mexicano">
       <div class="grupo__cab grupo__cab--peso" data-cor="teal"><h3>originais</h3><i></i></div>
 
       <article class="item item--hero" data-acento="teal">
@@ -475,7 +478,7 @@
     </div>
 
     <!-- combos -->
-    <div class="grupo rev" data-g="combos">
+    <div class="grupo rev" data-g="combos" data-cat="mexicano">
       <div class="grupo__cab"><h3 style="color:var(--magenta)">combos</h3><i></i></div>
       <div class="combos">
         <article class="combo combo--destaque">
@@ -521,6 +524,390 @@
       </div>
     </div>
 
+    <!-- ═══ PRATOS DO VILA ═══════════════════════════════════════════════════ -->
+    <div class="grupo rev" data-g="pratos" data-cat="pratos">
+      <div class="mn-header mn-header--laranja">Pratos do Vila</div>
+      <p class="mn-subtit">acompanha arroz, feijão, farofa e batata frita</p>
+      <div class="mn-lista">
+        <div class="mn-item"><span class="mn-item__nome">Contra Filet</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 44</span></div>
+        <div class="mn-item"><span class="mn-item__nome">Filet de Frango</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 38</span></div>
+        <div class="mn-item"><span class="mn-item__nome">Milanesa Carne</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 44</span></div>
+        <div class="mn-item"><span class="mn-item__nome">Milanesa Frango</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 40</span></div>
+        <div class="mn-item"><span class="mn-item__nome">Omelete</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 38</span></div>
+        <div class="mn-item"><span class="mn-item__nome">Kids</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 35</span></div>
+      </div>
+
+      <div class="mn-sub">especiais</div>
+      <div class="mn-lista">
+        <div class="mn-item">
+          <span class="mn-item__nome">Do Cheff</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 48</span>
+          <span class="mn-item__desc">cada dia algo diferente — consulte o garçom.</span>
+        </div>
+        <div class="mn-item">
+          <span class="mn-item__nome">Comerciais do Vila</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 46</span>
+          <span class="mn-item__desc">frango, bife, linguiça toscana ou bisteca com bacon, arroz, feijão, salada, ovo e batata frita.</span>
+        </div>
+        <div class="mn-item">
+          <span class="mn-item__nome">Parme Carne ou Frango</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 46</span>
+          <span class="mn-item__desc">com arroz e batata frita.</span>
+        </div>
+        <div class="mn-item">
+          <span class="mn-item__nome">Tilápia à Milanesa</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 46</span>
+          <span class="mn-item__desc">arroz, feijão, farofa, purê de batata e salada.</span>
+        </div>
+        <div class="mn-item">
+          <span class="mn-item__nome">Picanha</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 54</span>
+          <span class="mn-item__desc">arroz, feijão, farofa e vinagrete.</span>
+        </div>
+      </div>
+
+      <div class="mn-sub">saladas</div>
+      <div class="mn-lista">
+        <div class="mn-item">
+          <span class="mn-item__nome">Vila Green</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 44</span>
+          <span class="mn-item__desc">mix de folhas, cebola roxa, tomate, azeitona + peixe, frango ou carne.</span>
+        </div>
+        <div class="mn-item">
+          <span class="mn-item__nome">Caesar</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 40</span>
+          <span class="mn-item__desc">alface americana, fatias de frango, parmesão ralado, molho de queijo e croutons.</span>
+        </div>
+        <div class="mn-item">
+          <span class="mn-item__nome">Chiluana</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 42</span>
+          <span class="mn-item__desc">carne machaca, frango ou pernil desfiado, alface, tomate, guacamole, muçarela, sour cream, azeitona, biquinho, jalapeño, palmito e crocante de nachos.</span>
+        </div>
+      </div>
+
+      <div class="mn-sub mn-sub--laranja">adicionais</div>
+      <div class="mn-adicionais">
+        <span class="mn-adicional"><b>ovo frito</b> R$8</span>
+        <span class="mn-adicional"><b>feijão</b> R$12</span>
+        <span class="mn-adicional"><b>farofa</b> R$6</span>
+        <span class="mn-adicional"><b>arroz</b> R$12</span>
+        <span class="mn-adicional"><b>batata frita</b> R$12</span>
+        <span class="mn-adicional"><b>purê de batatas</b> R$10</span>
+        <span class="mn-adicional"><b>maionese</b> R$12</span>
+        <span class="mn-adicional"><b>vinagrete</b> R$12</span>
+        <span class="mn-adicional"><b>salada básica</b> R$12</span>
+      </div>
+    </div>
+
+    <!-- ═══ PORÇÕES ══════════════════════════════════════════════════════════ -->
+    <div class="grupo rev" data-g="porcoes" data-cat="porcoes">
+      <div class="mn-header mn-header--teal">Porções Bem Brazucas</div>
+      <div class="mn-lista">
+        <div class="mn-item">
+          <span class="mn-item__nome">Batata do Vila</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 40</span>
+          <span class="mn-item__desc">batata frita crocante — simples e deliciosa.</span>
+        </div>
+        <div class="mn-item">
+          <span class="mn-item__nome">Batata Cheddar e Bacon</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 46</span>
+          <span class="mn-item__desc">batata frita crocante coberta com cheddar e bacon.</span>
+        </div>
+        <div class="mn-item">
+          <span class="mn-item__nome">Batata Loka</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 60</span>
+          <span class="mn-item__desc">batata frita coberta com pernil, frango e machaca.</span>
+        </div>
+        <div class="mn-item">
+          <span class="mn-item__nome">Contra Acebolado</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 80</span>
+          <span class="mn-item__desc">tiras de contra filé com fatias de pão, farofa e vinagrete.</span>
+        </div>
+        <div class="mn-item">
+          <span class="mn-item__nome">Isca de Peixe</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 62</span>
+          <span class="mn-item__desc">tiras empanadas e crocantes com tempero delicioso e molho especial.</span>
+        </div>
+        <div class="mn-item">
+          <span class="mn-item__nome">Isca de Frango</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 54</span>
+          <span class="mn-item__desc">tiras empanadas e crocantes com tempero delicioso e molho especial.</span>
+        </div>
+        <div class="mn-item">
+          <span class="mn-item__nome">Bolinhos Deliciosos</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 72</span>
+          <span class="mn-item__desc">12 unidades de bolinhos crocantes com molhos especiais.</span>
+        </div>
+        <div class="mn-item">
+          <span class="mn-item__nome">Dadinho de Tapioca</span><span class="mn-item__pts"></span><span class="mn-item__preco">R$ 44</span>
+          <span class="mn-item__desc">dadinhos crocantes — acompanha geleia de pimenta de abacaxi.</span>
+        </div>
+      </div>
+
+      <div class="mn-sub mn-sub--laranja">boas pra compartilhar</div>
+      <div class="mn-compartilhar">
+        <div class="mn-comp">
+          <div class="mn-comp__txt">
+            <span class="mn-comp__nome">Porção Friends</span>
+            <p>6 mini burgers + batata frita + onion rings + molhos especiais</p>
+          </div>
+          <span class="mn-comp__preco">R$ 96</span>
+        </div>
+        <div class="mn-comp">
+          <div class="mn-comp__txt">
+            <span class="mn-comp__nome">Picanha Prime</span>
+            <p>batata frita gratinada com queijo, bacon, mandioca frita e molhos</p>
+          </div>
+          <span class="mn-comp__preco">R$ 162</span>
+        </div>
+        <div class="mn-comp">
+          <div class="mn-comp__txt">
+            <span class="mn-comp__nome">Churrasco BBQ</span>
+            <p>carne, linguiça, frango, vinagrete, batata rústica, pão e molhos</p>
+          </div>
+          <span class="mn-comp__preco">R$ 140</span>
+        </div>
+        <div class="mn-comp">
+          <div class="mn-comp__txt">
+            <span class="mn-comp__nome">Porção Brasileira</span>
+            <p>calabresa acebolada, contra filé acebolado, mandioca, batata frita, vinagrete, pão e molho defumado</p>
+          </div>
+          <span class="mn-comp__preco">R$ 152</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ BURGERS & LANCHES ════════════════════════════════════════════════ -->
+    <div class="grupo rev" data-g="burgers" data-cat="burgers">
+      <div class="mn-burger-bg">
+        <div class="mn-header mn-header--vermelho">Burger do Bom 🌟</div>
+        <div class="mn-bgrids">
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">Strong</div>
+            <div class="mn-bcard__preco">R$ 44</div>
+            <p>Carne Angus + molho da casa + muçarela + cheddar + bacon + cebola caramelizada.</p>
+          </div>
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">Duo Strong</div>
+            <div class="mn-bcard__preco">R$ 58</div>
+            <p>Double de carne Angus + molho da casa + double muçarela e cheddar + cebola caramelizada e bacon.</p>
+          </div>
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">Yellow</div>
+            <div class="mn-bcard__preco">R$ 42</div>
+            <p>Carne Angus + molho da casa + muçarela + bacon + rúcula + mostarda e mel.</p>
+          </div>
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">El Niño</div>
+            <div class="mn-bcard__preco">R$ 34</div>
+            <p>2 mini burgers + molho da casa + muçarela + mini porção de batata.</p>
+          </div>
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">El Invocado</div>
+            <div class="mn-bcard__preco">R$ 62</div>
+            <p>Burger Angus, molho da casa, queijo empanado, jalapeño, biquinho, nachos e alface.</p>
+          </div>
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">Veggie</div>
+            <div class="mn-bcard__preco">R$ 42</div>
+            <p>Burger vegetariano + molho da casa + muçarela + tomate seco + cebola roxa curtida + rúcula.</p>
+          </div>
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">PCQ</div>
+            <div class="mn-bcard__preco">R$ 38</div>
+            <p>Carne Angus + molho da casa + muçarela.</p>
+          </div>
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">Rocky Balboa</div>
+            <div class="mn-bcard__preco">R$ 52</div>
+            <p>Carne Angus + molho da casa + carne desfiada + muçarela + cebola + barbecue + pimenta biquinho e rúcula.</p>
+          </div>
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">WOD</div>
+            <div class="mn-bcard__preco">R$ 42</div>
+            <p>Carne Angus + molho da casa + muçarela + cebola roxa + alface + tomate.</p>
+          </div>
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">Bianca</div>
+            <div class="mn-bcard__preco">R$ 42</div>
+            <p>Carne Angus + molho da casa + muçarela + pimentão + bacon + alface + cebola + mostarda e mel.</p>
+          </div>
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">Picanha Real</div>
+            <div class="mn-bcard__preco">R$ 62</div>
+            <p>Burger de picanha, maionese defumada, queijo, tomate confit, alface.</p>
+          </div>
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">El Pollo (frango)</div>
+            <div class="mn-bcard__preco">R$ 42</div>
+            <p>Burger de frango + molho da casa + mostarda com mel + muçarela + alface, rúcula e tomate.</p>
+          </div>
+        </div>
+
+        <div class="mn-lanches-t">🍖 Lanches Rústicos</div>
+        <div class="mn-bgrids">
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">Lanche de Pernil</div>
+            <div class="mn-bcard__preco">R$ 42</div>
+            <p>Baguete parmesão, pernil destrinchado suculento, carne da casa, barbecue, cebola caramelizada e vinagrete.</p>
+          </div>
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">Lanche de Costela</div>
+            <div class="mn-bcard__preco">R$ 44</div>
+            <p>Baguete parmesão, costela desfiada, molho defumado, cebola caramelizada e vinagrete.</p>
+          </div>
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">Lanche de Toscana</div>
+            <div class="mn-bcard__preco">R$ 40</div>
+            <p>Baguete parmesão, burger de linguiça toscana, molho da casa, cebola roxa curtida, tomate e alface.</p>
+          </div>
+          <div class="mn-bcard">
+            <div class="mn-bcard__nome">Dog do Vila</div>
+            <div class="mn-bcard__preco">R$ 36</div>
+            <p>Baguete parmesão, molho da casa, salsicha, bacon, purê de batata, vinagrete, crocante do Vila e queijo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ BEBIDAS ═══════════════════════════════════════════════════════════ -->
+    <div class="grupo rev" data-g="bebidas" data-cat="bebidas">
+      <div class="mn-header mn-header--teal">Bebidas Não Alcoólicas</div>
+      <div class="mn-nao-alc">
+        <div class="mn-nao-alc__item"><span>Água</span><span>R$6</span></div>
+        <div class="mn-nao-alc__item"><span>Refrigerante</span><span>R$9</span></div>
+        <div class="mn-nao-alc__item"><span>Suco Lata</span><span>R$10</span></div>
+        <div class="mn-nao-alc__item"><span>Ice Tea</span><span>R$10</span></div>
+        <div class="mn-nao-alc__item"><span>Energético</span><span>R$14</span></div>
+        <div class="mn-nao-alc__item"><span>Suco Natural</span><span>R$12</span></div>
+        <div class="mn-nao-alc__item"><span>Pink Lemonade</span><span>R$14</span></div>
+        <div class="mn-nao-alc__item"><span>Chá Caseiro</span><span>R$14</span></div>
+        <div class="mn-nao-alc__item"><span>Soda Italiana</span><span>R$16</span></div>
+        <div class="mn-nao-alc__item"><span>Limonada Suíça</span><span>R$16</span></div>
+      </div>
+
+      <div class="mn-beb-t mn-beb-t--magenta"><span></span>coquetéis sem álcool<span></span></div>
+      <div class="mn-drinks">
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">El Vivito</span><span class="mn-drink__preco">R$28</span></div><p>Soda, fruta à escolha, hortelã, xarope de açúcar, espuma de gengibre.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Cosmopolido</span><span class="mn-drink__preco">R$28</span></div><p>Suco de limão, xarope de cranberry com leite condensado e morango.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">La Princesita</span><span class="mn-drink__preco">R$28</span></div><p>Soda, purê de morango e maracujá, xarope de coco e açúcar.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Piña Descolada</span><span class="mn-drink__preco">R$28</span></div><p>Água com gás, abacaxi, leite de coco, leite condensado.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Lagoa Azul</span><span class="mn-drink__preco">R$28</span></div><p>Suco de limão, soda, xarope de curação blue.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Play on the Beach</span><span class="mn-drink__preco">R$28</span></div><p>Suco de laranja, granadine, xarope de pêssego.</p></div>
+      </div>
+
+      <div class="mn-beb-t mn-beb-t--magenta"><span></span>beverages &amp; beers do Vila<span></span></div>
+      <div class="mn-drinks">
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Drink da Semana</span><span class="mn-drink__preco">R$48</span></div><p>Cada semana um drink novo — consulte o garçom.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Negroni</span><span class="mn-drink__preco">R$40</span></div><p>Gin, Campari, vermuth rosso.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Mojito</span><span class="mn-drink__preco">R$34</span></div><p>Rum, hortelã com limão, limão siciliano, abacaxi, morango ou maracujá.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Piña Colada</span><span class="mn-drink__preco">R$36</span></div><p>Rum, abacaxi, Malibu, leite condensado.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">La Reina</span><span class="mn-drink__preco">R$46</span></div><p>Morango, limão siciliano, xarope de limão, gin rosé, espuma de gengibre e pimenta rosa.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Fitzgerald</span><span class="mn-drink__preco">R$38</span></div><p>Gin Tanqueray, angostura, suco de limão, xarope de açúcar.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Sunflower</span><span class="mn-drink__preco">R$40</span></div><p>Jack Daniels Honey, maracujá, soda e espuma de gengibre.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Caipirinha Assada</span><span class="mn-drink__preco">R$42</span></div><p>Caipirinha de frutas maçaricadas com açúcar mascavo e canela na brasa.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Caipirinha Clássica</span><span class="mn-drink__preco">R$32</span></div><p>Cachaça, vodka ou saké — frutas à sua escolha.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Margarita</span><span class="mn-drink__preco">R$36</span></div><p>Tequila, limão, gelo e sal na borda, xarope de açúcar. Blue ou Red.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Moscow Mule</span><span class="mn-drink__preco">R$38</span></div><p>Vodka, suco de limão, xarope de gengibre, soda e espuma de gengibre.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Sex on the Beach</span><span class="mn-drink__preco">R$36</span></div><p>Vodka, licor de pêssego, suco de laranja, granadine.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">La Tropicalia</span><span class="mn-drink__preco">R$42</span></div><p>Gin tropical, frutas amarelas, xarope de pêssego energético.</p></div>
+        <div class="mn-drink"><div class="mn-drink__t"><span class="mn-drink__nome">Balenita</span><span class="mn-drink__preco">R$40</span></div><p>Ballena, tequila, morango e xarope de limão siciliano, espuma de gengibre.</p></div>
+      </div>
+
+      <div class="mn-beb-t mn-beb-t--ouro"><span></span>cervejas &amp; chopps<span></span></div>
+      <div class="mn-cerv-grid">
+        <div class="mn-cerv-card">
+          <h5>Long Neck</h5>
+          <div class="mn-cerv-linha"><span>Sol</span><b>R$14</b></div>
+          <div class="mn-cerv-linha"><span>Eisenbahn</span><b>R$14</b></div>
+          <div class="mn-cerv-linha"><span>Heineken</span><b>R$14</b></div>
+          <div class="mn-cerv-linha"><span>Especial</span><b>R$16</b></div>
+        </div>
+        <div class="mn-cerv-card">
+          <h5>600ml</h5>
+          <div class="mn-cerv-linha"><span>Amstel</span><b>R$18</b></div>
+          <div class="mn-cerv-linha"><span>Eisenbahn</span><b>R$18</b></div>
+          <div class="mn-cerv-linha"><span>Heineken</span><b>R$22</b></div>
+          <div class="mn-cerv-linha"><span>Sol</span><b>R$18</b></div>
+          <div class="mn-cerv-linha"><span>Artesanal</span><b>R$22</b></div>
+        </div>
+        <div class="mn-cerv-card">
+          <h5>Chopps 🍺</h5>
+          <div class="mn-cerv-linha"><span>Pilsen 300ml</span><b>R$16</b></div>
+          <div class="mn-cerv-linha"><span>Pilsen 500ml</span><b>R$20</b></div>
+          <div class="mn-cerv-linha"><span>Especial 300ml</span><b>R$18</b></div>
+          <div class="mn-cerv-linha"><span>Especial 500ml</span><b>R$22</b></div>
+          <div class="mn-cerv-linha"><span>Draft 600ml</span><b>R$22</b></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SOBREMESAS ═══════════════════════════════════════════════════════ -->
+    <div class="grupo rev" data-g="sobremesas" data-cat="sobremesas">
+      <div class="mn-header mn-header--magenta">Sobremesas</div>
+      <div class="mn-sob-lista">
+        <div class="mn-sob-item">
+          <span class="mn-sob-item__nome">Paletas</span><span class="mn-sob-item__pts"></span><span class="mn-sob-item__preco">R$14 / R$16</span>
+          <span class="mn-sob-item__desc">pequenas R$14 · grandes R$16.</span>
+        </div>
+        <div class="mn-sob-item">
+          <span class="mn-sob-item__nome">Bomba do Vila</span><span class="mn-sob-item__pts"></span><span class="mn-sob-item__preco">R$ 28</span>
+          <span class="mn-sob-item__desc">bolo recheado com ganache de chocolate, servido em taça com sorvete de creme e chantilly.</span>
+        </div>
+        <div class="mn-sob-item">
+          <span class="mn-sob-item__nome">Petit Gateau</span><span class="mn-sob-item__pts"></span><span class="mn-sob-item__preco">R$ 28</span>
+          <span class="mn-sob-item__desc">bolo de chocolate quentinho com 2 bolas de sorvete.</span>
+        </div>
+        <div class="mn-sob-item">
+          <span class="mn-sob-item__nome">Churros no Espeto</span><span class="mn-sob-item__pts"></span><span class="mn-sob-item__preco">R$ 24</span>
+          <span class="mn-sob-item__desc">8 mini churros recheados com doce de leite, num copinho de Nutella.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ RODÍZIO ═══════════════════════════════════════════════════════════ -->
+    <div class="grupo rev" data-g="rodizio" data-cat="rodizio">
+      <div class="mn-header mn-header--ouro">Rodízio Tex Mex</div>
+      <div class="mn-rod-precos">
+        <div class="mn-rod-preco">
+          <span class="mn-rod-preco__label">segunda a quinta</span>
+          <span class="mn-rod-preco__valor">R$ 98</span>
+          <span class="mn-rod-preco__em">por pessoa</span>
+        </div>
+        <div class="mn-rod-preco">
+          <span class="mn-rod-preco__label">sexta a domingo</span>
+          <span class="mn-rod-preco__valor">R$ 108</span>
+          <span class="mn-rod-preco__em">por pessoa</span>
+        </div>
+      </div>
+      <div class="mn-rod-etapas">
+        <div class="mn-rod-col">
+          <div class="mn-rod-col__h mn-rod-col__h--rosa">Entradas</div>
+          <div class="mn-rod-col__body">
+            <ul>
+              <li>Panelinhas mexicanas com totopos muy lokos</li>
+              <li>Batata frita e onion rings</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mn-rod-col">
+          <div class="mn-rod-col__h mn-rod-col__h--ciano">Etapa 1</div>
+          <div class="mn-rod-col__body">
+            <ul>
+              <li>Burrito de carne</li>
+              <li>1 taco (frango ou pernil)</li>
+              <li>Quesadilla</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mn-rod-col">
+          <div class="mn-rod-col__h mn-rod-col__h--laranja">Etapa 2</div>
+          <div class="mn-rod-col__body">
+            <ul>
+              <li>Mini lanche de pernil suculento</li>
+              <li>Mini burgers deliciosos</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mn-rod-col">
+          <div class="mn-rod-col__h mn-rod-col__h--azul">Etapa 3</div>
+          <div class="mn-rod-col__body">
+            <ul>
+              <li>Taco al pastor de pernil</li>
+              <li>Enchillada de frango</li>
+              <li>Tostada de machacca</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="mn-rod-sob">🍮 sobremesa — churritos com sorvete ou tortilla doce · adoçando a despedida</div>
+    </div>
+
     <p class="nota rev">os preços podem mudar sem aviso — o valor do dia é sempre o do cardápio na mesa e no aplicativo. serviço de 10% opcional. de quinta a sábado tem couvert artístico nas noites com música ao vivo.</p>
   </div>
 </section>
@@ -533,7 +920,29 @@
       <h2 class="palavra-holder">o lugar onde <em>ninguém tem pressa</em></h2>
       <p class="lead">salão com cara de vila mexicana, mesa grande pra turma inteira, estacionamento no local e rampa de acesso. kids friendly e pet friendly — pode trazer a família toda.</p>
     </div>
+    <div class="espaco-fachada rev"><figure class="fachada-foto"><img src="img/54.jpg" alt="Fachada Vila Los Muertos de Fome"></figure></div>
     <div class="galeria rev" id="galeria"></div>
+  </div>
+</section>
+
+<!-- ===================== instagram ===================== -->
+<section class="insta-sec">
+  <div class="insta-sec__topo">
+    <span class="insta-sec__sup">prova social</span>
+    <h2 class="insta-sec__h">como a galera ve o vila</h2>
+    <p class="insta-sec__p">os melhores momentos direto do nosso instagram</p>
+  </div>
+  <div id="reelGrid" class="reel-grid">
+    <div class="reel-wrap"><iframe src="https://www.instagram.com/p/DcgZVmMhDpt/embed/captioned/" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
+    <div class="reel-wrap"><iframe src="https://www.instagram.com/reel/DZvjXfTtPel/embed/captioned/" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
+    <div class="reel-wrap"><iframe src="https://www.instagram.com/reel/DZqJap3t1vt/embed/captioned/" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
+    <div class="reel-wrap"><iframe src="https://www.instagram.com/reel/Dc1oZbqt7kP/embed/captioned/" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen="true" loading="lazy"></iframe></div>
+  </div>
+  <div class="insta-cta-wrap">
+    <a href="https://instagram.com/vilalosmuertosdefome/" target="_blank" rel="noopener" class="insta-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      seguir @vilalosmuertosdefome
+    </a>
   </div>
 </section>
 
