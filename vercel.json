@@ -3,7 +3,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/", "destination": "/site/index.html" },
+    { "source": "/", "destination": "/site" },
     { "source": "/css/(.*)", "destination": "/site/css/$1" },
     { "source": "/js/(.*)", "destination": "/site/js/$1" },
     { "source": "/img/(.*)", "destination": "/site/img/$1" }
