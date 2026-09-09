@@ -118,12 +118,16 @@ p{margin:0 0 1em}
   border-bottom:1px solid var(--linha);
 }
 .nav__in{display:flex;align-items:center;gap:20px;height:var(--nav-h)}
-.marca{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.marca{display:flex;align-items:center;gap:12px;flex-shrink:0;min-width:0}
 .marca__cranio{width:38px;height:38px;flex-shrink:0}
-.marca__txt{font-family:var(--display);line-height:.82}
-.marca__txt b{display:block;font-weight:400;font-size:23px;letter-spacing:.03em}
+.marca__logo-wrap{display:flex;align-items:center;flex-shrink:0;
+  background:#fff;border-radius:9px;padding:5px 9px}
+.marca__logo{display:block;height:30px;width:auto}
+.marca__txt{font-family:var(--display);line-height:.9;min-width:0}
+.marca__txt b{display:block;font-weight:400;font-size:15px;letter-spacing:.01em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .marca__txt span{display:block;font-family:var(--corpo);font-weight:400;
-  font-size:9.5px;letter-spacing:.34em;color:var(--ouro)}
+  font-size:9px;letter-spacing:.05em;color:var(--ouro);white-space:nowrap}
 .nav__links{display:flex;gap:26px;margin-left:auto;align-items:center}
 .nav__links a{
   font-size:14px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;
@@ -655,14 +659,18 @@ p{margin:0 0 1em}
 .item--card p{margin:0;color:var(--cinza);font-size:14px;line-height:1.5}
 
 /* fotos de quesadillas e originais são menores/em resolução mais baixa —
-   caixa menor evita esticar (upscale) e ficar borrado */
-[data-g="quesadillas"] .item--hero__foto,
-[data-g="originais"] .item--hero__foto{
-  aspect-ratio:4/3;min-height:0;max-width:360px;margin:0 auto;
-}
-[data-g="quesadillas"] .item--card__foto,
-[data-g="originais"] .item--card__foto{
-  aspect-ratio:4/3;
+   caixa menor evita esticar (upscale) e ficar borrado. Só no desktop —
+   no mobile a caixa já vira do tamanho natural da foto (ver media query
+   de otimização mobile mais abaixo). */
+@media (min-width:901px){
+  [data-g="quesadillas"] .item--hero__foto,
+  [data-g="originais"] .item--hero__foto{
+    aspect-ratio:4/3;min-height:0;max-width:360px;margin:0 auto;
+  }
+  [data-g="quesadillas"] .item--card__foto,
+  [data-g="originais"] .item--card__foto{
+    aspect-ratio:4/3;
+  }
 }
 
 /* setas do trilho (só desktop) */
@@ -680,11 +688,21 @@ p{margin:0 0 1em}
   .trilho__seta{display:grid}
 }
 
-/* mobile — hero empilha, foto no topo, texto embaixo */
+/* mobile — hero empilha, foto no topo, texto embaixo.
+   Em vez de forçar uma proporção fixa (que deixa foto quadrada e
+   retangular na mesma moldura, desproporcional), a caixa vira do
+   tamanho da própria foto — cada uma na sua proporção real. */
 @media (max-width:900px){
   .item--hero,
   .item--hero--inv{grid-template-columns:1fr;gap:20px}
-  .item--hero__foto{min-height:0;aspect-ratio:4/3}
+  .item--hero__foto,
+  .item--card__foto,
+  .etapa__foto,
+  .fachada-foto{aspect-ratio:auto;min-height:0;height:auto}
+  .item--hero__foto img,
+  .item--card__foto img,
+  .etapa__foto img,
+  .fachada-foto img{position:static;width:100%;height:auto}
   .item--hero--inv .item--hero__foto{order:1}
   .item--hero--inv .item--hero__txt{order:2;padding:6px 4px 8px}
   .item--hero__txt{padding:6px 4px 8px}
@@ -699,65 +717,31 @@ p{margin:0 0 1em}
 }
 
 /* =========================================================================
-   Mascotes — sugar skulls do Día de los Muertos
-   Uso cirúrgico: nav, seção eventos, rodapé. Nada mais.
+   Logo — Vila Los Muertos de Fome (marca oficial, Canva brand kit)
+   Uso: nav e rodapé.
    ========================================================================= */
-
-/* mascote da nav — substitui o crânio SVG */
-.marca__mascote{
-  width:auto;height:38px;object-fit:contain;flex-shrink:0;
-  filter:drop-shadow(0 4px 10px rgba(0,0,0,.55));
-  transition:transform .35s ease;
-}
-.marca:hover .marca__mascote{transform:rotate(-6deg) scale(1.06)}
-
-/* mascote da seção eventos — chihuahua recepcionista */
 .eventos-copy{position:relative}
-.eventos__mascote{
-  position:absolute;top:-30px;right:-10px;
-  width:110px;height:auto;
-  filter:drop-shadow(0 12px 30px rgba(0,0,0,.6));
-  animation:mascoteFlutua 5.5s ease-in-out infinite;
-  pointer-events:none;z-index:2;
-}
-@keyframes mascoteFlutua{
-  0%,100%{transform:translateY(0) rotate(-3deg)}
-  50%{transform:translateY(-8px) rotate(3deg)}
-}
 
-/* marca do rodapé — mascotes emoldurando */
+/* marca do rodapé */
 .rodape__marca{
   display:flex;align-items:center;gap:14px;margin-bottom:16px;
 }
-.rodape__mascote{
-  width:auto;height:64px;object-fit:contain;flex-shrink:0;
-  filter:drop-shadow(0 8px 18px rgba(0,0,0,.55));
-}
-.rodape__mascote--esq{transform:rotate(-4deg)}
-.rodape__mascote--dir{transform:rotate(4deg) scaleX(-1)}
+.rodape__marca .marca__logo-wrap{background:#fff;border-radius:10px;padding:7px 11px}
+.rodape__marca .marca__logo{height:40px;width:auto}
 .rodape__marca-txt{
-  font-family:var(--display);line-height:.82;
+  font-family:var(--display);line-height:.9;
 }
 .rodape__marca-txt b{
-  display:block;font-weight:400;font-size:26px;letter-spacing:.03em;color:#fff;
+  display:block;font-weight:400;font-size:19px;letter-spacing:.01em;color:#fff;
 }
 .rodape__marca-txt span{
   display:block;font-family:var(--corpo);font-weight:400;font-size:11px;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--cinza-2);margin-top:5px;
+  letter-spacing:.04em;color:var(--cinza-2);margin-top:5px;
 }
 
 @media (max-width:900px){
-  .eventos__mascote{width:80px;top:-20px;right:0}
-  .rodape__mascote{height:52px}
-  .rodape__marca-txt b{font-size:22px}
-}
-@media (max-width:520px){
-  .eventos__mascote{width:64px;top:-12px;right:-4px;opacity:.9}
-}
-
-@media (prefers-reduced-motion:reduce){
-  .eventos__mascote{animation:none}
-  .marca:hover .marca__mascote{transform:none}
+  .rodape__marca .marca__logo{height:34px}
+  .rodape__marca-txt b{font-size:17px}
 }
 
 /* ─── CARDÁPIO — visual fiel ao PDF ─────────────────────── */
