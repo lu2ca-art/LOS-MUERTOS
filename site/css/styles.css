@@ -120,9 +120,8 @@ p{margin:0 0 1em}
 .nav__in{display:flex;align-items:center;gap:20px;height:var(--nav-h)}
 .marca{display:flex;align-items:center;gap:12px;flex-shrink:0;min-width:0}
 .marca__cranio{width:38px;height:38px;flex-shrink:0}
-.marca__logo-wrap{display:flex;align-items:center;flex-shrink:0;
-  background:#fff;border-radius:9px;padding:5px 9px}
-.marca__logo{display:block;height:30px;width:auto}
+.marca__logo-wrap{display:flex;align-items:center;flex-shrink:0}
+.marca__logo{display:block;height:26px;width:auto}
 .marca__txt{font-family:var(--display);line-height:.9;min-width:0}
 .marca__txt b{display:block;font-weight:400;font-size:15px;letter-spacing:.01em;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -726,8 +725,7 @@ p{margin:0 0 1em}
 .rodape__marca{
   display:flex;align-items:center;gap:14px;margin-bottom:16px;
 }
-.rodape__marca .marca__logo-wrap{background:#fff;border-radius:10px;padding:7px 11px}
-.rodape__marca .marca__logo{height:40px;width:auto}
+.rodape__marca .marca__logo{height:34px;width:auto}
 .rodape__marca-txt{
   font-family:var(--display);line-height:.9;
 }
@@ -740,7 +738,7 @@ p{margin:0 0 1em}
 }
 
 @media (max-width:900px){
-  .rodape__marca .marca__logo{height:34px}
+  .rodape__marca .marca__logo{height:28px}
   .rodape__marca-txt b{font-size:17px}
 }
 
