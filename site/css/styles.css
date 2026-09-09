@@ -134,6 +134,8 @@ p{margin:0 0 1em}
 .nav__links a:hover{color:#fff}
 .nav__links a:hover::after{right:0}
 .nav__cta{margin-left:8px}
+.nav__links a.btn--zap{color:#04240f}
+.nav__links a.btn--zap:hover{color:#04240f}
 .burger{display:none;margin-left:auto;background:none;border:0;padding:8px;width:44px;height:44px}
 .burger span{display:block;height:2px;background:#fff;margin:5px 0;transition:.25s}
 .burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -264,7 +266,7 @@ p{margin:0 0 1em}
 }
 .etapa:hover{transform:translateY(-5px)}
 .etapa__foto{aspect-ratio:4/3;overflow:hidden;background:#000}
-.etapa__foto img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;opacity:.92}
+.etapa__foto img{width:100%;height:100%;object-fit:contain;transition:transform .5s ease;opacity:.92}
 .etapa:hover .etapa__foto img{transform:scale(1.07);opacity:1}
 .etapa__corpo{padding:22px 22px 26px;flex:1;display:flex;flex-direction:column}
 .etapa__n{
@@ -589,7 +591,7 @@ p{margin:0 0 1em}
   aspect-ratio:4/5;min-height:420px;
 }
 .item--hero__foto img{
-  width:100%;height:100%;object-fit:cover;
+  width:100%;height:100%;object-fit:contain;
   transition:transform 8s ease;
 }
 .item--hero:hover .item--hero__foto img{transform:scale(1.06)}
@@ -646,7 +648,7 @@ p{margin:0 0 1em}
 .item--card__foto{
   width:100%;aspect-ratio:4/5;overflow:hidden;background:#000;flex-shrink:0;
 }
-.item--card__foto img{width:100%;height:100%;object-fit:cover}
+.item--card__foto img{width:100%;height:100%;object-fit:contain}
 .item--card__txt{padding:16px 16px 18px;display:flex;flex-direction:column;gap:8px}
 .item--card .item__topo{margin:0}
 .item--card h4{font-family:var(--display);font-weight:400;font-size:24px;line-height:1;margin:0;flex:1}
@@ -897,7 +899,7 @@ p{margin:0 0 1em}
 /* ─── fachada única (nosso espaço) ─── */
 .espaco-fachada{margin-top:28px}
 .fachada-foto{margin:0;border-radius:18px;overflow:hidden;position:relative;
-  aspect-ratio:16/9;background:var(--carvao-2);border:1px solid var(--linha)}
-.fachada-foto img{width:100%;height:100%;object-fit:cover;display:block;
+  aspect-ratio:4/3;background:var(--carvao-2);border:1px solid var(--linha)}
+.fachada-foto img{width:100%;height:100%;object-fit:contain;display:block;
   transition:transform .6s ease}
 .fachada-foto:hover img{transform:scale(1.03)}
