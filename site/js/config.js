@@ -34,7 +34,7 @@ window.VILA = {
     2: { abre: 11, fecha: 23 },
     3: { abre: 11, fecha: 23 },
     4: { abre: 11, fecha: 23 },
-    5: { abre: 11, fecha: 23 },
+    5: { abre: 11, fecha: 24 },
     6: { abre: 11, fecha: 24 }
   },
 
